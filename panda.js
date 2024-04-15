@@ -1,26 +1,19 @@
-const express = require('express');
-const member=require("./src/database/info/info_database")
+const express = require("express");
+
 const app = express();
 
-//const router = require('./router')(app);
+app.use("/static", express.static("./resources/upload"));
+//app.use(express.static("resource"))
 
-app.set('views', './src/views');
-app.set('view engine', 'ejs');
+app.get("/", function(req, res){
+    res.render("upload.ejs")
+})
 
-const router = express.Router();
-app.use('/', router);
+const router = require("./router") (app);
 
-router.get('/', (req, res) => {
-  console.log(member)
-  res.render('index');
-});
+app.use("/", router);
 
-const router2 = express.Router();
-app.use('/info', router2);
-router2.get('/list', (req, res) => {
-  res.send('info/list 경로');
-});
+app.set("views", "./src/views");
+app.set("view engine", "ejs");
 
-app.listen(3000, () => {
-  console.log('3000 port server');
-});
+app.listen(3000, () => console.log("3000 서버 구동!"));
