@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <link href="/static/css/main/main_css.css" rel="stylesheet">
+</head>
+
+<body>
+  <div id="main_view">
+    <div name="main_banner">
+      <div class="top_banner_pack"><img src="" class="top_banner"></div>
+    </div>
+    <div name="advertisement">
+      <div class="top_banner_pack">
+        <img src="" class="top_banner">
+      </div>
+    </div>
+    <div class="board_wrapper">
+      <% for(let i = 1;  i <= list.length; i++){ %>
+      <% if(i % 5 == 0) { %>
+      <div class="board_child_img_last">
+        <img src="<%= list[i - 1].BOARD_IMG %>" class="child_img" data-value=<%= `${i}` %>>
+        <div>
+          <p class="board_title"><%= list[i-1].BOARD_TITLE %></p>
+          <div class="board_bottom_wrapper">
+            <div>
+              <span class="board_price"><%= list[i-1].BOARD_PRICE %></span>
+              <span class="board_won">원</span>
+            </div>
+            <div><span>
+                <% if(list[i-1].BOARD_CREATETIME == '오늘'){ %>
+                <%= list[i-1].BOARD_CREATETIME %>
+                <%} else {%>
+                <%= list[i-1].BOARD_CREATETIME %>일전
+                <%}%>
+            </span></div>
+            </div>
+           </div>
+         </div>
+         <%} else {%>
+                <div class="board_child_img">
+                  <img src="<%= list[i - 1].BOARD_IMG %>" class="child_img" data-value=<%= `${i}` %>>
+                  <div>
+                    <p class="board_title"><%= list[i-1].BOARD_TITLE %></p>
+                    <div class="board_bottom_wrapper">
+                      <div>
+                        <span class="board_price"><%= list[i-1].BOARD_PRICE %></span>
+                        <span class="board_won">원</span>
+                      </div>
+                      <div><span class="board_date">
+                          <% if(list[i-1].BOARD_CREATETIME == '오늘'){ %>
+                          <%= list[i-1].BOARD_CREATETIME %>
+                          <%} else {%>
+                          <%= list[i-1].BOARD_CREATETIME %>일전
+                          <%}%>
+                </span></div>
+              </div>
+            </div>
+         </div>
+      <% }
+       } %>
+</div>
+
+                    
+<script>
+
+
+</script>
+
+
+</body>
+
+</html>
