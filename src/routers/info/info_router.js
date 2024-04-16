@@ -7,6 +7,8 @@ router.get("/history", infoCtrl.info_views.history)
 router.get("/inquiry", infoCtrl.info_views.inquiry)
 router.get("/upload", infoCtrl.info_views.upload)
 router.get("/inquiry_form", infoCtrl.info_views.inquiryForm)
+router.get("/infoModify_form", infoCtrl.info_process.infoModifyForm)
+
 
 
 /*
@@ -19,5 +21,9 @@ const upload=require("../../../config/file/file_config")
 router.post("/upload", upload.single("image_file_name"), function(req, res){
     res.send("파일 업로드 완료")
 })
+router.post("/inquiryF", upload.single("image_file_name"),
+        infoCtrl.info_process.inquiryF);
+router.post("/infoModifyForm", upload.single("image_file_name"),
+        infoCtrl.info_process.inquiryF);
 
 module.exports = router;
