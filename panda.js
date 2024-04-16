@@ -2,7 +2,7 @@ const express = require("express");
 
 const app = express();
 
-app.use("/static", express.static("./resources/upload"));
+app.use("/static", express.static("./resources"));
 //app.use(express.static("resource"))
 
 app.get("/", function(req, res){

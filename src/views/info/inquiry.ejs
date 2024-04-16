@@ -10,7 +10,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-  <link href="/static/css/info/history.css" rel="stylesheet" >
+  <link href="/static/css/info/inquiry.css" rel="stylesheet" >
   </head>
   <body>
    
@@ -29,33 +29,22 @@
                 <div class="sc-jxGEyO drYqMd">
                   <div class="sc-dEfkYy ckyNBp" style="width: fit-content;">
                     <%- include ("./profile.ejs") %>
-                    <div class="sc-cqPOvA gxRxBk"></div>
                   
-                    <ul class="nav nav-underline">
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">판매내역</a>
-                        </li>
-                        <li class="nav-item">
-                          <a class="nav-link" href="#">구매내역</a>
-                        </li>
-                      </ul>
 <br>
 
 <table border="1" style="width: 100%;">
     <thead>
     <tr>
-        <th>제목</th><th>작성일</th><th>조회수</th>
+        <th>제목</th><th>작성일</th>
     </tr>
     </thead>
     <tr>
-    <td>[판매완료] 000</td>
-    <td>2024-04-14</td>
-    <td>100</td>
+    <td>문의 내용</td>
+    <td>2024-04-16</td>
     </tr>
     <tr>
-        <td>[판매중] 000</td>
-        <td>2024-04-15</td>
-        <td>23</td>
+      <td>문의 내용2</td>
+      <td>2024-04-17</td>
         </tr>
 </table>
 <br>
@@ -70,7 +59,7 @@
   <div class="row">
     <div class="col">
     </div>
-    <div class="col-7">
+    <div class="col-3">
         <nav aria-label="Page navigation example">
             <ul class="pagination">
               <li class="page-item">
@@ -89,19 +78,22 @@
             </ul>
           </nav>
     </div>
-
+    <div class="col">
+      <button type="button" class="btn btn-secondary" onclick="location.href='/info/inquiry_form'">1:1 문의하기</button>
+    </div>
   </div>
 </div>
 
+
 </div>
 </div>
 </div>
 
 </div>
 </div>
-
 
 <%- include ("../../../resources/css/footer") %>
+
 <div class="sc-fjhmcy flxQHS"></div>
 </div>
 </div>

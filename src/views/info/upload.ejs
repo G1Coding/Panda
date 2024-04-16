@@ -10,16 +10,35 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous"
   />
+<script src="/static/js/image_read.js"></script>
   <style>
-
+  #img-container {
+    border: 1px solid #411c1c; /* 테두리 스타일과 색상 설정 */
+    display: inline-block; /* 인라인 블록 요소로 설정하여 텍스트와 함께 정렬 */
+    height: 80px;
+    width: 100px;
+    overflow: hidden;
+    position: relative;
+  }
+  #img{
+    position: absolute;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: cover;
+    top: 50%; /* 부모 요소의 중앙에 위치 */
+    left: 50%; /* 부모 요소의 중앙에 위치 */
+    transform: translate(-50%, -50%); /* 중앙 정렬 */
+  }
   </style>
 
 </head>
 <body>
   <h3>회원정보 수정</h3>
-  <form method="post" action="/modify" enctype="multipart/form-data">
-    <input type="file" name="image_file_name" onchange="readURL(this)">
-    <img id="img" src="#" width=200 height=200 alt="선택된 이미지가 없습니다">
+  <form method="post" action="/info/upload" enctype="multipart/form-data">
+    <input type="file" name="image_file_name" onchange="readURL(this);">
+    <div id="img-container">
+    <img id="img" src="#" alt="선택된 이미지가 없습니다">
+  </div>
     <button type="submit">이미지 선택</button>
   </form>
 

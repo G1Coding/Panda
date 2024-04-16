@@ -10,17 +10,24 @@ const info_views = {
     history :(req, res)=>{
         res.render("info/history")
     },
-    comment : (req, res)=>{
-        res.render("info/comment")
+    inquiry : (req, res)=>{
+        res.render("info/inquiry")
     },
     upload : (req, res)=>{
         res.render("info/upload")
+    },
+    inquiryForm : (req, res)=>{
+        res.render("info/inquiry_form")
     }
 
 }
 const info_process={
     modify : (req, res)=>{
-   
+   if(!req.file){
+    return res.status(400).send("파일 업로드하세요")
+   }
+   const uploadFile=req.file
+   res.status(200).send("성공적 업로드")
     }
 }
 

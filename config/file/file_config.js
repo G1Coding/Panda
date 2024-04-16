@@ -4,13 +4,11 @@ const stg = multer.diskStorage({
     cd(null, './resources/upload');//다른사람 ./public/image
   },
   filename: (req, file, cd) => {
-    cd(null, Date.now() + '-' + file.originalname);
+    cd(null, file.originalname);
   },
-  /*
-  filename: function(req, file, cd){
-    cd(null, file.originalname) //저장한 이미지의 파일명 설정하는 부분
-  }
-  */
+
+  //cd(null, Date.now() + '-' + file.originalname);
+
 });
 const f_filter = (req, file, cd) => {
   const type = file.mimetype.split('/');
