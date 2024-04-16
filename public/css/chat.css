@@ -37,13 +37,13 @@
 }
 
 #send_who {
-    margin: 10px 0 0 0;
+    margin: 10px 5px 0 0;
     min-width: 30px;
     font-weight: bold;
     
 }
 #rec_who {
-    margin: 10px 0 0 0;
+    margin: 10px 0 0 10px;
     min-width: 45px;
     font-weight: bold;
     
@@ -75,4 +75,16 @@
     text-align: center;
     color: blue;
     font-weight: bold;
+}
+#curTime {
+    font-size: 11px;
+    color: gray;
+    margin: 20px 5px 0 5px ;
+    vertical-align: top;
+    height: 10px;
+}
+#readInfoMsg {
+    text-align: center;
+    color: gray;
+    font-size: 13px;
 }
