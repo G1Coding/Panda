@@ -1,15 +1,23 @@
 
 * {
-  margin: 0;
+
+  margin: 0px;
+  padding: 0px;
+
+}
+p {
+  font-size: 15px;
+}
+
+span {
+  font-size: 15px;
 }
 
  #main_view {
-   
   max-width: 1024px;
   min-width: 1024px;
   margin: auto;
   margin-top: 200px;
-  border: 1px solid black;
  }
 
  .top_banner {
@@ -18,20 +26,20 @@
  }
 
  .top_banner_pack {
-  border: 1px solid black;
   margin-bottom: 15px;
   height: 200px;
  }
 
  .board_wrapper {
-    width: 100%;
-    margin: auto;
+    width: 1024px;
+    font-size: 0px;
+
  }
 
  .board_child_img {
   display: inline-block;
   border: 1px solid black;
-  margin-right: 5.3px;
+  margin-right: 11px;
   margin-bottom: 11px;
  }
 
@@ -71,4 +79,29 @@
 
  .board_date {
   margin: 0 5px 0px 0;
+ }
+
+ .board_trade {
+  display: inline;
+  width: 50%;
+  height: 40px;
+  position: relative;
+ }
+
+ .board_trade_way_wrapper {
+  display: flex;
+  justify-content: space-between;
+ }
+
+ .tradeWay_P {
+  text-align: center;
+  margin-top: 7px;
+ }
+
+ .red {
+  background-color: red;
+ }
+
+ .green {
+  background-color: green;
  }

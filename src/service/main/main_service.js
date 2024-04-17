@@ -7,7 +7,11 @@ getBoard = {
     return result;
   },
   getNBoard: async (count) => {
-    const result = await dao.getBoard.getNBoard(count);
+    let result = await dao.getBoard.getNBoard(count);
+    if(result != 0)
+    {
+      result = modifyData.modifyPrice(result);
+    }
 
     return result;
   }
@@ -31,7 +35,7 @@ modifyData = {
       diff = diff / 60;
       let hours = Math.floor((diff / 60) % 24);
       diff = diff / 60;
-      let days = Math.floor(diff / 24) - 730484;
+      let days = Math.floor(diff / 24) - 730487;
 
       if(days == 0)
         list.rows[i].BOARD_CREATETIME = '오늘';

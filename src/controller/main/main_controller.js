@@ -13,8 +13,8 @@ const view = {
   getMain_board : async(req, res) => {
     const board = await getDB.getNBoard(count);
     count++;
-
-    if(board != undefined)
+    console.log("board :", count);
+    if(board != 0)
       res.json({list : board});
   }
 }
