@@ -5,9 +5,17 @@ const view = {
     res.render("payment/point");
   },
   getBuyer : (req, res) => {
+
     res.render("payment/buyerPage");
   }
 
 }
+const getData = {
+  getBuyerPage : async (req, res) => {
+    const result = await service.getBuyerPage.getBuyerPage(req.params.board_num);
 
-module.exports = { view };
+    res.json(result.rows);
+  }
+}
+
+module.exports = { view, getData };

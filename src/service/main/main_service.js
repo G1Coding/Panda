@@ -14,6 +14,20 @@ getBoard = {
     }
 
     return result;
+  },
+  getCategoryBoard : async (category_id) => {
+    let result = await dao.getBoard.getCategoryBoard(category_id);
+
+    result = modifyData.modifyPrice(result);
+
+    return result;
+  },
+  getCategory_NBoard : async (category, count) => {
+    let result = await dao.getBoard.getCategory_NBoard(category, count);
+
+    result = modifyData.modifyPrice( result );
+
+    return result;
   }
 }
 

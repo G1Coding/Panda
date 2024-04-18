@@ -1,10 +1,4 @@
 
-* {
-
-  margin: 0px;
-  padding: 0px;
-
-}
 p {
   font-size: 15px;
 }
@@ -46,7 +40,6 @@ span {
  .board_child_img_last {
   display: inline-block;
   border: 1px solid black;
-
  }
 
  .child_img {
@@ -104,4 +97,18 @@ span {
 
  .green {
   background-color: green;
+ }
+
+ #menu {
+  width: 50px;
+  height: 36px;
+ }
+
+ #category {
+  font-weight: 550;
+  font-size: 20px;
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+
  }

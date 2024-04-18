@@ -130,11 +130,6 @@ prevBtn.addEventListener("click", () => {
   prevMove();
 });
 
-// 브라우저 화면이 조정될 때 마다 slideWidth를 변경하기 위해
-window.addEventListener("resize", () => {
-  slideWidth = slide.clientWidth;
-});
-
 // 각 페이지네이션 클릭 시 해당 슬라이드로 이동하기
 for (let i = 0; i < maxSlide; i++) {
   // 각 페이지네이션마다 클릭 이벤트 추가하기
@@ -153,15 +148,6 @@ for (let i = 0; i < maxSlide; i++) {
   });
 }
 
-// 드래그(스와이프) 이벤트를 위한 변수 초기화
-let startPoint = 0;
-let endPoint = 0;
-
-// PC 클릭 이벤트 (드래그)
-slide.addEventListener("mousedown", (e) => {
-  startPoint = e.pageX; // 마우스 드래그 시작 위치 저장
-});
-
 slide.addEventListener("mouseup", (e) => {
   endPoint = e.pageX; // 마우스 드래그 끝 위치 저장
   if (startPoint < endPoint) {
@@ -169,21 +155,6 @@ slide.addEventListener("mouseup", (e) => {
     prevMove();
   } else if (startPoint > endPoint) {
     // 마우스가 왼쪽으로 드래그 된 경우
-    nextMove();
-  }
-});
-
-// 모바일 터치 이벤트 (스와이프)
-slide.addEventListener("touchstart", (e) => {
-  startPoint = e.touches[0].pageX; // 터치가 시작되는 위치 저장
-});
-slide.addEventListener("touchend", (e) => {
-  endPoint = e.changedTouches[0].pageX; // 터치가 끝나는 위치 저장
-  if (startPoint < endPoint) {
-    // 오른쪽으로 스와이프 된 경우
-    prevMove();
-  } else if (startPoint > endPoint) {
-    // 왼쪽으로 스와이프 된 경우
     nextMove();
   }
 });

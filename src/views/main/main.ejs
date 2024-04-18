@@ -7,6 +7,7 @@
   <title>Document</title>
   <link href="/static/css/main/main_css.css" rel="stylesheet">
   <link href="/static/css/main/slide.css" rel="stylesheet">
+  <link href="/static/css/main/menu.css" rel="stylesheet">
 </head>
 <script>
   window.onload = () => {
@@ -51,6 +52,20 @@
       <div class="top_banner_pack">
         <img src="https://m.bunjang.co.kr/pc-static/resource/237e17f5cbe07edc8fff.png" class="top_banner">
       </div>
+    </div>
+    <div id="category">
+      <ul class="menu">
+        <li>
+          <a href="#"> <img src="https://cdn-icons-png.flaticon.com/512/3502/3502458.png" id="menu"></a>
+          <ul class="depth_1">
+            <li><a href="/" class="menu_a">전체</a></li>
+            <li><a href="/main/상의" class="menu_a">상의</a></li>
+            <li><a href="/main/하의" class="menu_a">하의</a></li>
+            <li><a href="/main/악세서리" class="menu_a">악세서리</a></li>
+          </ul>
+        </li>
+      </ul>
+      <label for="menu">카테고리</label>
     </div>
     <div class="board_wrapper">
       <% for(let i = 1;  i <= list.length; i++){ %>
@@ -107,9 +122,15 @@
       <% }
        } %>
 </div>
-                   
-<script src="/static/js/main/main.js" type="application/javascript"></script>
+
+<%if(category == 0) { %>
+  <script src="/static/js/main/main.js" type="application/javascript"></script>
+<%}else{ %>
+  <script src="/static/js/main/main_category.js" type="application/javascript"></script>
+<%} %>
+
 <script src="/static/js/main/slide.js" type="application/javascript"></script>
+
 
 
 </body>

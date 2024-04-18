@@ -10,10 +10,9 @@ window.addEventListener('scroll', () => {
 
     check = false;
 
-    fetch(`/get_listView/` + count_req)
+    fetch(`/get_listView_category/` + count_req)
     .then(res =>  res.json())
     .then(data => {
-
       let count = 0;
       
       data.list.forEach( d => {
