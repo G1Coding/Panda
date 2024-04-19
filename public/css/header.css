@@ -1,5 +1,5 @@
 body {
-    width: 800px;
+    width: 1024px;
     margin: auto;
 }
 #nav ul{
@@ -19,10 +19,10 @@ body {
     margin: auto;
 }
 #header {
-    background-color: olive;
+    background-color: rgb(156, 156, 156);
     height: 50px;
     line-height: 50px;
-    width: 800px;
+    width: 1000px;
     margin: auto;
     margin-top: 20px;
 }

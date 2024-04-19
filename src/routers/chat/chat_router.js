@@ -8,6 +8,7 @@ module.exports = (app) => {
     router.get("/info/:id/:num", chatCtrl.chat_view.info);
     router.get("/login_form", chatCtrl.chat_view.chatLoginForm);
     router.post("/login", chatCtrl.chat_process.loginChk);
+    router.get("/logout", chatCtrl.chat_process.logout);
 
     return router;
 };

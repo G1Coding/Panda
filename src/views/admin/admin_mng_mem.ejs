@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="/static/css/admin/default/default.css" rel="stylesheet">
+    <link href="/static/css/admin/admin_mng_mem.css" rel="stylesheet">
+    <%- include("../default/header.ejs") %>
+</head>
+<body>
+    <%- include("../admin/default/admin_menu.ejs") %>
+    <div class="body">
+        <h2>멤버관리</h2>
+        <div class="mem_search_wrapper">
+            <input class="mem_search" type="text">
+            <input class="mem_search_btn" type="button" value="검색">
+        </div>
+        <div class="mng_mem_body">
+            <div class="mng_mem_body_table">
+                <table class="mng_mem_table">
+                    <thead>
+                        <tr>
+                            <th class="title">선택</th>
+                            <th class="title">아이디</th>
+                            <th class="title">이름</th>
+                            <th class="title">지역</th>
+                            <th class="title">전화번호</th>
+                            <th class="title">포인트</th>
+                            <th class="title">권한</th>
+                        </tr>
+                    </thead>
+                    <tbody class="mem_list">
+                        <% let cnt=0; result.forEach((item) => {  %>
+                            <tr class="content_tr">
+                                <td class="content"><input class="checkbox" type="checkbox" id="<%=item.INFO_ID%>" onclick="checkBox(`<%=item.INFO_ID%>`)"></td>
+                                <td class="content"><%=item.INFO_ID%></td>
+                                <td class="content"><%=item.INFO_NAME%></td>
+                                <td class="content">
+                                    <% if (item.INFO_REGION == null) { %>
+                                        -
+                                    <% } else { %>
+                                        <%= item.INFO_REGION %>
+                                    <% } %>
+                                <td class="content"><%=item.INFO_PHONE%></td>
+                                <td class="content"><%=item.INFO_POINT%></td>
+                                <td class="content">
+                                    <% if (item.INFO_ADMIN == 0) { %>
+                                        일반
+                                    <% } else { %>
+                                        관리자
+                                    <% } %>
+                                </td>
+                            </tr>
+                        <% cnt++ })  %>
+                    </tbody>
+                </table>
+            </div>
+            <div class="mng_mem_bot_nav">
+                <label>총 <%=result.length%> 건의 회원 정보 조회</label>
+                <input class="mng_mem_add" onclick="location.href='/admin/mng_mem_add'" type="button" value="추가">
+                <input class="mng_mem_modify" type="button" value="변경">
+                <input class="mng_mem_delete" type="button" value="삭제">
+                
+            </div>
+        </div>
+    </div>
+    <script>
+        // 테이블의 행을 클릭하면 체크박스 선택되게끔
+        // const contentTr = document.querySelectorAll(".content_tr")
+        // const chkBox = document.querySelectorAll(".checkbox")
+        // for (let i = 0; i < contentTr.length; i++) {
+        //     contentTr[i].addEventListener("click", function() {
+        //         if (chkBox[i].checked == true) {
+        //             chkBox[i].checked = false
+        //         } else {
+        //             chkBox[i].checked = true
+        //         }
+        //     })
+        // }
+
+        let arr = [];
+        function checkBox (itemId) {
+            const result = document.getElementById(itemId)
+            if (result.checked) {
+                console.log(itemId,"선택")
+                arr.push(itemId)
+                console.log(arr)
+            } else {
+                console.log(itemId,"해제")
+                arr = arr.filter(item => item != itemId)
+                console.log(arr)
+            }
+        }
+
+        const delMem = document.querySelector(".mng_mem_delete");
+        delMem.addEventListener("click", function () {
+            if (arr.length > 0) {
+                if (confirm(`${arr.length}개의 회원정보를 삭제하시겠습니까?`)){
+                    let params = arr.map(item => `arr=${item}`).join("&");
+                    location.href=`/admin/mng_mem_del/?${params}`
+                }
+            } else {
+                alert("삭제할 회원을 선택해주세요")
+            }
+        })
+
+        const modMem = document.querySelector(".mng_mem_modify");
+        modMem.addEventListener("click", function () {
+            if (arr.length == 1) {
+                location.href=`/admin/mng_mem_mod/?id=${arr}`
+            } else if (arr.length == 0 ) {
+                alert("변경할 회원을 선택해주세요");
+            } else {
+                alert("변경할 회원 한명만 선택해주세요");
+            }
+        })
+
+    </script>
+    <%- include("../default/footer.ejs") %>
+</body>
+</html>

@@ -23,11 +23,11 @@ const chat_process = {
     loginChk : (req, res) => {
         console.log("body : ", req.body)
         const result = service.process.loginChk(req.body);
-        console.log("result : ", result);
         if (result.length != 0) {
             res.cookie("chatID", req.body.id, cookieConfig )
             res.cookie("chatPW", req.body.pwd, cookieConfig)
             res.cookie("isLogin", "true", cookieConfig)
+            res.cookie("isAdmin", result[0].admin, cookieConfig)
             msg = "로그인 성공 하였습니다."
             url = "/chat"
         } else {
@@ -35,6 +35,13 @@ const chat_process = {
             url = "/chat/login_form"
         }
         res.send (service.getMessage(msg, url))
+    },
+    logout : (req, res) => {
+        res.clearCookie("chatID")
+        res.clearCookie("chatPW")
+        res.clearCookie("isLogin")
+        res.clearCookie("isAdmin")
+        res.send(service.getMessage("로그아웃되었습니다.", "/chat"))
     }
 }
 

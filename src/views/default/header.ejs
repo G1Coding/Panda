@@ -5,6 +5,9 @@
         msg += "<a href='/chat'>채팅</a>"
         if (document.cookie.indexOf("isLogin=true") !== -1) {
             msg += "<a href='/chat/logout'>로그아웃</a>"
+            if (document.cookie.indexOf("isAdmin=1") !== -1){
+                msg += "<a href='/admin'>관리자 페이지</a>"
+            }
         } else {
             msg += "<a href='/chat/login_form'>로그인</a>"
         }
