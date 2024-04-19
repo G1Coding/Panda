@@ -11,6 +11,7 @@ module.exports = (app) => {
     router.post("/mng_mem_mod_check", adminCtrl.admin_process.mngMemModChk)
     router.get("/mng_mem_del", adminCtrl.admin_process.mngMemDel)
     router.get("/mng_mem_Mod", adminCtrl.admin_view.mngMemMod)
+    router.get("/get_list", adminCtrl.test.prodTest)
 
     
     

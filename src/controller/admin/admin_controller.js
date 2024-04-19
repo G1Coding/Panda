@@ -76,8 +76,24 @@ const admin_process = {
         }
     }
 }
+const test = {
+    prodTest : async (req, res) => {
+        console.log("fetch실행")
+        console.log(req.query.page)
+        const totalContent = await service.process.getProdTotalContent();
+        const content = await service.process.getProdContent(totalContent, req.query.page);
+        console.log(totalContent)
+        res.json({
+            total : totalContent.rows[0],
+            page : content.page,
+            pageContent : content.pageContent.rows
+        })
+    }
+
+}
 
 module.exports = {
     admin_view,
-    admin_process
+    admin_process,
+    test
 }

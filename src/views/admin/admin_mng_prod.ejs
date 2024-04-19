@@ -74,7 +74,7 @@
                 <div class="mng_prod_paging_wrapper">
                     <% for (let i = 1; i <= page; i++) { %>
                         <a href="/admin/mng_prod?page=<%=i%>" class="paging" href=""><%=i%></a>
-                        
+                        <a onclick="getList('<%=i%>')"><%=i%>test</a>
                     <% } %>
                 </div>
                 <div class="mng_prod_bot_nav_input_wrapper">
@@ -88,6 +88,44 @@
 
 
     <script>
+        const tbody = document.querySelector(".prod_list");
+
+
+
+        function getList(page) {
+            fetch(`/admin/get_list?page=${page}`)
+            .then(res => res.json())
+            .then(data => {
+                let msg = "";
+                msg = data.pageContent.forEach((item) => { 
+                    msg += `<tr class="content_tr">`
+                    msg += `<td class="content"><input class="checkbox" type="checkbox" id="${item.INFO_ID}" onclick="checkBox(${item.INFO_ID})"></td>`
+                    msg += `<td class="content">${item.BOARD_NUM}</td>`
+                    msg += `<td class="content">${item.BOARD_ID}</td>`
+                    msg += `<td class="content">${item.BOARD_TITLE}</td>`
+                    msg += `<td class="content" style="text-align: right;">${item.BOARD_PRICE} 원</td>`
+                    msg += `<td class="content">${item.BOARD_IMG}</td>`
+                    msg += `<td class="content">${item.BOARD_CONDITION}</td>`
+                    msg += `<td class="content">${item.BOARD_TRADEWAY}</td>`
+                    msg += `<td class="content">${item.BOARD_POLLUTION}</td>`
+                    msg += `<td class="content">${item.BOARD_DETAIL}</td>`
+                    msg += `<td class="content">${item.BOARD_ISTRADING}</td>`
+                    msg += `<td class="content">${item.BOARD_VIEWS}</td>`
+                    msg += `<td class="content">${item.BOARD_REGION}</td>`
+                    msg += `<td class="content">${item.BOARD_REGIONDETAIL}</td>`
+                    msg += `<td class="content">${item.BOARD_CREATETIME}</td>`
+                    msg += `<td class="content">${item.BOARD_CATEGORY}</td>`
+                    msg += `<td class="content">${item.BOARD_BUYERID}</td>`
+                    msg += `<td class="content">${item.BOARD_ISBUYEROK}</td>`
+                    msg += `<td class="content">${item.BOARD_ISSELLEROK}</td>`
+                    msg += `</tr>`
+                        tbody.innerHTML = msg;
+                })
+
+            })
+        }
+
+
         const table = document.querySelector(".mng_prod_table")
         var mousedown = false; //마우스를 누른 상태
         var td = "";           //사이즈 변경할 td
