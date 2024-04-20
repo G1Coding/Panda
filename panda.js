@@ -5,6 +5,10 @@ const app = express();
 app.use("/static", express.static("./resources"));
 //app.use(express.static("resource"))
 
+const bodyParser=require("body-parser")
+app.use(bodyParser.urlencoded({extended:false}))
+app.use(bodyParser.json())
+
 app.get("/", function(req, res){
     res.render("upload.ejs")
 })

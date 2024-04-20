@@ -1,4 +1,5 @@
 module.exports = (app) => {
+
     const infoRouter = require("./src/routers/info/info_router");
     app.use("/info", infoRouter);
 /*
@@ -11,6 +12,5 @@ module.exports = (app) => {
     router.get("/info", (req, res) => {
         res.render("profile");
     })
-
     return router;
 }

@@ -1,1 +1,19 @@
-<h3>list test</h3>
+<h3>test</h3>
+
+<% list.forEach(info=>{ %>
+id: <%= info.INFO_ID %><br />
+pw: <%= info.INFO_PW %><br />
+name: 
+<a href="/info/member_view/<%= info.INFO_ID %>">
+    <%= info.INFO_NAME %></a><br />
+
+region: <%= info.INFO_REGION %><br />
+img: <%= info.INFO_IMG %><br />
+phone: <%= info.INFO_PHONE %><br />
+admin: <%= info.INFO_ADMIN %><br />
+point: <%= info.INFO_POINT %><hr />
+<% }) %>
+<a href="/info/register_form">등록</a>
+<br>
+<hr>
+

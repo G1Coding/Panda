@@ -103,6 +103,7 @@
   margin-left: 50px;
   margin-top: 30px;
   font-weight: 550;
+  
 }
 .blcYdX {
   height: 40px;
@@ -112,9 +113,9 @@
   align-items: center;
   padding: 0;
   border-radius: 50%;
-  color: rgb(61, 61, 61);
-  border: 1px solid rgb(241, 241, 157);
-  background-color: rgb(241, 241, 157);
+  color:white;
+  border: 1px solid rgb(33, 31, 31);
+  background-color: rgb(32, 30, 30);
   margin-top: 25px;
   margin-left: -18px;
   font-weight: 600;
@@ -126,14 +127,15 @@
   justify-content: center;
   align-items: center;
   border-radius: 50%;
-  border: 1px solid rgb(241, 241, 157);
-  background-color: rgb(241, 241, 157);
+  border: 1px solid rgb(30,30,30);
+  background-color: rgb(30,30,30);
   padding: 0;
-  color: rgb(61, 61, 61);
+  color: white;
   margin-top: -20px;
-  margin-left: -10px;
+  margin-left: -13px;
   font-weight: 600;
   font-size: small;
+  text-decoration: none;
 }
 .dQLwrX {
   display: flex;
@@ -183,11 +185,17 @@
   color: rgb(0, 0, 0);
   text-decoration: none;
 }
-.dvLjiM :hover{
+.ddd :hover{
   background-color: black;
-border-radius: 10px;
-
 }
 .gmerZt:hover{
   color :white
+}
+
+.star-filled {
+  filter: sepia(30%) saturate(1000%) hue-rotate(3deg); /* 별이 채워진 경우의 색상 변경 */
+}
+
+.star-empty {
+  filter: grayscale(100%); /* 별이 비어있는 경우의 색상 변경 */
 }

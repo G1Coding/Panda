@@ -223,5 +223,7 @@ th.highlight{
   border-bottom: 4px solid rgba(0, 0, 0, 0.322);
   border-left: none;
   border-right: none;
-
 }
+input::placeholder {
+    color: rgba(139, 139, 139, 0.549); /* 연하게 설정한 글자색 */
+  }

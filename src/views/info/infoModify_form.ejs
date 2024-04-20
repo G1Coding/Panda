@@ -12,9 +12,11 @@
   />
 <script src="/static/js/image_read.js"></script>
 <link href="/static/css/info/infoModify_form.css" rel="stylesheet" >
+
+
 </head>
 <body>
-    <div id="root">
+  <div id="root">
         <div class="sc-dwnQUR hTVvhi">
             <div class="sc-hTRxPa kSLomz">
                 <div class="sc-hsGlKL fWLIcp">
@@ -35,71 +37,81 @@
 
                         <div class="sc-cSyrqk GDyfg">회원정보수정</div>
 
-                        <form method="post" action="/info/inquiryF" enctype="multipart/form-data">
-               
-                             
-                              
-                              <table class="table">
+                        <form action="/info/modify" method="post" enctype="multipart/form-data">
+                          
+                          
+                          <table class="table">
+                                <% profile.forEach(info=>{ %>
                                 <tbody>
                                   <tr>
                                     <th scope="row" class="highlight">이름</th>
-                                    <td>윤*영</td>
+                                    <td><input type="text"  readonly name="name" value="<%= info.INFO_NAME %>"></td>
+                                    
                                   </tr>
                                   <tr>
+                                    
                                     <th scope="row" class="highlight">비밀번호 변경</th>
                                     <td><input type="text" placeholder="변경비밀번호 입력"> </td>
                                   </tr>
-                                  <tr>
-                                    <th scope="row" class="highlight">주소</th>
-                                    <td colspan="2">
-                                      
-                                      <div class="row g-3">
-                                        <div class="col-sm-5">
-                                          <input type="text" class="form-control" placeholder="City" aria-label="City">
-                                        </div>
-                                        <div class="col-sm">
-                                          <input type="text" class="form-control" placeholder="State" aria-label="State">
-                                        </div>
-                                        <div class="col-sm">
-                                          <input type="text" class="form-control" placeholder="" aria-label="">
-                                        </div>
-                                        <tr>
-                                          <th scope="row" class="highlight">휴대폰번호</th>
-                                          <td><input type="text" placeholder="휴대폰번호 입력"> </td>
-                                        </tr>
-                                        <tr>
-                                          <th scope="row" class="highlight">프로필 수정</th>
-                                          <td>     
+             
+                                        <th scope="row" class="highlight">주소</th>
+                                        <td><input type="text" id = "addrInput<%= info.addr %>" placeholder="주소 입력"> </td>
+                                      </tr>
+
+                                      <tr>
+                                        <th scope="row" class="highlight">휴대폰번호</th>
+                                        <td><input type="text" id ="phoneNumberInput<%= info.num %>" placeholder="휴대폰번호 입력"> </td>
+                                      </tr>
+
+                                      <tr>
+                                        <th scope="row" class="highlight">프로필 수정</th>
+                                        <td>     
                                           <div class="fbrlWN">
-                                                  <input type="file" name="image_file_name" onchange="readURL(this);">
-                                                  <div id="img-container">
-                                                  <img id="img" src="#" alt="사진 첨부">
-                                                </div>  
+                                            <input type="file" name="image_file_name" onchange="readURL(this);">
+                                            <div id="img-container">
+
+                                              <% if(info.INFO_IMG) { %>
+                                                <img id="img" src="<%= info.INFO_IMG %>" alt="프로필 이미지">
+                                            <% } else { %>
+                                                <!-- 프로필 이미지가 없는 경우 기본 이미지 표시 -->
+                                                <img id="img" src="/static/upload/panda_p.png" alt="기본 이미지">
+                                            <% } %>
+
+                                              <!--
+                                              <img id="img" src="<%= info.INFO_IMG ? info.INFO_IMG : '/static/upload/대두.jpg' %>" alt="기본이미지">
+                                              <img id="img" src="#" alt="사진 첨부">
+                                              -->
+                                            </div>  
                                           </td>
                                         </tr>
                                       </div>
-
+                                      
                                     </td>
                                   </tr>
                                 </tbody>
+                                <% }) %>
                               </table>
 
 
+                              <% profile.forEach(info=>{ %>
 
                         <div class="gczMwZ">
                           <div class="button-container">
                           <a href="info/deleteInfo" class="deleteInfo-link">탈퇴</a>
                           </div>
                           <div class="button-container">
-                            <button type="submit" value="수정" class="fHBotQ">수정</button>
+                            <!--
+                            <button type="button" class="fHBotQ"
+                            onclick="submitForm()">수정</button>
+                            -->
+                            <input type="submit" value="수정">
                         </div>
-                        </div>
-                        
-                        
+                        </div>                 
+    <% }) %>
+        </form>
                     </div>
                 </div>
             </div>
-        </form>
         </div>
         
     </div>
@@ -109,5 +121,20 @@
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
     crossorigin="anonymous"
   ></script>
+
+  <script>
+    // JavaScript를 사용하여 placeholder를 동적으로 설정
+    <% profile.forEach(info=>{ %>
+      let phoneNumberInput<%= info.num %> = document.getElementById('phoneNumberInput<%= info.num %>');
+      phoneNumberInput<%= info.num %>.placeholder = '<%= info.INFO_PHONE %>';
+
+      let addrInput<%= info.addr %> = document.getElementById('addrInput<%= info.addr %>');
+      addrInput<%= info.addr %>.placeholder = '<%= info.INFO_REGION %>';
+    <% }) %>
+
+    function submitForm() {
+    document.getElementById('modifyForm').submit();
+  }
+  </script>
 </body>
 </html>
