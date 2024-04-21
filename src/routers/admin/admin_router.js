@@ -11,11 +11,13 @@ module.exports = (app) => {
     router.post("/mng_mem_mod_check", adminCtrl.admin_process.mngMemModChk)
     router.get("/mng_mem_del", adminCtrl.admin_process.mngMemDel)
     router.get("/mng_mem_Mod", adminCtrl.admin_view.mngMemMod)
-    router.get("/get_list", adminCtrl.test.prodTest)
-
+    
     
     
     router.get("/mng_prod", adminCtrl.admin_view.mngProd)
+    router.get("/mng_get_prod", adminCtrl.admin_process.getProdList)
+    router.get("/mng_get_prod_search", adminCtrl.admin_process.getProdSearch)
+    router.get("/mng_get_prod_search_list", adminCtrl.admin_process.getProdSearchList)
 
 
     return router;

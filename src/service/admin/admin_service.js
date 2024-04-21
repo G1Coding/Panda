@@ -29,8 +29,18 @@ const process = {
         const content = await getProdPage(totalContent.rows[0]['COUNT(*)'], page);
         content.pageContent = await dao.prodSelect.getProdPageContent(content.start, content.end);
         return content
+    },
+    getProdSearchTotalContent : async (query) => {
+        const totalContent = await dao.prodSelect.getProdSearchTotalContent(query);
+        return totalContent;
+    }, 
+    getProdSearchContent : async (totalContent, page) => {
+        const content = await getProdPage(totalContent.rows[0]['COUNT(*)'], page);
+        content.pageContent = await dao.prodSelect.getProdSearchPageContent(content.start, content.end);
+        return content
     }
 }
+
 const readUser = {
     oneUser : async (query) => {
         const user = await dao.memSelect.getUser(query);

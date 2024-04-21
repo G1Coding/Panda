@@ -31,6 +31,7 @@ const admin_view = {
             pageContent : content.pageContent.rows
         })
     },
+    
 }
 
 const admin_process = {
@@ -60,7 +61,6 @@ const admin_process = {
         res.send(service.sendMsg.msg(msg, url))
     },
     mngMemModChk : async (req, res) => {
-        console.log("req body : ", req.body)
         const result = await service.process.modMem(req.body);
         if (result != 0) {
             msg = "변경이 완료되었습니다.";
@@ -74,26 +74,42 @@ const admin_process = {
             </script>
         `)
         }
-    }
-}
-const test = {
-    prodTest : async (req, res) => {
-        console.log("fetch실행")
-        console.log(req.query.page)
+    },
+    getProdList : async (req, res) => {
         const totalContent = await service.process.getProdTotalContent();
         const content = await service.process.getProdContent(totalContent, req.query.page);
-        console.log(totalContent)
         res.json({
+            curPage : req.query.page,
             total : totalContent.rows[0],
             page : content.page,
             pageContent : content.pageContent.rows
         })
-    }
+    },
+    getProdSearch : async (req, res) => {
+        const totalContent = await service.process.getProdSearchTotalContent(req.query);
+        const content = await service.process.getProdSearchContent(totalContent, req.query.page);
 
+        res.json({
+            curPage : req.query.page,
+            total : totalContent.rows[0],
+            page : content.page,
+            pageContent : content.pageContent.rows,
+        })
+    },
+    getProdSearchList : async (req, res) => {
+        const totalContent = await service.process.getProdSearchTotalContent(req.query);
+        const content = await service.process.getProdSearchContent(totalContent, req.query.page);
+        console.log("page : ", content.page)
+        res.json({
+            curPage : req.query.page,
+            total : totalContent.rows[0],
+            page : content.page,
+            pageContent : content.pageContent.rows,
+        })
+    }
 }
 
 module.exports = {
     admin_view,
     admin_process,
-    test
 }

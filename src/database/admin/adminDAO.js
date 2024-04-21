@@ -1,6 +1,5 @@
 const con = require("../common_dao")
 
-
 const memSelect = {
     getMem : async () => {
         const sql = "select * from user_info order by info_id asc";
@@ -97,7 +96,45 @@ const prodSelect = {
             console.log(err);
         }
         return pageContent
+    },
+    getProdSearchTotalContent : async (query) => {
+        let sql;
+        if (query.page) {
+            const input = getSearchData();
+            sql = `select count(*) from user_board where ${input.type} like '%${input.text}%'`
+        } else {
+            sql = `select count(*) from user_board where ${query.type} like '%${query.text}%'`
+            setSearchData(query.type, query.text);
+        }
+        let content;
+        try {
+            content = (await con).execute(sql);
+        } catch (err) {
+            console.log(err)
+        }
+        return content
+    },
+    getProdSearchPageContent : async (start, end) => {
+        const input = getSearchData();
+        const sql = `select B.* from(select rownum rn, A.* from(select * from user_board where ${input.type} like '%${input.text}%')A)B where rn between ${start} and ${end}`
+        let pageContent;
+        try {
+            pageContent = await (await con).execute(sql);
+        } catch(err) {
+            console.log(err);
+        }
+        return pageContent
     }
+}
+
+let input = [];
+
+const setSearchData = (type, text) => {
+    input.type = type;
+    input.text = text;
+}
+const getSearchData = () => {
+    return input
 }
 
 
