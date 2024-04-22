@@ -23,5 +23,49 @@ $(document).ready(
       profile_tel.innerHTML += data[1].INFO_PHONE;
 
     });
+  
+    const button_wrapper = document.querySelector("#button_wrapper");
+    button_wrapper.addEventListener("click", (e) => {
+      if(e.target.value == '구매완료')
+      {
+        fetch('/payment/set_buyer_ok/' + board_num)
+        .then(res => res.json())
+        .then(data => {
+          
+          if(data[0].BOARD_ISSELLEROK == null || data[0].BOARD_ISSELLEROK == 0 )
+          {
+            alert("판매자가 판매 완료 버튼을 누를 때까지 대기중 입니다!!");
+
+            let intervalId = setInterval(function () { 
+              fetch('/payment/get_seller_ok/' + board_num)
+              .then(res => res.json())
+              .then( data => {
+                
+                if(data[0].BOARD_ISSELLEROK !== null)
+                {
+                  alert("구매가 완료 되었습니다!!!");
+                  clearInterval(intervalId);
+                }
+                
+              });
+              }, 10000);
+          }
+
+        })
+      }
+      else if(e.target.value == '구매취소')
+      {
+        fetch('/payment/set_buyer_cancel/' + board_num)
+        .then(res => res.json())
+        .then(data => {
+          alert("구매가 취소되었습니다!!");
+          location.href = "/";
+        })
+      }
+    })
   }
+
+  
+
 );
+

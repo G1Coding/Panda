@@ -1,11 +1,45 @@
 const dao = require("../../database/payment/paymentDAO");
 
-getBuyerPage = {
+get = {
   getBuyerPage: async (board_num) => {
-    let result = await dao.getBuyerPage.getBuyerPage(board_num);
+    let result = await dao.get.getBuyerPage(board_num);
     result = await modifyData_buyerPage.modifyPrice(result);
 
     return result;
+  },
+  getSellerOk : async (board_num) => {
+    const result = await dao.get.getSellerOk(board_num);
+
+    return result;
+  },
+  getSellerPage : async (board_num) => {
+    const result = await dao.get.getSellerPage(board_num);
+
+    return result;
+  },
+  getBuyerOk : async (board_num) => {
+    const result = await dao.getBuyerOk(board_num);
+
+    return result;
+  }
+}
+
+set = {
+  setBuyerOk : async (board_num) => {
+    const result = await dao.set.setBuyerOk(board_num);
+    
+    return result;
+  },
+  setBuyerCancel :  (board_num) => {
+    dao.set.setBuyerCancel(board_num);
+  },
+  setSellerOk : async (board_num) => {
+    const result = await dao.set.setSellerOk(board_num);
+
+    return result;
+  },
+  setTradeSuccess : async (price, sellerId, buyerId) => {
+    dao.set.setTradeSuccess(price, sellerId, buyerId);
   }
 }
 
@@ -39,5 +73,5 @@ modifyData_buyerPage = {
 }
 
 module.exports = {
-  getBuyerPage
+  get, set
 };
