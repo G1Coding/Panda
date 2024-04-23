@@ -6,13 +6,19 @@
     <title>Document</title>
     <link href="/static/css/admin/default/default.css" rel="stylesheet">
     <link href="/static/css/admin/admin_mng_mem.css" rel="stylesheet">
-    <%- include("../default/header.ejs") %>
+    <%- include("../../default/header.ejs") %>
 </head>
 <body>
-    <%- include("../admin/default/admin_menu.ejs") %>
+    <%- include("../../admin/default/admin_menu.ejs") %>
     <div class="body">
         <h2>멤버관리</h2>
         <div class="mem_search_wrapper">
+            <h4>회원 검색</h4>
+            <select class="mem_search_select">
+                <option value="INFO_ID" selected>회원 아이디</option>
+                <option value="INFO_NAME">회원 이름</option>
+                <option value="INFO_ADMIN">권한</option>
+            </select>
             <input class="mem_search" type="text">
             <input class="mem_search_btn" type="button" value="검색">
         </div>
@@ -65,6 +71,7 @@
             </div>
         </div>
     </div>
+    <%- include("../../default/footer.ejs") %>
     <script>
         // 테이블의 행을 클릭하면 체크박스 선택되게끔
         // const contentTr = document.querySelectorAll(".content_tr")
@@ -83,13 +90,9 @@
         function checkBox (itemId) {
             const result = document.getElementById(itemId)
             if (result.checked) {
-                console.log(itemId,"선택")
                 arr.push(itemId)
-                console.log(arr)
             } else {
-                console.log(itemId,"해제")
                 arr = arr.filter(item => item != itemId)
-                console.log(arr)
             }
         }
 
@@ -117,6 +120,5 @@
         })
 
     </script>
-    <%- include("../default/footer.ejs") %>
 </body>
 </html>

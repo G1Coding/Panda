@@ -5,29 +5,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="/static/css/admin/default/default.css" rel="stylesheet">
-    <link href="/static/css/admin/admin_mng_mem_add.css" rel="stylesheet">
-    <%- include("../default/header.ejs") %>
+    <link href="/static/css/admin/admin_mng_mem_mod.css" rel="stylesheet">
+    <%- include("../../default/header.ejs") %>
 </head>
 <body>
-    <%- include("../admin/default/admin_menu.ejs") %>
+    <%- include("../../admin/default/admin_menu.ejs") %>
     <div class="body">
-        <h2>계정 추가</h2>
+        <h2>계정 변경</h2>
         <div class="mng_mem_body">
-            <div class="mng_mem_add_table">
-                <form class="add_form" action="/admin/mng_mem_add_check" method="post">
+            <div class="mng_mem_table">
+                <form class="add_form" action="/admin/mng_mem_mod_check" method="post">
                     <table class="mng_mem_register_table">
                         <tbody>
                             <tr>
                                 <td class="title">아이디</td>
                                 <td class="content">
-                                    <input class="input_field" name="id" type="text">
+                                    <input class="input_field" name="id" type="text" readonly value="<%=user.INFO_ID%>">
                                     <label class="id_msg info_msg"></label>
                                     <input class="id_chk_button" type="button" value="중복확인">
                                 </td>
                             </tr>
                             <tr>
                                 <td class="title">비밀번호</td>
-                                <td class="content"><input class="input_field" name="pwd" type="password"><label class="pwd_msg info_msg"></label></td>
+                                <td class="content"><input class="input_field" name="pwd" type="password" value="<%=user.INFO_PW%>"><label class="pwd_msg info_msg"></label></td>
                             </tr>
                             <tr>
                                 <td class="title">비밀번호 확인</td>
@@ -35,11 +35,15 @@
                             </tr>
                             <tr>
                                 <td class="title">이름</td>
-                                <td class="content"><input class="input_field" name="name" type="text"><label class="name_msg info_msg"></label></td>
+                                <td class="content"><input class="input_field" name="name" type="text" value="<%=user.INFO_NAME%>"><label class="name_msg info_msg"></label></td>
                             </tr>
                             <tr>
                                 <td class="title">전화번호</td>
-                                <td class="content"><input class="input_field" name="phone" type="number"><label class="phone_msg">- 없이 숫자만 입력</label></td>
+                                <td class="content"><input class="input_field" name="phone" type="number" value="<%=user.INFO_PHONE%>"><label class="phone_msg">- 없이 숫자만 입력</label></td>
+                            </tr>
+                            <tr>
+                                <td class="title">포인트</td>
+                                <td class="content"><input class="input_field" name="point" type="number" value="<%=user.INFO_POINT%>"><label class="point_msg"></label></td>
                             </tr>
                             <tr>
                                 <td class="title">권한</td>
@@ -53,15 +57,15 @@
                             </tr>
                         </tbody>
                     </table>
-                    <div class="mng_mem_add_bot_nav">
-                        <input class="mng_mem_add_submit" onclick="submit()" type="submit" value="추가" disabled>
-                        <input class="mng_mem_add_cancel" onclick="location.href='/admin/mng_mem'" type="button" value="취소">
-                    </div>
                 </form>
+                <div class="mng_mem_add_bot_nav">
+                    <input class="mng_mem_add_submit" onclick="submit()" type=button value="변경" disabled>
+                    <input class="mng_mem_add_cancel" onclick="location.href='/admin/mng_mem'" type="button" value="취소">
+                </div>
             </div>
         </div>
     </div>
-    <%- include("../default/footer.ejs") %>
+    <%- include("../../default/footer.ejs") %>
 
     <script>
             const data = document.querySelectorAll(".input_field");
@@ -69,13 +73,16 @@
             const idBtn = document.querySelector(".id_chk_button")
             const submitBtn = document.querySelector(".mng_mem_add_submit");
             const form = document.querySelector(".add_form")
+            const pwdMsg = document.querySelector(".pwd_msg")
+            const pwdChkMsg = document.querySelector(".pwd_chk_msg")
             idBtn.style.display = "none"
+            data[2].focus()
 
-            let isValidId = false;
-            let isValidPwd = false;
+            let isValidId = true;
+            let isValidPwd = true;
             let isPwdMatch = false;
-            let isValidName = false;
-            let isValidPhone = false;
+            let isValidName = true;
+            let isValidPhone = true;
             
             const inputId = data[0].value;
             let msg = "";
@@ -95,7 +102,6 @@
                 updateButtonState();
             })
             data[1].addEventListener("input", function () {
-                const pwdMsg = document.querySelector(".pwd_msg")
                 if (data[1].value.length < 3) {
                     pwdMsg.innerHTML = "3자 이상 입력바랍니다."
                     isValidPwd = false;
@@ -103,15 +109,27 @@
                     pwdMsg.innerHTML = ""
                     isValidPwd = true;
                 }
+                if (data[2].value != "") {
+                    if (data[1].value != data[2].value) {
+                        pwdChkMsg.style.color = "rgb(250, 107, 107)"
+                        pwdChkMsg.innerHTML = "패스워드가 일치하지 않습니다."
+                        isPwdMatch = false;
+                    } else {
+                        pwdChkMsg.style.color = "blue"
+                        pwdChkMsg.innerHTML = ""
+                        isPwdMatch = true;
+                    }
+                }
                 updateButtonState();
             })
             data[2].addEventListener("input", function () {
-                const pwdMsg = document.querySelector(".pwd_chk_msg")
                 if (data[1].value != data[2].value) {
-                    pwdMsg.innerHTML = "패스워드가 일치하지 않습니다."
+                    pwdChkMsg.style.color = "rgb(250, 107, 107)"
+                    pwdChkMsg.innerHTML = "패스워드가 일치하지 않습니다."
                     isPwdMatch = false;
                 } else {
-                    pwdMsg.innerHTML = ""
+                    pwdChkMsg.style.color = "blue"
+                    pwdChkMsg.innerHTML = "패스워드 일치"
                     isPwdMatch = true;
                 }
                 updateButtonState();
@@ -146,16 +164,9 @@
             })
             
             function updateButtonState() {
-                console.log("test")
-                console.log("id : ", isValidId)
-                console.log("pwd : ", isValidPwd)
-                console.log("pwdchek : ", isPwdMatch)
-                console.log("name : ", isValidName)
-                console.log("phone : ", isValidPhone)
                 if (isValidId == true && isValidPwd == true
                     && isPwdMatch == true && isValidName == true 
                     && isValidPhone == true) {
-                        console.log("통과")
                         submitBtn.disabled = false
                 } else {
                     submitBtn.disabled = true;
@@ -163,12 +174,7 @@
             }
 
             function submit() {
-                
-                form.submit;
-            }
-
-            function exit() {
-
+                form.submit();
             }
 
 

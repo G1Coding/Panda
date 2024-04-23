@@ -6,10 +6,10 @@
     <title>Document</title>
     <link href="/static/css/admin/default/default.css" rel="stylesheet">
     <link href="/static/css/admin/prod/admin_mng_prod.css" rel="stylesheet">
-    <%- include("../default/header.ejs") %>
+    <%- include("../../default/header.ejs") %>
 </head>
 <body>
-    <%- include("../admin/default/admin_menu.ejs") %>
+    <%- include("../../admin/default/admin_menu.ejs") %>
     <div class="body">
         <h2>상품관리</h2>
         <div class="prod_search_wrapper">
@@ -19,6 +19,7 @@
                 <option value="BOARD_ID">판매자</option>
                 <option value="BOARD_TITLE">제목</option>
                 <option value="BOARD_PRICE">가격</option>
+                <option value="BOARD_CATEGORY">카테고리</option>
             </select>
             <input class="prod_search" type="text">
             <input class="prod_search_btn" type="button" value="검색">
@@ -52,7 +53,7 @@
                     <tbody class="prod_list">
                         <% let cnt=0; pageContent.forEach((item) => {  %>
                             <tr class="content_tr">
-                                <td class="content"><input class="checkbox" type="checkbox" id="<%=item.INFO_ID%>" onclick="checkBox(`<%=item.INFO_ID%>`)"></td>
+                                <td class="content"><input class="checkbox" type="checkbox" id="<%=item.BOARD_NUM%>" onclick="checkBox(`<%=item.BOARD_NUM%>`)"></td>
                                 <td class="content"><%=item.BOARD_NUM%></td>
                                 <td class="content"><%=item.BOARD_ID%></td>
                                 <td class="content"><%= item.BOARD_TITLE %></td>
@@ -77,7 +78,7 @@
                 </table>
             </div>
             <div class="mng_prod_bot_nav">
-                <label class="mng_prod_nav_label">총 <%=total['COUNT(*)']%> 건의 게시글 정보 조회</label>
+                <label class="mng_prod_nav_label">총 <%=total['COUNT(*)']%> 건의 게시글 정보 중 <%=pageContent.length%> 개</label>
                 <div class="mng_prod_paging_wrapper">
                     <% for (let i = 1; i <= page; i++) { %>
                         <% if (i == 1) { %>
@@ -90,23 +91,31 @@
                     <% } %>
                 </div>
                 <div class="mng_prod_bot_nav_input_wrapper">
-                    <input class="mng_prod_add" onclick="location.href='/admin/mng_prod_add'" type="button" value="추가">
                     <input class="mng_prod_modify" type="button" value="변경">
                     <input class="mng_prod_delete" type="button" value="삭제">
                 </div>
             </div>
         </div>
     </div>
+    <%- include("../../default/footer.ejs") %>
 
 
     <script>
         let curPage = 1;
         const tbody = document.querySelector(".prod_list");
         let pageBtn = document.querySelectorAll(".paging");
+        let prodSearch = document.querySelector(".prod_search");
+        let prodSearchBtn = document.querySelector(".prod_search_btn")
         let test = "";
         pageBtn[1].className += " curPage";
         let searchTotalPage = 0;
         let totalPage = 0;
+
+        prodSearch.addEventListener("keypress", function () {
+            if (window.event.keyCode == 13) {
+                prodSearchBtn.click();
+            }
+        })
 
 
         // 검색기능
@@ -118,38 +127,29 @@
                 alert("검색 내용을 입력하세요");
                 return;
             }
+            // 검색 결과를 fetch로 전달하여 표시
             fetch(`/admin/mng_get_prod_search?type=${type.value}&text=${text.value}`)
             .then(res => res.json())
             .then(data => {
+                
+                // 검색 결과가 없을때 표시
+                if (data.pageContent == "") {
+                    alert("검색 결과가 없습니다.")
+                    return
+                }
                 totalPage = data.page;
                 //불러온 데이터 내용 html에 표시
                 let msg = "";
                 msg = data.pageContent.forEach((item) => {
-                    msg += `<tr class="content_tr">`
-                    msg += `<td class="content"><input class="checkbox" type="checkbox" id="${item.INFO_ID}" onclick="checkBox(${item.INFO_ID})"></td>`
-                    msg += `<td class="content">${item.BOARD_NUM}</td>`
-                    msg += `<td class="content">${item.BOARD_ID}</td>`
-                    msg += `<td class="content">${item.BOARD_TITLE}</td>`
-                    msg += `<td class="content" style="text-align: right;">${item.BOARD_PRICE} 원</td>`
-                    msg += `<td class="content">${item.BOARD_IMG}</td>`
-                    msg += `<td class="content">${item.BOARD_CONDITION}</td>`
-                    msg += `<td class="content">${item.BOARD_TRADEWAY}</td>`
-                    msg += `<td class="content">${item.BOARD_POLLUTION}</td>`
-                    msg += `<td class="content">${item.BOARD_DETAIL}</td>`
-                    msg += `<td class="content">${item.BOARD_ISTRADING}</td>`
-                    msg += `<td class="content">${item.BOARD_VIEWS}</td>`
-                    msg += `<td class="content">${item.BOARD_REGION}</td>`
-                    msg += `<td class="content">${item.BOARD_REGIONDETAIL}</td>`
-                    msg += `<td class="content">${item.BOARD_CREATETIME}</td>`
-                    msg += `<td class="content">${item.BOARD_CATEGORY}</td>`
-                    msg += `<td class="content">${item.BOARD_BUYERID}</td>`
-                    msg += `<td class="content">${item.BOARD_ISBUYEROK}</td>`
-                    msg += `<td class="content">${item.BOARD_ISSELLEROK}</td>`
-                    msg += `</tr>`
+                    msg += contentMsg(item);
                     tbody.innerHTML = msg;
                 })
-                document.querySelector(".mng_prod_nav_label").innerHTML = (`총 ${data.total['COUNT(*)']} 건의 게시글 정보 조회`)
+
+                // 현재 검색 결과 수량 표시
+                document.querySelector(".mng_prod_nav_label").innerHTML = (`총 ${data.total['COUNT(*)']} 건의 게시글 검색 결과 중 ${data.pageContent.length} 개`)
                 const searchPage = document.querySelector(".mng_prod_paging_wrapper");
+                
+                // 페이징 버튼 생성
                 let msg1 = "";
                 for (let i = 1; i <= data.page; i++) {
                     if (i == 1) {
@@ -162,19 +162,22 @@
                 }
                 // const page = document.querySelectorAll(".paging");
                 searchPage.innerHTML = msg1;
+
+                // 페이징 현재 페이지 강조를 위한 클래스 추가
                 pageBtn = document.querySelectorAll(".paging");
-                console.log("pageBtn1 : ", pageBtn)
                 pageBtn[1].className = "paging curPage"
+
+                
+                if (pageBtn.length <= 3) {
+                    pageBtn[2].disabled = true;
+                }
             })
 
         })
 
 
         function getSearchList(page, totalPage) {
-            console.log("page : ", page)
-            console.log("totalpage : ", totalPage)
-            // pageBtn = document.querySelectorAll(".paging");
-            console.log("Btn : ", pageBtn)
+            // 검색 결과내에서 페이지가 나뉠경우 이동
             fetch(`/admin/mng_get_prod_search_list?page=${page}&`)
             .then(res => res.json())
             .then(data => {
@@ -183,7 +186,6 @@
 
                 // 현재 페이지 강조를 위한 class이름 추가
                 for (let i = 1; i <= totalPage; i++) {
-                    console.log("paging으로 변경")
                     pageBtn[i].className = "paging";
                 }
                 pageBtn[page].className = "paging curPage";
@@ -204,30 +206,10 @@
                 //불러온 데이터 내용 html에 표시
                 let msg = "";
                 msg = data.pageContent.forEach((item) => {
-                    msg += `<tr class="content_tr">`
-                    msg += `<td class="content"><input class="checkbox" type="checkbox" id="${item.INFO_ID}" onclick="checkBox(${item.INFO_ID})"></td>`
-                    msg += `<td class="content">${item.BOARD_NUM}</td>`
-                    msg += `<td class="content">${item.BOARD_ID}</td>`
-                    msg += `<td class="content">${item.BOARD_TITLE}</td>`
-                    msg += `<td class="content" style="text-align: right;">${item.BOARD_PRICE} 원</td>`
-                    msg += `<td class="content">${item.BOARD_IMG}</td>`
-                    msg += `<td class="content">${item.BOARD_CONDITION}</td>`
-                    msg += `<td class="content">${item.BOARD_TRADEWAY}</td>`
-                    msg += `<td class="content">${item.BOARD_POLLUTION}</td>`
-                    msg += `<td class="content">${item.BOARD_DETAIL}</td>`
-                    msg += `<td class="content">${item.BOARD_ISTRADING}</td>`
-                    msg += `<td class="content">${item.BOARD_VIEWS}</td>`
-                    msg += `<td class="content">${item.BOARD_REGION}</td>`
-                    msg += `<td class="content">${item.BOARD_REGIONDETAIL}</td>`
-                    msg += `<td class="content">${item.BOARD_CREATETIME}</td>`
-                    msg += `<td class="content">${item.BOARD_CATEGORY}</td>`
-                    msg += `<td class="content">${item.BOARD_BUYERID}</td>`
-                    msg += `<td class="content">${item.BOARD_ISBUYEROK}</td>`
-                    msg += `<td class="content">${item.BOARD_ISSELLEROK}</td>`
-                    msg += `</tr>`
+                    msg += contentMsg(item);
                     tbody.innerHTML = msg;
                 })
-                document.querySelector(".mng_prod_nav_label").innerHTML = (`총 ${data.total['COUNT(*)']} 건의 게시글 정보 조회`)
+                document.querySelector(".mng_prod_nav_label").innerHTML = (`총 ${data.total['COUNT(*)']} 건의 게시글 검색 결과 중 ${data.pageContent.length} 개`)
                 const searchPage = document.querySelector(".mng_prod_paging_wrapper");
             })
         }
@@ -286,30 +268,10 @@
                 //불러온 데이터 내용 html에 표시
                 let msg = "";
                 data.pageContent.forEach((item) => { 
-                    msg += `<tr class="content_tr">`
-                    msg += `<td class="content"><input class="checkbox" type="checkbox" id="${item.INFO_ID}" onclick="checkBox(${item.INFO_ID})"></td>`
-                    msg += `<td class="content">${item.BOARD_NUM}</td>`
-                    msg += `<td class="content">${item.BOARD_ID}</td>`
-                    msg += `<td class="content">${item.BOARD_TITLE}</td>`
-                    msg += `<td class="content" style="text-align: right;">${item.BOARD_PRICE} 원</td>`
-                    msg += `<td class="content">${item.BOARD_IMG}</td>`
-                    msg += `<td class="content">${item.BOARD_CONDITION}</td>`
-                    msg += `<td class="content">${item.BOARD_TRADEWAY}</td>`
-                    msg += `<td class="content">${item.BOARD_POLLUTION}</td>`
-                    msg += `<td class="content">${item.BOARD_DETAIL}</td>`
-                    msg += `<td class="content">${item.BOARD_ISTRADING}</td>`
-                    msg += `<td class="content">${item.BOARD_VIEWS}</td>`
-                    msg += `<td class="content">${item.BOARD_REGION}</td>`
-                    msg += `<td class="content">${item.BOARD_REGIONDETAIL}</td>`
-                    msg += `<td class="content">${item.BOARD_CREATETIME}</td>`
-                    msg += `<td class="content">${item.BOARD_CATEGORY}</td>`
-                    msg += `<td class="content">${item.BOARD_BUYERID}</td>`
-                    msg += `<td class="content">${item.BOARD_ISBUYEROK}</td>`
-                    msg += `<td class="content">${item.BOARD_ISSELLEROK}</td>`
-                    msg += `</tr>`
+                    msg += contentMsg(item);
                     tbody.innerHTML = msg;
                 })
-                document.querySelector(".mng_prod_nav_label").innerHTML = (`총 <%=total['COUNT(*)']%> 건의 게시글 정보 조회`)
+                document.querySelector(".mng_prod_nav_label").innerHTML = (`총 <%=total['COUNT(*)']%> 건의 게시글 정보 중 ${data.pageContent.length} 개</label>`)
 
             })
         }
@@ -420,49 +382,44 @@
 
 
 
-        // 테이블의 행을 클릭하면 체크박스 선택되게끔
+        // 테이블의 행을 클릭하면 체크박스 클릭이벤트 발생
         // const contentTr = document.querySelectorAll(".content_tr")
         // const chkBox = document.querySelectorAll(".checkbox")
         // for (let i = 0; i < contentTr.length; i++) {
         //     contentTr[i].addEventListener("click", function() {
-        //         if (chkBox[i].checked == true) {
-        //             chkBox[i].checked = false
-        //         } else {
-        //             chkBox[i].checked = true
-        //         }
+        //         chkBox[i].click();
         //     })
         // }
 
         let arr = [];
         function checkBox (itemId) {
             const result = document.getElementById(itemId)
+            console.log(result.checked)
             if (result.checked) {
-                console.log(itemId,"선택")
                 arr.push(itemId)
-                console.log(arr)
+                console.log("arr1 : ", arr)
             } else {
-                console.log(itemId,"해제")
                 arr = arr.filter(item => item != itemId)
-                console.log(arr)
+                console.log("arr2 : ", arr)
             }
         }
 
-        const delMem = document.querySelector(".mng_prod_delete");
-        delMem.addEventListener("click", function () {
+        const delProd = document.querySelector(".mng_prod_delete");
+        delProd.addEventListener("click", function () {
             if (arr.length > 0) {
                 if (confirm(`${arr.length}개의 상품을 삭제하시겠습니까?`)){
-                    let params = arr.map(item => `arr=${item}`).join("&");
-                    location.href=`/admin/mng_mem_del/?${params}`
+                    let query = arr.map(item => `arr=${item}`).join("&");
+                    location.href=`/admin/mng_prod_del/?${query}`
                 }
             } else {
                 alert("삭제할 상품을 선택해주세요")
             }
         })
 
-        const modMem = document.querySelector(".mng_prod_modify");
-        modMem.addEventListener("click", function () {
+        const modProd = document.querySelector(".mng_prod_modify");
+        modProd.addEventListener("click", function () {
             if (arr.length == 1) {
-                location.href=`/admin/mng_prod_mod/?id=${arr}`
+                location.href=`/admin/mng_prod_mod/?num=${arr}`
             } else if (arr.length == 0 ) {
                 alert("변경할 상품을 선택해주세요");
             } else {
@@ -470,7 +427,33 @@
             }
         })
 
+
+        function contentMsg(item) {
+            let msg = "";
+            msg += `<tr class="content_tr">`
+            msg += `<td class="content"><input class="checkbox" type="checkbox" id="${item.BOARD_NUM}" onclick="checkBox(${item.BOARD_NUM})"></td>`
+            msg += `<td class="content">${item.BOARD_NUM}</td>`
+            msg += `<td class="content">${item.BOARD_ID}</td>`
+            msg += `<td class="content">${item.BOARD_TITLE}</td>`
+            msg += `<td class="content" style="text-align: right;">${item.BOARD_PRICE} 원</td>`
+            msg += `<td class="content">${item.BOARD_IMG}</td>`
+            msg += `<td class="content">${item.BOARD_CONDITION}</td>`
+            msg += `<td class="content">${item.BOARD_TRADEWAY}</td>`
+            msg += `<td class="content">${item.BOARD_POLLUTION}</td>`
+            msg += `<td class="content">${item.BOARD_DETAIL}</td>`
+            msg += `<td class="content">${item.BOARD_ISTRADING}</td>`
+            msg += `<td class="content">${item.BOARD_VIEWS}</td>`
+            msg += `<td class="content">${item.BOARD_REGION}</td>`
+            msg += `<td class="content">${item.BOARD_REGIONDETAIL}</td>`
+            msg += `<td class="content">${item.BOARD_CREATETIME}</td>`
+            msg += `<td class="content">${item.BOARD_CATEGORY}</td>`
+            msg += `<td class="content">${item.BOARD_BUYERID}</td>`
+            msg += `<td class="content">${item.BOARD_ISBUYEROK}</td>`
+            msg += `<td class="content">${item.BOARD_ISSELLEROK}</td>`
+            msg += `</tr>`
+            return msg;
+        }
+
     </script>
-    <%- include("../default/footer.ejs") %>
 </body>
 </html>

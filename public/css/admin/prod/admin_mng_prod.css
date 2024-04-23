@@ -33,11 +33,17 @@
 .title:last-child {
     border-right: none;
 }
+.title:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 2;
+}
 .mng_prod_table .content {
     padding: 5px;
     margin: 0;
     border-bottom: 1px solid rgb(190, 190, 190);
     border-right: 1px solid rgb(190, 190, 190);
+    background-color: white;
     color: #4d4d4d;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -46,6 +52,11 @@
 .content_tr:last-child .content {
     border-bottom: none;
     
+}
+.content:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
 }
 .content:last-child {
     border-right: none;
@@ -92,10 +103,16 @@
 .prod_search_select {
     width: 150px;
     text-align: center;
+    height: 35px;
 }
 
 .prod_search {
     width: 300px;
+    height: 35px;
+}
+.prod_search_btn {
+    height: 35px;
+    width: 60px;
 }
 
 .mng_prod_bot_nav_input_wrapper {

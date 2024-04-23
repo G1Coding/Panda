@@ -81,10 +81,9 @@
 
 .info_msg {
     margin-left: 10px;
-    font-size: 11px;
+    font-size: 13px;
     color: rgb(250, 107, 107);
 }
-
 .input_field:focus {
     outline: 2px solid blue;
 }

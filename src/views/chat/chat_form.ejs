@@ -44,6 +44,7 @@
     }
     
     socket.on('returnMainPage', () => {
+        alert("이미 거래중인 상품입니다.")
         location.href = "/chat"
     })
 
@@ -65,16 +66,27 @@
         const chatArea = document.getElementById('chat_area');
         if (readChatCount == 0) {
             chatArea.innerHTML = "";
-            const lines = readMsg.trim().split('\n');
+            const lines = readMsg.trim().split('\t');
+            console.log("lines : ", lines)
             const conversations = [];
+            let msg = "";
+            let send = "";
+            let time = "";
             lines.forEach(line => {
                 const result = line.split(':');
-                console.log(result[0])
-                console.log(result[1])
-                const timestamp = `${result[0]} : ${result[1]}`
-                console.log("result[4]: ", result[4])
-                console.log("result[3]: ", result[3])
-                displayMessage(result[4], result[3], timestamp)
+                console.log("result.length : ", result.length)
+                if (result.length == 1) {
+                    displayMessage(result[0], send, time)
+                } else {
+                    console.log(result[0])
+                    console.log(result[1])
+                    const timestamp = `${result[0]} : ${result[1]}`
+                    console.log("result[4]: ", result[4])
+                    console.log("result[3]: ", result[3])
+                    send = result[3];
+                    time = timestamp;
+                    displayMessage(result[4], result[3], timestamp)
+                }
             });
             const messages = document.createElement('div');
             const item = document.createElement('p');
@@ -257,6 +269,7 @@
 
 
     function convertNewlineToBr(text) {
+        console.log("test : ", text)
         return text.replace(/\n/g, '<br>');
     }
 

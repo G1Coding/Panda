@@ -49,13 +49,13 @@
         var clickCount = 0;
         const title = document.querySelectorAll(".admin_dropdown_title");
         const content = document.querySelectorAll(".admin_dropdown_content");
+        const menu = document.querySelector(".admin_dropdown_menu");
         var contentNum = 0;
 
 
         // 메뉴를 클릭했을때 콘텐츠가 활성화됨
         function toggle(num) {
             contentNum = num;
-            console.log("content : ", content)
             if (content[num].style.display == "block") {
                 content[num].style.display = "none";
                 clickCount = 0;
@@ -68,13 +68,14 @@
             }
             
         }
-
+        var timeoutId;
+        var titleout;
         // 콘텐츠가 활성화되어있을때 마우스가 제목을 이동하면
         // 다른 콘텐츠가 보여짐
         title.forEach((item, index) => {
-            console.log("clickCount : ", clickCount)
             item.addEventListener("mouseover", function() {
                 if (clickCount == 1) {
+                    clearTimeout(timeoutId);
                     content.forEach((contentItem) => {
                         contentItem.style.display = "none";
                     })
@@ -82,16 +83,25 @@
                 } 
             })
         })
+        menu.addEventListener("mouseover", function() {
+            clearTimeout(timeoutId);
+            clickCount = 1;
+        })
+        menu.addEventListener("mouseout", function() {
+            timeoutId = setTimeout(() => {
+                content.forEach((contentItem) => {
+                    contentItem.style.display = "none";
+                    clickCount = 0;
+                });
+            }, 100);
+        })
 
         // 콘텐츠가 활성화되어있을때 영역을 벗어나면 사라짐
         content.forEach((item) => {
-            item.addEventListener("mouseout", function() {
-                item.style.display = "none";
-                clickCount = 0;
-            });
             item.addEventListener("mouseover", function() {
-                console.log("clickCount : ", clickCount)
+                clearTimeout(timeoutId);
                 item.style.display = "block";
+                clickCount = 1;
             });
         });
     </script>
