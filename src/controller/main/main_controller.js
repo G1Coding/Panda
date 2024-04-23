@@ -20,6 +20,7 @@ const view = {
   },
   getMain_category : async(req, res) => {
     const board = await getDB.getCategoryBoard(req.params.category_id);
+    
     // 이미지 경로 확인해보기 ( 테스트 용 )
     if(req.params.category_id != 123)
       category = req.params.category_id;
