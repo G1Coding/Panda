@@ -37,30 +37,35 @@
 
                         <div class="sc-cSyrqk GDyfg">회원정보수정</div>
 
-                        <form action="/info/modify" method="post" enctype="multipart/form-data">
+                        <form id= "modifyForm" action="/info/modify" method="post" enctype="multipart/form-data" >
                           
                           
                           <table class="table">
                                 <% profile.forEach(info=>{ %>
                                 <tbody>
+                                  <tr style="display: none;">
+                                    <th scope="row" class="highlight">아이디</th>
+                                    <td><input type="text"  readonly name="id" value="<%= info.INFO_ID %>" ></td>
+              
+                                  </tr>
                                   <tr>
                                     <th scope="row" class="highlight">이름</th>
-                                    <td><input type="text"  readonly name="name" value="<%= info.INFO_NAME %>"></td>
-                                    
+                                    <td><input type="text" name="name" id= "nameInput<%= info.name %>" placeholder="이름 입력"></td>
+              
                                   </tr>
                                   <tr>
                                     
                                     <th scope="row" class="highlight">비밀번호 변경</th>
-                                    <td><input type="text" placeholder="변경비밀번호 입력"> </td>
+                                    <td><input type="text" name="pw" placeholder="변경비밀번호 입력"> </td>
                                   </tr>
              
                                         <th scope="row" class="highlight">주소</th>
-                                        <td><input type="text" id = "addrInput<%= info.addr %>" placeholder="주소 입력"> </td>
+                                        <td><input type="text" id = "addrInput<%= info.addr %>" name="addr" placeholder="주소 입력"> </td>
                                       </tr>
 
                                       <tr>
                                         <th scope="row" class="highlight">휴대폰번호</th>
-                                        <td><input type="text" id ="phoneNumberInput<%= info.num %>" placeholder="휴대폰번호 입력"> </td>
+                                        <td><input type="text" id ="phoneNumberInput<%= info.num %>" name="phone" placeholder="휴대폰번호 입력"> </td>
                                       </tr>
 
                                       <tr>
@@ -69,13 +74,15 @@
                                           <div class="fbrlWN">
                                             <input type="file" name="image_file_name" onchange="readURL(this);">
                                             <div id="img-container">
-
+                                              
+                                     
                                               <% if(info.INFO_IMG) { %>
-                                                <img id="img" src="<%= info.INFO_IMG %>" alt="프로필 이미지">
+                                                <img id="img" src="/static/upload/<%= info.INFO_IMG %>" alt="프로필 이미지">
                                             <% } else { %>
                                                 <!-- 프로필 이미지가 없는 경우 기본 이미지 표시 -->
-                                                <img id="img" src="/static/upload/panda_p.png" alt="기본 이미지">
+                                                <img id="img"src="/static/upload/panda_p.png" alt="기본 이미지">
                                             <% } %>
+
 
                                               <!--
                                               <img id="img" src="<%= info.INFO_IMG ? info.INFO_IMG : '/static/upload/대두.jpg' %>" alt="기본이미지">
@@ -95,17 +102,25 @@
 
                               <% profile.forEach(info=>{ %>
 
-                        <div class="gczMwZ">
-                          <div class="button-container">
-                          <a href="info/deleteInfo" class="deleteInfo-link">탈퇴</a>
+                             
+                                <div class="gczMwZ">
+                                  <div class="button-container">
+                                    <input type="button" class="deleteInfo-link" onclick="location.href='/info/delete?info_id=<%= info.INFO_ID %>'" value="탈퇴">
+                                    <!--
+                              <form id="deleteForm" action="/info/delete" method="post">
+                            <input type="button" onclick="submitDel()" value="탈퇴" class="deleteInfo-link">
+                            <button type="submit" class="deleteInfo-link" >탈퇴</button>
+                            -->
                           </div>
+
                           <div class="button-container">
-                            <!--
                             <button type="button" class="fHBotQ"
                             onclick="submitForm()">수정</button>
-                            -->
+                            <!--
+                              <a href="info/deleteInfo" class="deleteInfo-link">탈퇴</a>
                             <input type="submit" value="수정">
-                        </div>
+                          -->
+                          </div>
                         </div>                 
     <% }) %>
         </form>
@@ -124,17 +139,24 @@
 
   <script>
     // JavaScript를 사용하여 placeholder를 동적으로 설정
-    <% profile.forEach(info=>{ %>
+     <%profile.forEach(info=>{ %>
       let phoneNumberInput<%= info.num %> = document.getElementById('phoneNumberInput<%= info.num %>');
       phoneNumberInput<%= info.num %>.placeholder = '<%= info.INFO_PHONE %>';
 
       let addrInput<%= info.addr %> = document.getElementById('addrInput<%= info.addr %>');
       addrInput<%= info.addr %>.placeholder = '<%= info.INFO_REGION %>';
+
+      let nameInput<%= info.name %> = document.getElementById('nameInput<%= info.name %>');
+      nameInput<%= info.name %>.placeholder = '<%= info.INFO_NAME %>';
     <% }) %>
 
     function submitForm() {
     document.getElementById('modifyForm').submit();
+    }
+    function submitDel() {
+    document.getElementById('deleteForm').submit();
   }
+
   </script>
 </body>
 </html>

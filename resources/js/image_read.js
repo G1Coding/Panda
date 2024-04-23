@@ -7,8 +7,8 @@ const readURL = (input) => {
         let reader = new FileReader();
         reader.readAsDataURL( file )
         reader.onload = (e) => {
-            console.log( e.target.result );
             document.getElementById("img").src = e.target.result;
+            console.log(document.getElementById("img").src)
         }
     }
 }

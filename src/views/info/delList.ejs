@@ -1,0 +1,18 @@
+<h3>delList</h3>
+
+<% delList.forEach(delInfo=>{ %>
+id: <%= delInfo.INFO_ID %><br />
+pw: <%= delInfo.INFO_PW %><br />
+name: <%= delInfo.INFO_NAME %><br />
+region: <%= delInfo.INFO_REGION %><br />
+img: <%= delInfo.INFO_IMG %><br />
+phone: <%= delInfo.INFO_PHONE %><br />
+admin: <%= delInfo.INFO_ADMIN %><br />
+point: <%= delInfo.INFO_POINT %><hr />
+<% }) %>
+<a href="/info/register_form">등록</a>
+<a href="/info/list">리스트</a>
+
+<br>
+<hr>
+

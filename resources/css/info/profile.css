@@ -23,12 +23,14 @@
 }
 .ermrpj {
   flex-shrink: 0;
+  
 }
 .ipXCvk {
   width: 310px;
   height: 310px;
   position: relative;
   color: rgb(255, 255, 255);
+  object-fit: cover;  
 }
 .leXbQf {
   position: absolute;
@@ -105,6 +107,12 @@
   font-weight: 550;
   
 }
+.info_img{
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .blcYdX {
   height: 40px;
   width: 100px;

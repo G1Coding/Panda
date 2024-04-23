@@ -19,15 +19,17 @@ router.get("/inquiry", infoCtrl.info_views.inquiry)
 router.get("/upload", infoCtrl.info_views.upload)
 router.get("/inquiry_form", infoCtrl.info_views.inquiryForm)
 router.get("/infoModify_form", infoCtrl.info_views.modifyForm)
-//router.post("/modify", upload.single("image_file_name"),
-  //      infoCtrl.info_process.modify);
-router.post("/modify", infoCtrl.info_process.modify)
+router.post("/modify", upload.single("image_file_name"),
+        infoCtrl.info_process.modify);
+router.get("/delete", infoCtrl.info_process.delete)
 
 router.get("/list", infoCtrl.info_views.list)
+//router.get("/delList", infoCtrl.info_views.delList)
+
 router.get("/starList", infoCtrl.info_views.starList)
 router.get("/register_form", infoCtrl.info_views.registerForm)
 router.post("/register", infoCtrl.info_process.register)
-router.get("/member_view/:id", infoCtrl.info_views.memberView)
+router.get("/member_view", infoCtrl.info_views.memberView) // /member_view/:id
 router.get("/star_form", infoCtrl.info_views.starForm)
 router.post("/star", infoCtrl.info_process.star)
 

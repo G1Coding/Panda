@@ -4,6 +4,7 @@ const getMessage = (msg, url) => {
         location.href="${url}";
     </script>`;
 };
+/*
 const timeModify = (list) => {
   list = list.map((data) => {
     data.SAVE_DATE = data.SAVE_DATE.toLocaleString();
@@ -11,5 +12,5 @@ const timeModify = (list) => {
   });
   return list;
 };
-
-module.exports = { getMessage, timeModify };
+*/
+module.exports = { getMessage };

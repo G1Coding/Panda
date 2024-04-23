@@ -14,7 +14,7 @@ const infoInsert = {
       body.change_file_name = file.filename;
     }
     console.log('body : ', body);
-    const result = dao.infoInsert.inquiryF(body);
+    const result = memberDAO.infoInsert.inquiryF(body);
     if (result.rowsAffected === 1) {
       msg = '등록되었습니다!';
       url = '/info/inquiry';
@@ -30,11 +30,11 @@ const infoInsert = {
     let msg = '',
       url = '';
     if (result == 0) {
-      msg = '문제발생!!';
+      msg = '문제가 발생했습니다.';
       url = '/info/register_form';
     } else {
-      msg = '등록성공!!';
-      url = '/info/list'; //profile?
+      msg = '등록 완료되었습니다.';
+      url = '/info/productM'; //profile?
     }
     return common.getMessage(msg, url);
   },
@@ -44,10 +44,10 @@ const infoInsert = {
     let msg = '',
       url = '';
     if (result == 0) {
-      msg = '문제발생!!';
+      msg = '문제가 발생했습니다.';
       url = '/info/star_form';
     } else {
-      msg = '등록성공!!';
+      msg = '등록 완료되었습니다.';
       url = '/info/starList'; //profile?
     }
     return common.getMessage(msg, url);
@@ -89,37 +89,73 @@ const infoUpdate = {
         return common.getMessage(msg, url)
     },
     */
-  modify: async (body) => {
+  modify: async (body, file) => {
+    //console.log("mbody", body)
+    if (file !== undefined) {
+      body.image_file_name = file.originalname;
+    }
+
     console.log('m확인');
-    let msg = '',
-      url = '';
+    let result = 0;
     try {
-      let result = await memberDAO.infoUpdate.modify(body);
-      if (result == 0) {
-        msg = '수정문제발생!!';
-        url = '/info/modify_form?info_id=' + body.info_id;
-      } else {
-        msg = '수정성공!!';
-        url = '/info/productM/' + body.info_id;
-      }
+      result = await memberDAO.infoUpdate.modify(body);
     } catch (err) {
       console.log(err);
-      msg = '수정중오류!!';
-      url = '/info/modify_form?info_id=' + body.info_id;
+      msg = '수정중 오류가 발생했습니다.';
+      url = '/info/infoModify_form?info_id=' + body.id;
     }
-    return common.getMessage(msg, url);
+    let msg, url;
+    let message = {};
+    if (result !== 0) {
+      msg = '수정 완료되었습니다.';
+      url = '/info/productM/';
+      // + body.id; 쓰면 페이지가 바로 넘어가지 않음
+    } else {
+      msg = '문제가 발생했습니다.';
+      url = '/info/infoModify_form?info_id=' + body.id;
+    }
+    message.msg = common.getMessage(msg, url);
+    return message;
+  },
+  delete: async (query) => {
+    let result = 0;
+    try {
+      result = await memberDAO.infoUpdate.delete(query);
+
+      console.log('ser result : ', result);
+    } catch (err) {
+      console.log(err);
+      msg = '탈퇴중 오류가 발생했습니다.';
+      url = `/info/infoModify_form?info_id='${query.info_id}'`;
+    }
+    let msg, url;
+    let message = {};
+    if (result !== 0) {
+      msg = '탈퇴가 완료되었습니다.';
+      url = '/info/productM/'; //나중에 회원가입창으로 연결, 탈퇴되었을때 페이지수정못함
+    } else {
+      msg = '문제가 발생했습니다.';
+      url = `/info/infoModify_form?info_id='${query.info_id}'`;
+    }
+    message.msg = common.getMessage(msg, url);
+    return message;
   },
 };
 
 const infoRead = {
-  getMember: async (mId) => {
-    let member = await memberDAO.infoRead.getMember(mId);
-    console.log('member[0] : ', member.rows[0]);
-    return member.rows[0];
+  getMember:  (query) => {
+    //let member = await memberDAO.infoRead.getMember(query);
+    if(query === query){
+    console.log('ser viewquery : ', query);
+    //return member.rows[0];
+    return query;
+    }else{
+      return null
+    }
   },
   getProfile: async () => {
     const result = await memberDAO.infoRead.getProfile();
-    console.log('ser : ', result);
+    // console.log('ser : ', result);
     return result.rows;
   },
 };
@@ -129,6 +165,12 @@ const getList = async () => {
   console.log('ser : ', result);
   return result.rows; //ctrl돌려줌
 };
+/*
+const getDel = async () => {
+  const result = await memberDAO.getDel();
+  return result.rows;
+};
+*/
 const getStarList = async () => {
   const result = await memberDAO.getStarList();
   console.log('ser : ', result);

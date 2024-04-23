@@ -1,3 +1,4 @@
+const { query } = require('express');
 const service = require('../../service/info/info_service');
 const common = require('../../service/ser_common');
 
@@ -7,6 +8,13 @@ const info_views = {
     console.log('list : ', list);
     res.render('info/list', { list });
   },
+  /*
+  delList : async (req, res)=>{
+    const delList= await service.getDel();
+    console.log("dellist : ", delList)
+    res.render("info/delList",{delList})
+  },
+  */
   starList: async (req, res) => {
     const starList = await service.getStarList();
     console.log('starList : ', starList);
@@ -15,11 +23,12 @@ const info_views = {
   profile: async (req, res) => {
     const profile = await service.infoRead.getProfile();
     console.log('profile : ', profile);
-    res.render('info/profile', { profile, ratingInfo });
+    res.render('info/profile', { profile});//ratingInfo
   },
   productM: async (req, res) => {
     const profile = await service.infoRead.getProfile();
-    res.render('info/productM', { profile });
+
+    res.render('info/productM', { profile});
   },
   history: async (req, res) => {
     const profile = await service.infoRead.getProfile();
@@ -43,8 +52,8 @@ const info_views = {
     res.render('info/register_form');
   },
   memberView: async (req, res) => {
-    console.log(req.params);
-    let member = await service.infoRead.getMember(req.params);
+    console.log("con query",req.query);
+    let member = await service.infoRead.getMember(req.query.id); // id?
     res.render('info/member_view', { member });
   },
   starForm: (req, res) => {
@@ -62,23 +71,40 @@ const info_process = {
     res.status(200).send('성공적 업로드');
   },
   */
- /*
+ 
   modify: async (req, res) => {
     console.log(req.body);
-    const deleteFile= req.body.info_img
+    const deleteFile= req.body.image_file_name;//info_img?
+    console.log(req.body.image_file_name)//info_img?
     const message= await service.infoUpdate.modify(req.body,req.file);
     if(req.file !== undefined && message.result===1){
         this.file_process.delete(deleteFile)
     }
     res.send(message.msg);
   },
-  */
+  delete : async (req, res)=>{
+    console.log("ctrl query : ", req.query)
+    const message = await service.infoUpdate.delete(req.query);
+    res.send(message.msg)
+    //res.redirect("/info/productM")//나중에 로그인창이나 회원가입창으로
+  },
+  register: async (req, res) => {
+    console.log(req.body);
+    let msg = await service.infoInsert.insert(req.body);
+    res.send(msg);
+  },
+  star : async(req, res)=>{
+    let msg= await service.infoInsert.starInsert(req.body)
+    res.send(msg)
+  },
+    /*
  modify :async(req, res)=>{
     console.log("modify확인")
+    console.log("con", req.params);
     let msg= await service.infoUpdate.modify(req.body)
     res.send(msg)
  },
-
+*/
   /*
   inquiryF: (req, res) => {
     const msg = service.infoInsert.inquiryF(
@@ -89,15 +115,6 @@ const info_process = {
     res.send(msg);
   },
   */
-  register: async (req, res) => {
-    console.log(req.body);
-    let msg = await service.infoInsert.insert(req.body);
-    res.send(msg);
-  },
-  star : async(req, res)=>{
-    let msg= await service.infoInsert.starInsert(req.body)
-    res.send(msg)
-  },
 };
 
 const fs = require('fs');

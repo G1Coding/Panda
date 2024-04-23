@@ -10,16 +10,14 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-    <link href="/static/css/header.css" rel="stylesheet" >
+    <%- include ("../common/header") %>
+    <link href="/static/css/header.module.css?after" rel="stylesheet" >
   <link href="/static/css/info/productM.css" rel="stylesheet" >
-
-  
 </head>
 <body>
   <header>
-    <%- include ("../common/header") %>
   </header>
-
+  
   <div id="root">
     <div class="app">
       <div class="sc-hGoxap blnodS">
@@ -36,9 +34,9 @@
                         <div class="sc-dEfkYy ckyNBp" style="width: fit-content;">
                           <%- include ("./profile.ejs") %>
                           <div class="sc-cqPOvA gxRxBk"></div>
+                          </div>
                           
-                          
-                          
+                          </div>
                           <div class="sc-gNJABl cgKkBr" style="display: flex; justify-content: flex-end;">
                             <a class="sc-yZwTr gjjbyQ" href="">전체</a>
                             <a class="sc-yZwTr gjjbyQ" href="">판매</a>
@@ -50,6 +48,9 @@
             <div class="sc-fvLVrH dUcFyG">
               <div class="sc-kqlzXE kdQTYb">
                 <div class="sc-gpHHfC dvLjiM">
+                  <a class="sc-gVyKpa gmerZt01" style="display: none;">
+                    글번호
+                  </a>
                   <a class="sc-gVyKpa gmerZt01">
                     사진
                   </a>
@@ -78,6 +79,7 @@
 
       <div class=" text-center">
         <div class="row row-cols-7">
+          <div class="col" style="display: none;">글번호</div>
           <div class="col" style="margin-top: -40px;"  >
             <img src="/static/upload/panda_p.png" width="100px" height="100px"></div>
           <div class="col">

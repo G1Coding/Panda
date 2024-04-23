@@ -1,10 +1,10 @@
-<h3>test</h3>
+<h3>list</h3>
 
 <% list.forEach(info=>{ %>
 id: <%= info.INFO_ID %><br />
 pw: <%= info.INFO_PW %><br />
 name: 
-<a href="/info/member_view/<%= info.INFO_ID %>">
+<a href="/info/member_view?info_id=<%= info.INFO_ID %>">
     <%= info.INFO_NAME %></a><br />
 
 region: <%= info.INFO_REGION %><br />
@@ -14,6 +14,7 @@ admin: <%= info.INFO_ADMIN %><br />
 point: <%= info.INFO_POINT %><hr />
 <% }) %>
 <a href="/info/register_form">등록</a>
+<a href="/info/delList">delList이동</a>
 <br>
 <hr>
 

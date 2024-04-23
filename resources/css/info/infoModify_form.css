@@ -155,6 +155,7 @@
     width: 250px;
     overflow: hidden;
     position: relative;
+    object-fit: cover;
   }
   #img{
     position: absolute;
