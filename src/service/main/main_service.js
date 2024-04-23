@@ -49,7 +49,7 @@ modifyData = {
       diff = diff / 60;
       let hours = Math.floor((diff / 60) % 24);
       diff = diff / 60;
-      let days = Math.floor(diff / 24) - 730487;
+      let days = Math.floor(diff / 24);
 
       if(days == 0)
         list.rows[i].BOARD_CREATETIME = '오늘';
