@@ -43,8 +43,8 @@
             });
         });
         document.querySelector('.navbar-toggler').addEventListener('click', function () {
-        var offcanvas = document.querySelector('#offcanvasNavbar');
-        var backdrop = document.querySelector('.offcanvas-backdrop');
+        const offcanvas = document.querySelector('#offcanvasNavbar');
+        const backdrop = document.querySelector('.offcanvas-backdrop');
 
         if (offcanvas.classList.contains('show')) {
             backdrop.remove();
@@ -66,9 +66,11 @@
         <nav class="navbar navbar-expand-lg fixed-top"> <!--화면 확장했을 때, 햄버거 바 메뉴 보이게-->
             <div class="container-fluid  ">
 
+                
                 <!-- 로고 부분 -->
-                <a class="header-logo">
+                <a class="header-logo" href="/">
                     <img src="/resources/upload/logo.png" alt="Panda 로고">
+                  
                 </a>
 
                 <!-- 제목 -->
@@ -101,10 +103,10 @@
                                 <a class="nav-link active mx-lg-2" aria-current="page" href="#">Home</a>
                             </li> -->
                             <li class="nav-item">
-                                <a class="nav-link mx-lg-2" href="#">PAY</a>
+                                <a class="nav-link mx-lg-2" href="/">PAY</a>
                             </li>
                             <li class="nav-item">
-                                <a class="nav-link mx-lg-2" href="#">프로필</a>
+                                <a class="nav-link mx-lg-2" href="/">프로필</a>
                             </li>
                         </ul>
                     </div>
@@ -128,7 +130,7 @@
                     </form>
                 </div>
 
-                <button class="navbar-toggler pe-0" type="button" data-bs-toggle="offcanvas"
+                <button class="navbar-toggler pe-0 ml-auto" type="button" data-bs-toggle="offcanvas"
                 data-bs-target="#offcanvasNavbar" aria-controls="offcanvasNavbar" aria-label="Toggle navigation"
                 data-bs-backdrop="false">
                 <span class="navbar-toggler-icon"></span>
