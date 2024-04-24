@@ -32,6 +32,11 @@ const getData = {
     const result = await service.get.getBuyerOk(req.params.board_num);
 
     res.json(result.rows);
+  },
+  getUserInfo : async (req, res) => {
+    const result = await service.get.getUserInfo(req.cookies.user_id);
+
+    res.json(result.rows);
   }
 }
 

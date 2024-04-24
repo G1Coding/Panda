@@ -21,6 +21,11 @@ get = {
     const result = await dao.getBuyerOk(board_num);
 
     return result;
+  },
+  getUserInfo : async (userId) => {
+    const result = await dao.get.getUserInfo(userId);
+
+    return result;
   }
 }
 

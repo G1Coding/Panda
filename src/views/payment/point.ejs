@@ -132,34 +132,41 @@
     //   let order = 0;
 
     function requestPay(payment_price, payment_pg) {
-      IMP.request_pay({
-          pg: payment_pg,
-          pay_method: "card",
-          merchant_uid: "57008831-33111" + new Date().toLocaleString(),
-          name: "판다 포인트 충전",
-          amount: payment_price,
-          buyer_email: "",
-          buyer_name: "포트원 기술지원팀",
-          buyer_tel: "010-1234-5678",
-          buyer_addr: "서울특별시 강남구 삼성동",
-          buyer_postcode: "123-456",
-        },
-        function (rsp) {
-          // callback
-          //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
-          if (rsp.success) {
-            console.log("성공");
-            fetch(`/payment/set_point/` + payment_price)
-              .then(res => res.json())
-              .then(data => {
-                alert("충전 성공!!!");
-                location.href= "/";
-              });
-          } else {
-            console.log("실패");
-          }
-        }
-      );
+
+      fetch(`/payment/get_userInfo`)
+        .then(res => res.json())
+        .then(data => {
+          IMP.request_pay({
+              pg: payment_pg,
+              pay_method: "card",
+              merchant_uid: "57008831-33111" + new Date().toLocaleString(),
+              name: "판다 포인트 충전",
+              amount: payment_price,
+              buyer_email: "",
+              buyer_name: data[0].INFO_NAME,
+              buyer_tel: data[0].INFO_PHONE,
+              buyer_addr: data[0].INFO_REGION,
+              buyer_postcode: "",
+            },
+            function (rsp) {
+              // callback
+              //rsp.imp_uid 값으로 결제 단건조회 API를 호출하여 결제결과를 판단합니다.
+              if (rsp.success) {
+                console.log("성공");
+                fetch(`/payment/set_point/` + payment_price)
+                  .then(res => res.json())
+                  .then(data => {
+                    alert("충전 성공!!!");
+                    location.href = "/";
+                  });
+              } else {
+                console.log("실패");
+              }
+            }
+          );
+
+        });
+
     }
 
     const payMoney = () => {

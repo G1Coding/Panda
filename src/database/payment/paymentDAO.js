@@ -25,6 +25,12 @@ get = {
 
     return result;
   }, 
+  getUserInfo : async (userId) => {
+    const sql =`select * from user_info where info_id = '${userId}'`;
+    const result = await (await con).execute(sql);
+
+    return result;
+  }
 
 };
 
