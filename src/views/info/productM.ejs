@@ -77,12 +77,25 @@
                 </div>
       </div>
 
+      
+      <% boardInfo.forEach(info=>{ %>
       <div class=" text-center">
         <div class="row row-cols-7">
-          <div class="col" style="display: none;">글번호</div>
-          <div class="col" style="margin-top: -40px;"  >
-            <img src="/resources/upload/panda_p.png" width="100px" height="100px"></div>
-          <div class="col">
+            <div class="col" style="margin-top: -40px;"  >
+          <div class="col" style="display: none;" name="board_num"><%= info.BOARD_NUM %></div>
+
+          <img src="/resources/upload/panda_p.png" width="100px" height="100px"></div>
+          
+          <!--
+            <% if(info.BOARD_IMG) { %>
+              <img id="img"  class="info_img" src="/resources/upload/<%= info.BOARD_IMG %>" alt="상품 이미지">
+              <% } else { %>
+              
+                <img id="img" class="info_img" src="/resources/upload/panda_p.png" alt="기본 이미지">
+                <% } %>
+              -->
+
+            <div class="col">
 
             <div class="dropdown">
               <button class="dropbtn"> 
@@ -94,19 +107,20 @@
                 <a href="#">판매완료</a>
               </div>
             </div>
-            
 
-            
           </div>
-          <div class="col">상품명</div>
-          <div class="col">가격</div>
-          <div class="col">작성일</div>
-          <div class="col">조회수</div>
+
+          <a href="/info/content/<%= info.BOARD_VIEWS %>/<%=info.BOARD_NUM%>" class="col" name="board_title">
+            <%= info.BOARD_TITLE %>
+          </a>
+          <div class="col" name="board_price"><%= info.BOARD_PRICE %></div>
+          <div class="col" name="board_createTime"><%= info.BOARD_CREATETIME %></div>
+          <div class="col" name="board_views"><%= info.BOARD_VIEWS %></div><!--조회수-->
           <div class="col">
             <button type="button">수정</button>
             <button type="button">삭제</button>
           </div>
-
+          <% }) %>
         </div>
       </div>
       <hr>

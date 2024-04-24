@@ -1,5 +1,7 @@
+const { symlink, rmSync } = require('fs');
 const memberDAO = require('../../database/info/info_database');
 const common = require('../ser_common');
+const { userInfo } = require('os');
 
 const infoInsert = {
   inquiryF: async (body, file, fileValidation) => {
@@ -53,6 +55,11 @@ const infoInsert = {
     }
     return common.getMessage(msg, url);
   },
+  /*
+  write : async (body)=>{
+    const result = await memberDAO.infoInsert.write(body)
+  }
+  */
 };
 
 const infoUpdate = {
@@ -154,8 +161,24 @@ const infoRead = {
     console.log('ser cookie : ', result);
     return result.rows;
   },
+  getBoard: async (userId) => {
+    //userid
+    const result = await memberDAO.infoRead.getBoard(userId); //userid
+   // console.log('ser getboard : ', result);
+    return result.rows;
+  },
+  content: async (count, board_num) => {
+    pageUpdate.upHit(count, board_num);
+    const data = await memberDAO.infoRead.content(count, board_num);
+    return data.rows[0];
+  },
 };
 
+const pageUpdate = {
+  upHit: (count , board_num) => {
+    memberDAO.infoUpdate.upHit(count, board_num);
+  },
+};
 const getList = async () => {
   const result = await memberDAO.getList();
   console.log('ser : ', result);
@@ -178,4 +201,11 @@ const getRatingInfo = async () =>{
 
 }
 */
-module.exports = { infoInsert, infoRead, infoUpdate, getList, getStarList };
+module.exports = {
+  infoInsert,
+  infoRead,
+  infoUpdate,
+  getList,
+  getStarList,
+  pageUpdate,
+};
