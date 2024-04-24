@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설문조사</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  
+</head>
+<body>
+    <div class="container mt-5">
+        
+        <form id="surveyForm" action="/submit" method="post" >
+        
+            <div class="form-group">
+                <div class="row">
+                    <div class="col">
+                        <select class="form-control" name="category1" onchange="changeCategory(this.value)" id="category1" required>
+                            <option value="">카테고리를 선택해주세요</option>
+                            <option value="옷">옷</option>
+                            <option value="전자기기">전자기기</option>
+                            <option value="필기도구">필기도구</option>
+                        </select>
+                        <small id="category1Error" class="error-message" style="display: none;">카테고리를 선택해주세요.</small>
+                    </div>
+                    <div class="col">
+                        <select class="form-control" name="category2" onchange="changeCategory2(this.value)" id="category2" disabled required>
+                            <option value="">하위 카테고리</option>
+                        </select>
+                        <small id="category2Error" class="error-message" style="display: none;">하위 카테고리를 선택해주세요.</small>
+                    </div>
+                    <div class="col">
+                        <select class="form-control" name="category3" id="category3" disabled required>
+                            <option value="">하위 카테고리</option>
+                        </select>
+                        <small id="category3Error" class="error-message" style="display: none;">하위 카테고리를 선택해주세요.</small>
+                    </div>
+                    <div>
+                        <button>확인</button>
+                    </div>
+                </div>
+            
+                
+            </div>
+
+            
+        </form>
+
+
+    </div>
+
+    <script>
+        function changeCategory(value) {
+            const category2Dropdown = document.getElementById('category2');
+            const category3Dropdown = document.getElementById('category3');
+
+            category2Dropdown.disabled = false;
+            category2Dropdown.innerHTML = '';
+            category2Dropdown.innerHTML += '<option value="">하위 카테고리</option>';
+
+            if (value === '옷') {
+                category2Dropdown.innerHTML += '<option value="상의">상의</option>';
+                category2Dropdown.innerHTML += '<option value="하의">하의</option>';
+                category2Dropdown.innerHTML += '<option value="아우터">아우터</option>';
+                category2Dropdown.innerHTML += '<option value="원피스">원피스</option>';
+            }
+            else if (value === '전자기기' ) {
+                category2Dropdown.innerHTML += '<option value="pc">pc</option>';
+                category2Dropdown.innerHTML += '<option value="노트북">노트북</option>';
+                category2Dropdown.innerHTML += '<option value="핸드폰">핸드폰</option>';
+            }
+            else if (value === '필기도구') {
+                category2Dropdown.innerHTML += '<option value="연필">연필</option>';
+                category2Dropdown.innerHTML += '<option value="공책">공책</option>';
+                category2Dropdown.innerHTML += '<option value="형광펜">형광펜</option>';
+            }
+
+            category3Dropdown.disabled = true;
+            category3Dropdown.innerHTML = '';
+            category3Dropdown.innerHTML += '<option value="">하위 카테고리</option>';
+        }
+
+        function changeCategory2(value) {
+            const category3Dropdown = document.getElementById('category3');
+
+            category3Dropdown.disabled = false;
+            category3Dropdown.innerHTML = '';
+            category3Dropdown.innerHTML += '<option value="">하위 카테고리</option>';
+
+            if (value ===  '상의' || '하의' || '아우터' || '원피스' ) {
+                category3Dropdown.innerHTML += '<option value="기타">기타</option>';
+                
+            }
+            else if (value === 'pc' || '노트북' || '핸드폰') {
+                category3Dropdown.innerHTML += '<option value="기타">기타</option>';
+            }
+            else if (value ===  '연필' || '공책' || '형광펜') {
+                category3Dropdown.innerHTML += '<option value="기타">기타</option>';
+            }
+        }
+
+        
+
+      
+
+    </script>
+</body>
+</html>

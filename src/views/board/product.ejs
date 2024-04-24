@@ -1,1 +1,380 @@
-상품 설명
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+        integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <!-- css -->
+    <style>
+        .layout {
+            background-color: bisque;
+            display: grid;
+            grid-template-areas:
+                "header header header"
+                "   .    main    a   "
+                "   .    main    b   "
+                "footer footer footer";
+
+            grid-template-columns: 1fr 3fr 1fr;
+            /*가로 1:2:1 비율*/
+            grid-template-rows: 2fr 7fr 7fr 1fr;
+            /* grid-template-rows 아무것도 안 쓰면
+            행의 크기는 내부 컨텐츠에 맞게 자동으로 조절 */
+            height: 100vh;
+
+            overflow: auto;
+            /*스크롤(세로)*/
+        }
+
+        /* ＠＠＠＠＠ HEADER ＠＠＠＠＠ */
+        .header {
+            background-color: aqua;
+
+            grid-area: header;
+            position: sticky;
+            /*상단 고정*/
+        }
+
+
+
+        .details {
+            background-color: white;
+            padding: 30px;
+        }
+
+        /*＠＠＠＠＠ MAIN 부분＠＠＠＠＠ */
+        .main-content {
+            background-color: rgb(176, 90, 176);
+            grid-area: main;
+            align-self: center;
+            padding: 10px
+        }
+
+        /* main-content 상단 */
+        .product-info {
+            display: flex;
+            /* Flexbox를 사용하여 가로 정렬 */
+
+            background-color: lavender;
+            padding: 10px;
+            justify-content: space-evenly;
+        }
+
+        /* 상품 사진 */
+        .product-info-a {
+            background-color: grey;
+            padding: 30px;
+            flex: 1;
+            /* 자식 요소에 균등한 너비 할당 */
+
+        }
+
+        /* 상품 정보 */
+        .product-info-b {
+            background-color: yellow;
+            padding: 30px;
+            flex: 1;
+            /* 자식 요소에 균등한 너비 할당 */
+
+        }
+
+        /* main-content 하단 */
+        .deatil-info {
+            background-color: coral;
+            padding: 10px;
+
+        }
+
+        /*＠＠＠＠＠ 조회수 + 채팅 ＠＠＠＠＠ */
+        .side-a {
+            background-color: pink;
+            grid-area: a;
+            padding: 10px
+        }
+
+        /* 조회수 */
+        .view-count {
+            background-color: red;
+            padding: 10px;
+        }
+
+        /* 채팅 */
+        .go-chat {
+            background-color: orange;
+            padding: 10px;
+        }
+
+        /*＠＠ 최근 본 상품＠＠ */
+        .side-b {
+            background-color: yellow;
+            grid-area: b;
+            padding: 10px;
+        }
+
+
+        /* ＠＠＠＠＠ FOOTER ＠＠＠＠＠ */
+        .footer {
+            background-color: aqua;
+            grid-area: footer;
+        }
+
+        /* p {
+            border: 1px solid green;
+        } */
+
+
+
+
+        /* 화면 크기 늘어났을 때 */
+        @media(min-width: 721x) {}
+
+        /* 화면 작아지면 */
+        @media(max-width: 720px) {
+
+            .view-count,
+            .side-b,
+            .product-info-b{
+                display: none;
+            }
+
+        }
+
+
+        .tab-name {
+            /* background-color: violet; */
+            width: 150px;
+            display: inline-block;
+            font-size: large;
+            font-weight: bold;
+        }
+
+        .tab {
+            display: inline-block;
+            /*가로로 배치*/
+            padding: 10px;
+            /* margin: 5px; */
+            /* background-color: yellow; */
+        }
+
+        .selected {
+            display: inline-block;
+            color: red;
+            /* background-color: yellow; */
+            /* font-size: 30px; */
+            font-weight: bold;
+        }
+
+        .div-gap {
+            height: 10px;
+            background-color: pink;
+        }
+
+        .details-one-row {
+            background-color: white;
+        }
+    </style>
+
+
+</head>
+
+<body>
+    <script>
+        const productPicture = "상품 사진";
+        const productName = "신발";
+        const productPrice = "3000";
+
+        const productStatus = "새상품";
+        const productMethod = "택배";
+
+        const pollutionStatus = "있음";
+        const ment = "판매자 한 마디";
+
+        const location = "지역";
+        const locationDetail = "상세 위치";
+
+        const delivery = "택배 거래";
+
+        const views = "30";
+    </script>
+    <div class="layout">
+        <header class="header" style="text-align: center;">
+            <!-- <h2>Header</h2> -->
+            <%-include ('../common/header.ejs') %>
+        </header>
+
+
+
+        <!-- main 부분 -->
+        <main class="main-content" style="height: max-content;">
+
+            <div class="product-info">
+
+                <div class="product-info-a">
+
+                </div>
+                <div class="product-info-b">
+                    <p>
+                    <h3><%= member.title %></h3>
+                        </p>
+                        <p>
+                        <h3><%= member.price %></h3>
+                        
+                            </p>
+                            <div class="details bg-success">
+                            
+                                <h3>상품 상태</h3>
+                                <%= member.condition %>
+                                    
+                                    <p>
+                                    <h3>거래 방식</h3>
+
+                                    <% const tabNames0=["택배", "직거래"]; %>
+                                    <% for (let i = 0; i < tabNames0.length; i++) { %>
+                                        <div class="tab <%= (member.direct == '가능' && tabNames0[i] == '직거래') || (member.delivery == '가능' && tabNames0[i] == '택배') ? 'selected' : '' %>">
+                                            <%= tabNames0[i] %>
+                                        </div>
+                                    <% } %>
+
+                                    </p>
+                            </div>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="deatil-info">
+                <div class="bg-danger">
+                    <h1>상품 설명</h1>
+
+                    <div class="details">
+
+                        <!-- 아래 내용 -->
+                        <div class="details-one-row">
+                            <div class="tab-name">사용감 </div>
+                            <!-- 사용감(상품 상태) -->
+                            <% const tabNames=["거의 없음", "약간 있음" , "많음" , "아주 많음" ]; %>
+                                <% for (let i=0; i < tabNames.length; i++) { %>
+                                    <div class="tab <%= (member.condition == tabNames[i])  ? 'selected' : '' %>">
+                                        <%= tabNames[i] %>
+                                    </div>
+                                    <% } %>
+                        </div>
+
+                        
+
+
+
+
+
+                        <div class="div-gap"></div>
+                        <div class="details-one-row">
+                            <div class="tab-name"> 오염 정도 </div>
+                            <!-- 오염(상품 상태) -->
+                            <% const tabNames2=["없음", "2곳 이상" , "5곳 이상" , "10곳 이상" ]; %>
+                                <% for (let i=0; i < tabNames2.length; i++) { %>
+                                    <div class="tab <%= (member.pollution == tabNames2[i])  ? 'selected' : '' %>">
+                                        <%= tabNames2[i] %>
+                                    </div>
+                                    <% } %>
+                        </div>
+
+
+                        <div class="div-gap"></div>
+                        <div class="details-one-row">
+                            <!-- 판매자 한마디 -->
+                            <div class="tab-name"> 판매자 한 마디 </div>
+                            <%= member.userText %>
+                        </div>
+                    </div>
+
+                </div>
+                <hr>
+
+                <div class="bg-danger">
+                    <h1>직거래 위치</h1>
+
+                    <div class="details">
+                        <div class="details-one-row">
+                            <!-- 지역 -->
+                            <div class="tab-name"> 지역 </div>
+                            <%= member.area  %>
+
+                        </div>
+                        <div class="details-one-row">
+                            <!-- 상세 지역 -->
+                            <div class="tab-name"> 상세 지역 </div>
+                            <%= member.area_detail  %>
+
+                        </div>
+                    </div>
+                </div>
+                <hr>
+                <div class="bg-danger">
+                    <h1>택배 거래</h1>
+
+                    <div class="details">
+                        <div class="details-one-row">
+                            <!-- 택배 거래 -->
+
+                            <!-- 배송 가능성(상품 상태) -->
+                            <% const tabNames3=["불가능", "가능" ]; %>
+                                <% for (let i=0; i < tabNames3.length; i++) { %>
+                                    <div class="tab <%= (member.delivery == tabNames3[i]) ? 'selected' : '' %>">
+                                        <%= tabNames3[i] %>
+                                            <%= (member.delivery=="가능" && tabNames3[i]=="가능" ) ? '(+ 3000원)' : '' %>
+                                    </div>
+                                    <% } %>
+
+
+                        </div>
+                        <!-- <p>상품정보 </p>  <p>상품 상세</p> -->
+        </main>
+
+        <!-- 조회수 + 채팅 -->
+        <div class="side-a" style="text-align: center;">
+            <div class="details">
+
+                <div class="view-count">
+                    <h2>조회수</h2>
+                    <h4>
+                        <%= member.views %>
+                    </h4>
+                </div>
+
+            </div>
+            <div class="details bg-success">
+                <div class="go-chat">
+                    <p>구매 신청 <br> 채팅</p>
+
+                </div>
+
+            </div>
+        </div>
+
+
+        <!-- 최근 본 상품 -->
+        <div class="side-b" style="text-align: center;">
+            <div class="details">
+                <h1>최근 본 상품</h1>
+            </div>
+            <div class="details" style="background-color: bisque;">
+                <h3>상품 목록</h3>
+            </div>
+
+        </div>
+
+        <!-- footer -->
+        <footer class="footer" style="text-align: center;">
+            <h1>Footer (Bottom)</h1>
+        </footer>
+    </div>
+
+
+
+</body>
+
+</html>

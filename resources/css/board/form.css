@@ -1,0 +1,256 @@
+body {
+    background: #f4f4f9;
+    font-family: Arial, sans-serif;
+    /* 전체 페이지에 대한 폰트 설정 */
+
+}
+
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+    /* 다른 컨텐츠 위에 표시 */
+    height: 60px;
+    /* 배경색 지정 */
+    background-color: #fff;
+    border-bottom: 1px solid #ccc;
+    /* 헤더에 밑줄 추가 */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+
+h2 {
+    font-size: 30px;
+    font-weight: 400;
+    color: #333;
+}
+
+
+/* form 버튼 */
+.my-btn {
+    width: 100%;
+    padding: 10px;
+    color: white;
+    font-weight: bold;
+    border-radius: 24px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.4s;
+    /* 버튼에 호버 효과 추가 */
+    background-color: rgb(100, 149, 237);
+    /* 버튼의 배경색 변경 */
+    border: none;
+    /*테두리 X*/
+    letter-spacing: 10px;
+    /* 글자 사이의 간격을 조절. */
+
+}
+
+.my-btn:hover {
+    background-color: #0055ff;
+}
+
+
+/* 버튼이 닫혔을 때  */
+.close-btn {
+    position: fixed;
+
+}
+
+/* 프로그래스 바 
+        아이템은 progress-bar, progress-text, message-text */
+.progress-container {
+    /* background-color: yellow; */
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    /* 1:1 비율로 아이템 배치*/
+    /* margin-bottom: 20px;  그냥 아래에 박스로 공간 띄울까? */
+    align-content: space-between;
+}
+
+/* 프로그래스 바 배경 */
+.progress {
+    /* background-color: yellow; */
+    border-radius: 5px;
+    width: 100%;
+    /* 한 열 전체 차지 */
+    grid-column: 1 / -1;
+    /* 전체 열 */
+    grid-row: 1;
+    margin: 10px 0px 10px 0px;
+    /* 위/오른/아래/왼 여백 추가 */
+}
+
+.progress-bar {
+    /* background-color: #c0236a; */
+    border-radius: 5px;
+    height: 100%;
+    transition: width 0.5s ease;
+}
+
+.message-text {
+    /* background-color: palevioletred; */
+    text-align: start;
+    grid-column: 1;
+    /* 첫 번째 열에 위치 */
+    grid-row: 2;
+    color: #727272;
+
+}
+
+.progress-text {
+    /* background-color: aquamarine; */
+    text-align: end;
+    grid-column: 2;
+    /* 두 번째 열에 위치 */
+    grid-row: 2;
+
+}
+
+/* 공간공간 여백 주기 */
+.div-gap {
+    /* background-color: pink; */
+    width: 100%;
+    /* height: 10px; */
+    /* 원하는 간격 크기 */
+}
+
+
+/* 폼 컨테이너 스타일 */
+.form-container {
+    background-color: #fff;
+
+    min-width: 480px;
+    min-height: 690px;
+    padding: 20px;
+
+    /*화면 중앙에 위치시킬거임*/
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 10px;
+    /* 스크롤을 추가하여 내용이 벗어나면 스크롤되도록 함 */
+    /* max-width: 800px; */
+    /* 최대 너비 설정 */
+
+    width: 1024px;
+    max-height: auto;
+    /* 최대 높이 설정 */
+}
+
+/* 각 폼 요소 스타일 */
+.form {
+    /* background-color: pink; */
+    padding: 20px;
+    /*시계방향 (위-> 왼)*/
+    display: block;
+    /*줄바꿈 할거임*/
+    min-width: 300px;
+    min-height: 200px;
+    overflow: auto;
+    /*세로로만*/
+    max-height: 500px;
+}
+
+/* 숨김 클래스 */
+.hidden {
+    display: none;
+}
+
+/* 입력 창 스타일 (input 정보(제목) + type(text/num/textarea)) */
+.input-group {
+    /* background-color: yellow; */
+    margin-bottom: 14px;
+}
+
+/* input 정보(제목) */
+.input-group label {
+    /* background-color: orange; */
+    display: block;
+    margin-bottom: 5px;
+}
+
+/* 입력창 */
+/* 문자/숫자/상세정보 */
+.input-group input[type="text"],
+.input-group input[type="number"],
+/* 상세정보 */
+.input-group textarea {
+    background-color: lavender;
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    /* box-sizing: border-box; */
+}
+
+/* dropdown */
+.input-group select {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.button-container {
+    /* background-color: #666da9; */
+
+    /*화면 아래로 고정*/
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+
+    height: 100px;
+    padding: 25px;
+    /* 버튼과 하단 간격을 조절합니다. */
+
+}
+
+
+.form-image {
+    transform: scaleX(-1);
+    /*이미지 좌우반전!!! */
+
+    /* 이미지의 공통 스타일 */
+    margin: 30px;
+    position: absolute;
+    top: 0;
+    /* 이미지를 상단에 배치 */
+    left: 10%;
+    /* 이미지를 왼쪽에 배치 */
+    height: 100px;
+    width: 130px;
+}
+
+#formImage2 {
+    /* form2 이미지의 위치 설정 */
+    left: 40%;
+}
+
+#formImage3 {
+    /* form3 이미지의 위치 설정 */
+    left: 75%;
+    /* 오른쪽에 배치 */
+}
+
+/*formTitle 스타일 변경*/
+#formTitle {
+    /* background-color: red; */
+    font-weight: 400;
+    font-size: 34px;
+}
+
+.error-border {
+    border: 3px solid red !important;
+}
+
+/* a 태그 밑줄 제거 */
+a {
+    text-decoration: none;
+}
