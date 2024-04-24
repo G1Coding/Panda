@@ -2,7 +2,7 @@ const memberDAO = require('../../database/info/info_database');
 const common = require('../ser_common');
 
 const infoInsert = {
-  inquiryF: (body, file, fileValidation) => {
+  inquiryF: async (body, file, fileValidation) => {
     if (fileValidation) {
       msg = fileValidation;
       url = '/info/inquiry_form';
@@ -11,10 +11,13 @@ const infoInsert = {
     console.log('file : ', file);
     if (file !== undefined) {
       body.origin_file_name = file.originalname;
-      body.change_file_name = file.filename;
+      //body.change_file_name = file.filename;
+    } else {
+      body.origin_file_name = 'nan';
+      //body.change_file_name = 'nan';
     }
     console.log('body : ', body);
-    const result = memberDAO.infoInsert.inquiryF(body);
+    const result = await memberDAO.infoInsert.inquiryF(body);
     if (result.rowsAffected === 1) {
       msg = '등록되었습니다!';
       url = '/info/inquiry';
@@ -132,7 +135,7 @@ const infoUpdate = {
     let message = {};
     if (result !== 0) {
       msg = '탈퇴가 완료되었습니다.';
-      url = '/info/productM/'; //나중에 회원가입창으로 연결, 탈퇴되었을때 페이지수정못함
+      url = '/login/'; //나중에 회원가입창으로 연결, 탈퇴되었을때 페이지수정못함
     } else {
       msg = '문제가 발생했습니다.';
       url = `/info/infoModify_form?info_id='${query.info_id}'`;
@@ -143,19 +146,14 @@ const infoUpdate = {
 };
 
 const infoRead = {
-  getMember:  (query) => {
-    //let member = await memberDAO.infoRead.getMember(query);
-    if(query === query){
-    console.log('ser viewquery : ', query);
-    //return member.rows[0];
-    return query;
-    }else{
-      return null
-    }
+  getMember: async () => {
+    let member = await memberDAO.infoRead.getMember();
+    //console.log('member[0] : ', member.rows[0]);
+    return member.rows;
   },
-  getProfile: async () => {
-    const result = await memberDAO.infoRead.getProfile();
-    // console.log('ser : ', result);
+  getProfile: async (userId) => {
+    const result = await memberDAO.infoRead.getProfile(userId);
+    console.log('ser cookie : ', result);
     return result.rows;
   },
 };

@@ -43,7 +43,7 @@ router.post("/upload", upload.single("image_file_name"), function(req, res){
     res.send("파일 업로드 완료")
 })
 
-//router.post("/inquiryF", upload.single("image_file_name"),
-  //      infoCtrl.info_process.inquiryF);
+router.post("/inquiryF", upload.single("image_file_name"),
+        infoCtrl.info_process.inquiryF);
 
 module.exports = router;

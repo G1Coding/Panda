@@ -1,6 +1,9 @@
 const { query } = require('express');
 const service = require('../../service/info/info_service');
 const common = require('../../service/ser_common');
+const config= require("../../../config/cookie/config")
+
+const cookieConfig=config.cookieConfig
 
 const info_views = {
   list: async (req, res) => {
@@ -21,22 +24,27 @@ const info_views = {
     res.render('info/starList', { starList });
   },
   profile: async (req, res) => {
-    const profile = await service.infoRead.getProfile();
-    console.log('profile : ', profile);
+    const userId= req.cookies.user_id
+    const profile = await service.infoRead.getProfile(userId);
+    //console.log('profile : ', userId);
+
     res.render('info/profile', { profile});//ratingInfo
   },
   productM: async (req, res) => {
-    const profile = await service.infoRead.getProfile();
-
-    res.render('info/productM', { profile});
+    const userId= req.cookies.user_id
+    const profile = await service.infoRead.getProfile(userId);
+    console.log("prodcutM ctrlcookie : ", userId)
+    res.render('info/productM', { profile,userId});
   },
   history: async (req, res) => {
-    const profile = await service.infoRead.getProfile();
-    res.render('info/history', { profile });
+    const userId= req.cookies.user_id
+    const profile = await service.infoRead.getProfile(userId);
+    res.render('info/history', { profile ,userId});
   },
   inquiry: async (req, res) => {
-    const profile = await service.infoRead.getProfile();
-    res.render('info/inquiry', { profile });
+    const userId= req.cookies.user_id
+    const profile = await service.infoRead.getProfile(userId);
+    res.render('info/inquiry', { profile ,userId});
   },
   upload: (req, res) => {
     res.render('info/upload');
@@ -45,14 +53,16 @@ const info_views = {
     res.render('info/inquiry_form');
   },
   modifyForm: async (req, res) => {
-    const profile = await service.infoRead.getProfile(req.query);//query, params?
-    res.render('info/infoModify_form', { profile }); //{}데이터 전송
+    const userId= req.cookies.user_id
+   // const profile = await service.infoRead.getProfile(req.query);//query, params?
+    const profile = await service.infoRead.getProfile(userId);//query, params?
+    res.render('info/infoModify_form', { profile,userId }); //{}데이터 전송
   },
   registerForm: (req, res) => {
     res.render('info/register_form');
   },
   memberView: async (req, res) => {
-    console.log("con query",req.query);
+    console.log("con query",req.query.id);
     let member = await service.infoRead.getMember(req.query.id); // id?
     res.render('info/member_view', { member });
   },
@@ -105,16 +115,16 @@ const info_process = {
     res.send(msg)
  },
 */
-  /*
-  inquiryF: (req, res) => {
-    const msg = service.infoInsert.inquiryF(
+  
+  inquiryF: async (req, res) => {
+    const msg = await service.infoInsert.inquiryF(
       req.body,
       req.file,
       req.fileValidation
     );
     res.send(msg);
   },
-  */
+  
 };
 
 const fs = require('fs');

@@ -7,6 +7,8 @@ const view = {
   getMain : async(req, res) => {
     const board = await getDB.getFirstBoard();
 
+    const test = req.cookies.user_id;
+    //console.log(test);
     res.render("main/main", { list : board, category : 0});
 
   },

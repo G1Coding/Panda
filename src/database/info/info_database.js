@@ -38,6 +38,7 @@ const infoInsert = {
     }
     return result;
   },
+  //inquiryF
 };
 
 const infoUpdate = {
@@ -90,9 +91,16 @@ const infoRead = {
     console.log('dao : ', member);
     return member;
   },
-  getProfile: async () => {
+  getProfile: async (userId) => {
     let con = await oracledb.getConnection(dbConfig);
-    let result = await con.execute('select * from user_info');
+    const sql = `select * from user_info where info_id = '${userId}'`;
+    let result
+    try{
+      result = await con.execute(sql)
+    }catch(err){
+      console.log(err)
+    }
+    //let result = await con.execute('select * from user_info');
     //let result1= await con.execute('select * from user_delInfo');
    // console.log('dao : ', result);
     //return {user_info : result.rows, user_delInfo: result1.rows};

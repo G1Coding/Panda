@@ -95,5 +95,31 @@
     integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
     crossorigin="anonymous"
   ></script>
+
+  <script>
+  const typeSelect = document.getElementById("typeSelect");
+    const imgElement = document.getElementById("img");
+
+    imgElement.src = "/static/upload/panda_p.png"; // 기본 이미지 설정
+
+    typeSelect.addEventListener("change", function() {
+        const selectedType = this.value;
+        console.log("Selected type: ", selectedType);
+    });
+
+    // 이미지 URL이 존재하면 이미지 업데이트, 그렇지 않으면 기본 이미지로 업데이트
+    function readURL(input) {
+      if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function(e) {
+          $('#img')
+            .attr('src', e.target.result);
+        };
+
+        reader.readAsDataURL(input.files[0]);
+      }
+    }
+  </script>
 </body>
 </html>
