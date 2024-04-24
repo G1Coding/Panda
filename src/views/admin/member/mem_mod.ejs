@@ -5,16 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="/static/css/admin/default/default.css" rel="stylesheet">
-    <link href="/static/css/admin/admin_mng_mem_mod.css" rel="stylesheet">
+    <link href="/static/css/admin/member/mem_mod.css" rel="stylesheet">
     <%- include("../../default/header.ejs") %>
 </head>
 <body>
-    <%- include("../../admin/default/admin_menu.ejs") %>
+    <%- include("../../admin/default/menu.ejs") %>
     <div class="body">
         <h2>계정 변경</h2>
         <div class="mng_mem_body">
             <div class="mng_mem_table">
-                <form class="add_form" action="/admin/mng_mem_mod_check" method="post">
+                <form class="add_form" action="/admin/mem_mod_check" method="post">
                     <table class="mng_mem_register_table">
                         <tbody>
                             <tr>
@@ -60,7 +60,7 @@
                 </form>
                 <div class="mng_mem_add_bot_nav">
                     <input class="mng_mem_add_submit" onclick="submit()" type=button value="변경" disabled>
-                    <input class="mng_mem_add_cancel" onclick="location.href='/admin/mng_mem'" type="button" value="취소">
+                    <input class="mng_mem_add_cancel" onclick="location.href='/admin/mem_list'" type="button" value="취소">
                 </div>
             </div>
         </div>

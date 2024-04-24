@@ -5,11 +5,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link href="/static/css/admin/default/default.css" rel="stylesheet">
-    <link href="/static/css/admin/prod/admin_mng_prod.css" rel="stylesheet">
+    <link href="/static/css/admin/product/prod_list.css" rel="stylesheet">
     <%- include("../../default/header.ejs") %>
 </head>
 <body>
-    <%- include("../../admin/default/admin_menu.ejs") %>
+    <%- include("../../admin/default/menu.ejs") %>
     <div class="body">
         <h2>상품관리</h2>
         <div class="prod_search_wrapper">
@@ -128,7 +128,7 @@
                 return;
             }
             // 검색 결과를 fetch로 전달하여 표시
-            fetch(`/admin/mng_get_prod_search?type=${type.value}&text=${text.value}`)
+            fetch(`/admin/prod_search?type=${type.value}&text=${text.value}`)
             .then(res => res.json())
             .then(data => {
                 
@@ -178,7 +178,7 @@
 
         function getSearchList(page, totalPage) {
             // 검색 결과내에서 페이지가 나뉠경우 이동
-            fetch(`/admin/mng_get_prod_search_list?page=${page}&`)
+            fetch(`/admin/prod_search_list?page=${page}&`)
             .then(res => res.json())
             .then(data => {
                 //현재 페이지를 다른함수에서 사용할 수 있도록 설정
@@ -240,7 +240,7 @@
 
 
         function getList(page) {
-            fetch(`/admin/mng_get_prod?page=${page}`)
+            fetch(`/admin/prod_page_list?page=${page}`)
             .then(res => res.json())
             .then(data => {
                 //현재 페이지를 다른함수에서 사용할 수 있도록 설정
@@ -409,7 +409,7 @@
             if (arr.length > 0) {
                 if (confirm(`${arr.length}개의 상품을 삭제하시겠습니까?`)){
                     let query = arr.map(item => `arr=${item}`).join("&");
-                    location.href=`/admin/mng_prod_del/?${query}`
+                    location.href=`/admin/prod_del/?${query}`
                 }
             } else {
                 alert("삭제할 상품을 선택해주세요")
@@ -419,7 +419,7 @@
         const modProd = document.querySelector(".mng_prod_modify");
         modProd.addEventListener("click", function () {
             if (arr.length == 1) {
-                location.href=`/admin/mng_prod_mod/?num=${arr}`
+                location.href=`/admin/prod_mod/?num=${arr}`
             } else if (arr.length == 0 ) {
                 alert("변경할 상품을 선택해주세요");
             } else {

@@ -1,4 +1,4 @@
-const dao = require("../../database/admin/adminMemDAO")
+const dao = require("../../database/admin/memDAO")
 
 const process = {
     getMem : () => {
