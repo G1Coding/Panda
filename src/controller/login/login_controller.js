@@ -42,10 +42,17 @@ const get = {
         res.cookie("user_id", result.rows[0].INFO_ID, cookieConfig);
         res.cookie("user_name", result.rows[0].INFO_NAME, cookieConfig);
 
-
-        res.send(`<script>
-          location.href = "/";
-        </script>`);
+        if(result.rows[0].INFO_ADMIN == 0)
+        {
+          res.send(`<script>
+            location.href = "/";
+          </script>`);
+        }
+        else{
+          res.send(`<script>
+            location.href = "/admin";
+          </script>`);
+        }
       }
   }
 }
