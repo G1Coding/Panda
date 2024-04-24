@@ -14,15 +14,12 @@ const set = {
     const register = await service.set.setRegister(req.body);
 
     console.log(register);
-    if (register == 1) 
-    {
+    if (register == 1) {
       res.send(`<script>
         alert("회원가입 성공!!");
         location.href = "/login";
       </script>`);
-    }
-    else
-    {
+    } else {
       res.send(`<script>
         alert("이미 가입된 사용자 입니다!!");
         location.href = "/login";
@@ -33,27 +30,24 @@ const set = {
 
 
 const get = {
-  getLogin : async (req, res) => {
+  getLogin: async (req, res) => {
     const result = await service.get.getLogin(req.body);
 
-    if(result.rows.length >= 1)
-      {
-        const userCookie = req.signedCookies.myCookie;
-        res.cookie("user_id", result.rows[0].INFO_ID, cookieConfig);
-        res.cookie("user_name", result.rows[0].INFO_NAME, cookieConfig);
+    if (result.rows.length >= 1) {
+      const userCookie = req.signedCookies.myCookie;
+      res.cookie("user_id", result.rows[0].INFO_ID, cookieConfig);
+      res.cookie("user_name", result.rows[0].INFO_NAME, cookieConfig);
 
-        if(result.rows[0].INFO_ADMIN == 0)
-        {
-          res.send(`<script>
+      res.send(`<script>
             location.href = "/";
           </script>`);
-        }
-        else{
-          res.send(`<script>
+
+
+      res.send(`<script>
             location.href = "/admin";
           </script>`);
-        }
-      }
+
+    }
   }
 }
 
