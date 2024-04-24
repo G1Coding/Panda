@@ -1,0 +1,97 @@
+#chat_area {
+    background-color: rgb(184, 204,221);
+    width: 900px;
+    height: 300px;
+    margin: auto;
+    overflow: auto;
+    padding-bottom: 10px;
+}
+
+#send_messages {
+    min-height: 20px;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 19px;
+}
+#rec_messages {
+    min-height: 20px;
+    display: flex;
+    justify-content: flex-start;
+    font-size: 19px;
+}
+#sendMsg {
+    background-color: rgb(247, 230, 0);
+    border-radius: 5px;
+    margin: 5px 10px 0 0 ;
+    min-height: 30px;
+    line-height: 30px;
+    min-width: 10px;
+    max-width: 500px;
+    padding: 5px 8px 5px 8px;
+    size: 17px;
+}
+#receiveMsg {
+    background-color: white;
+    border-radius: 5px;
+    margin: 5px 0 0 10px ;
+    min-height: 30px;
+    line-height: 30px;
+    min-width: 10px;
+    max-width: 500px;
+    padding: 5px 8px 5px 8px;
+    size: 17px;
+}
+
+#send_who {
+    margin: 10px 5px 0 0;
+    min-width: 30px;
+    font-weight: bold;
+}
+
+#rec_who {
+    margin: 10px 0 0 10px;
+    min-width: 45px;
+    font-weight: bold;
+}
+
+#chat_text {
+    width: 900px;
+    height: 40px;
+    margin: auto;
+}
+
+#input {
+    width: 800px;
+    height: 50px;
+    border-radius: 5px;
+    margin: 0px;
+    resize: none;
+    font-size: 19px;
+}
+#form {
+    text-align: center;
+    display: flex;
+    align-items: center;
+}
+#send {
+    height: 57px;
+    width: 100px;
+    font-size: 19px;
+}
+#infoMsg {
+    text-align: center;
+    color: blue;
+    font-weight: bold;
+}
+#curTime {
+    font-size: 11px;
+    color: gray;
+    margin: 20px 5px 0 5px ;
+    vertical-align: top;
+    height: 10px;
+}
+#readInfoMsg {
+    text-align: center;
+    color: gray;
+    font-size: 15px;
+}
