@@ -1,8 +1,10 @@
 const express = require("express");
-const cookieParser = require("cookie-parser")
 const http = require('http');
 const socketIO = require('socket.io');
 const bodyParser = require("body-parser")
+const session = require("express-session");
+const cookieParser = require("cookie-parser");
+
 
 const app = express();
 
@@ -10,16 +12,18 @@ const server = http.createServer(app);
 const io = socketIO(server);
 
 app.use(bodyParser.urlencoded());
-app.use("/static", express.static("./public"))
-app.use("/resource", express.static("./resources"))
+// app.use("/static", express.static("./resources"));
+app.use("/resources", express.static("./resources"))
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/resources'));
+app.use( bodyParser.urlencoded() );
+app.use( bodyParser.json() );
 app.use( cookieParser() );
 
 require("./src/chat/chat")(io)
 
-const router = require("./src/routers/routers")(app, io)
-app.use("/", router);
+const router = require("./router")(app);
+// app.use("/", router);
 
 app.set("views", "./src/views")
 app.set("view engine", "ejs")

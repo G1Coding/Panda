@@ -1,4 +1,4 @@
-const con = require("../common_dao")
+const con = require("../main/common_dao");
 
 const prodSelect = {
     getProdTotalContent : async () => {
