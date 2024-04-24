@@ -28,6 +28,11 @@ getBoard = {
     result = modifyData.modifyPrice( result );
 
     return result;
+  },
+  getBoardId : async (board_id) => {
+    const result = await dao.getBoard.getBoardId(board_id);
+
+    return result;
   }
 }
 

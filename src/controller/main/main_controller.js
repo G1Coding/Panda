@@ -34,6 +34,11 @@ const view = {
     console.log("board :", count);
     if(board != 0)
       res.json({list : board});
+  },
+  get_Board_id : async (req, res) => {
+    const result = await service.getBoard.getBoardId(req.params.board_id);
+
+    res.json(result);
   }
 }
 
