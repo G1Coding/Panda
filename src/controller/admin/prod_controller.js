@@ -89,8 +89,7 @@ const admin_process = {
                 </script>
             `)
         }
-
-    }
+    },
 }
 
 module.exports = {

@@ -4,6 +4,7 @@ module.exports = (app) => {
     const adminCtrl = require("../../controller/admin/main_controller");
     const adminMemCtrl = require("../../controller/admin/mem_controller");
     const adminProdCtrl = require("../../controller/admin/prod_controller");
+    const adminMainCtrl = require("../../controller/admin/main_controller");
     const multer = require("multer");
 
     const stg = multer.diskStorage({
@@ -35,6 +36,7 @@ module.exports = (app) => {
     router.get("/mem_mod", adminMemCtrl.admin_view.memMod)
     router.get("/mem_del", adminMemCtrl.admin_process.memDel)
     router.get("/mem_search", adminMemCtrl.admin_process.memSearch)
+    router.get("/mem_search_list", adminMemCtrl.admin_process.memSearchList)
     router.get("/mem_id_check", adminMemCtrl.admin_process.memIdChk)
     router.post("/mem_add_check", adminMemCtrl.admin_process.memAddChk)
     router.post("/mem_mod_check", adminMemCtrl.admin_process.memModChk)
@@ -47,6 +49,8 @@ module.exports = (app) => {
     router.get("/prod_page_list", adminProdCtrl.admin_process.prodPageList)
     router.get("/prod_search_list", adminProdCtrl.admin_process.prodSearchList)
     router.post("/prod_mod_check", upload.single("changeImg"), adminProdCtrl.admin_process.mngProdModChk)
+
+    router.get("/main_get_data", adminMainCtrl.admin_process.mainGetData)
 
 
     return router;

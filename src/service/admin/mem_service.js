@@ -25,6 +25,15 @@ const process = {
     memIdChk : async (id) => {
         const result = await dao.memSelect.idChk(id);
         return result;
+    },
+    getMemSearchTotalContent : async (query) => {
+        const totalContent = await dao.memSelect.getMemSearchTotalContent(query);
+        return totalContent;
+    },
+    getMemSearchContent : async (totalContent, page) => {
+        const content = await getMemPage(totalContent.rows[0]['COUNT(*)'], page);
+        content.pageContent = await dao.memSelect.getMemSearchPageContent(content.start, content.end);
+        return content
     }
 }
 

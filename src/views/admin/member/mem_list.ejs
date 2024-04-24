@@ -89,6 +89,7 @@
     <script>
         let curPage = 1;
         let pageBtn = document.querySelectorAll(".paging");
+        const tbody = document.querySelector(".mem_list");
         pageBtn[1].className += " curPage";
         let memSearch = document.querySelector(".mem_search");
         let memSearchBtn = document.querySelector(".mem_search_btn")
@@ -200,6 +201,131 @@
             })
 
         })
+
+
+        function getSearchList(page, totalPage) {
+            // 검색 결과내에서 페이지가 나뉠경우 이동
+            fetch(`/admin/mem_search_list?page=${page}&`)
+            .then(res => res.json())
+            .then(data => {
+                //현재 페이지를 다른함수에서 사용할 수 있도록 설정
+                curPage = page;
+
+                // 현재 페이지 강조를 위한 class이름 추가
+                for (let i = 1; i <= totalPage; i++) {
+                    pageBtn[i].className = "paging";
+                }
+                pageBtn[page].className = "paging curPage";
+
+                // page <<, >> disable 처리
+                if (curPage != 1) {
+                    pageBtn[0].disabled = false
+                } else {
+                    pageBtn[0].disabled = true;
+                }
+
+                if (curPage == totalPage) {
+                    pageBtn[pageBtn.length-1].disabled = true;
+                } else {
+                    pageBtn[pageBtn.length-1].disabled = false;
+                }
+
+                //불러온 데이터 내용 html에 표시
+                let msg = "";
+                msg = data.pageContent.forEach((item) => {
+                    msg += contentMsg(item);
+                    tbody.innerHTML = msg;
+                })
+                document.querySelector(".mng_mem_nav_label").innerHTML = (`총 ${data.total['COUNT(*)']} 건의 게시글 검색 결과 중 ${data.pageContent.length} 개`)
+                const searchPage = document.querySelector(".mng_mem_paging_wrapper");
+            })
+        }
+
+
+        function aftList() {
+            curPage ++;
+            getList(curPage);
+        }
+
+        function befList() {
+            curPage --;
+            getList(curPage);
+        }
+        
+        function aftSearchList() {
+            curPage ++;
+            getSearchList(curPage, totalPage);
+        }
+        function befSearchList() {
+            curPage --;
+            getSearchList(curPage, totalPage);
+        }
+
+
+
+
+
+
+        function getList(page) {
+            fetch(`/admin/prod_page_list?page=${page}`)
+            .then(res => res.json())
+            .then(data => {
+                //현재 페이지를 다른함수에서 사용할 수 있도록 설정
+                curPage = page;
+
+                // 현재 페이지 강조를 위한 class이름 추가
+                for (let i = 1; i <= '<%=page%>'; i++) {
+                    pageBtn[i].className = "paging";
+                }
+                pageBtn[page].className += " curPage";
+
+                // page <<, >> disable 처리
+                if (curPage != 1) {
+                    pageBtn[0].disabled = false
+                } else {
+                    pageBtn[0].disabled = true;
+                }
+
+                if (curPage == '<%=page%>') {
+                    pageBtn[pageBtn.length-1].disabled = true;
+                } else {
+                    pageBtn[pageBtn.length-1].disabled = false;
+                }
+
+                //불러온 데이터 내용 html에 표시
+                let msg = "";
+                data.pageContent.forEach((item) => { 
+                    msg += contentMsg(item);
+                    tbody.innerHTML = msg;
+                })
+                document.querySelector(".mng_prod_nav_label").innerHTML = (`총 <%=total['COUNT(*)']%> 건의 게시글 정보 중 ${data.pageContent.length} 개</label>`)
+
+            })
+        }
+        function contentMsg(item) {
+            let msg = "";
+            msg += `<tr class="content_tr">`
+            msg += `<td class="content"><input class="checkbox" type="checkbox" id="${item.INFO_ID}" onclick="checkBox('${item.INFO_ID}'')"></td>`
+            msg += `<td class="content">${item.INFO_ID}</td>`
+            msg += `<td class="content">${item.INFO_NAME}</td>`
+            msg += `<td class="content">`
+            if (item.INFO_REGION == null) {
+                msg += `-`
+            } else {
+                msg += `${item.INFO_REGION}`
+            }
+            msg += `<td class="content">${item.INFO_PHONE}</td>`
+            msg += `<td class="content">${item.INFO_POINT}</td>`
+            msg += `<td class="content">`
+            if (item.INFO_ADMIN == 0) {
+                msg += `일반`
+            } else {
+                msg += `관리자`
+            }
+            msg += `</td>`
+            msg += `</tr>`
+            return msg;
+        }
 
     </script>
 </body>

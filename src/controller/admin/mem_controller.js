@@ -76,6 +76,16 @@ const admin_process = {
             page : content.page,
             pageContent : content.pageContent.rows,
         })
+    },
+    memSearchList : async (req, res) => {
+        const totalContent = await service.process.getMemSearchTotalContent(req.query);
+        const content = await service.process.getMemSearchContent(totalContent, req.query.page);
+        res.json({
+            curPage : req.query.page,
+            total : totalContent.rows[0],
+            page : content.page,
+            pageContent : content.pageContent.rows,
+        })
     }
 }
 
