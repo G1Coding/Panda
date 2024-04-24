@@ -40,6 +40,10 @@ set = {
   },
   setTradeSuccess : async (price, sellerId, buyerId) => {
     dao.set.setTradeSuccess(price, sellerId, buyerId);
+  },
+  setPoint : (userId, point) =>{
+    dao.set.setPoint(userId, point);
+
   }
 }
 

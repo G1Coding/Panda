@@ -55,6 +55,10 @@ set = {
     const sql_buyer = `update user_info set info_point = info_point - ${price} where info_id = '${buyerId}'`;
     const seller = await (await con).execute(sql_seller);
     const buyer = await(await con).execute(sql_buyer);
+  },
+  setPoint : async(userId, point) => {
+    const sql = `update user_info set info_point = info_point + ${point} where info_id = '${userId}'`;
+    const seller = await (await con).execute(sql);
   }
 };
 

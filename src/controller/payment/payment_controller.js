@@ -57,6 +57,12 @@ const setData = {
     service.set.setTradeSuccess(req.params.price, req.params.sellerId, req.params.buyerId);
 
     res.json(0);
+  },
+  setPoint : async (req, res) => {
+
+    service.set.setPoint(req.cookies.user_id, req.params.price);
+
+    res.json(0);
   }
 }
 

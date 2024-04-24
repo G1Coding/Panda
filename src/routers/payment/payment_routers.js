@@ -15,5 +15,6 @@ router.get("/get_sellerPage/:board_num", paymentCtrl.getData.getSellerPage);
 router.get("/set_seller_ok/:board_num", paymentCtrl.setData.setSellerOk);
 router.get("/get_buyer_ok/:board_num", paymentCtrl.getData.getBuyerOk);
 router.get("/trade_success/:price/:sellerId/:buyerId", paymentCtrl.setData.setTradeSuccess);
+router.get("/set_point/:price", paymentCtrl.setData.setPoint);
 
 module.exports = router;
