@@ -13,7 +13,7 @@ const chat_view = {
         console.log("req.params.num : ", req.params.num)
         console.log("req.cookies.id : ", req.params.id)
         res.render("chat/chat_form", {
-            cookie : req.cookies.chatID,
+            cookie : req.cookies.user_id,
             num : req.params.num,
             recId : req.params.id,
         })
