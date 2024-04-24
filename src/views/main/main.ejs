@@ -5,9 +5,9 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
-  <link href="/static/css/main/main_css.css" rel="stylesheet">
-  <link href="/static/css/main/slide.css" rel="stylesheet">
-  <link href="/static/css/main/menu.css" rel="stylesheet">
+  <link href="/resources/css/main/main_css.css" rel="stylesheet">
+  <link href="/resources/css/main/slide.css" rel="stylesheet">
+  <link href="/resources/css/main/menu.css" rel="stylesheet">
 </head>
 <script>
   window.onload = () => {
@@ -37,6 +37,7 @@
 </script>
 
 <body>
+  <%- include ("../common/header") %>
   <div id="main_view">
     <div class="slide slide_wrap">
       <div class="slide_item item1"><img class="banner_img" src="https://media.bunjang.co.kr/images/nocrop/1138696572_w1197.jpg"></div>
@@ -124,12 +125,12 @@
 </div>
 
 <%if(category == 0) { %>
-  <script src="/static/js/main/main.js" type="application/javascript"></script>
+  <script src="/resources/js/main/main.js" type="application/javascript"></script>
 <%}else{ %>
-  <script src="/static/js/main/main_category.js" type="application/javascript"></script>
+  <script src="/resources/js/main/main_category.js" type="application/javascript"></script>
 <%} %>
 
-<script src="/static/js/main/slide.js" type="application/javascript"></script>
+<script src="/resources/js/main/slide.js" type="application/javascript"></script>
 
 
 
