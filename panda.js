@@ -6,7 +6,7 @@ const cookieParser = require("cookie-parser");
 
 const app = express();
 
-app.use("/static", express.static("./resources"));
+app.use("/resources", express.static("./resources"));
 //app.use(express.static("resource"))
 
 app.use( bodyParser.urlencoded({ extended: true }));//extended :true추가

@@ -10,8 +10,8 @@
     integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
     crossorigin="anonymous"
   />
-<script src="/static/js/image_read.js"></script>
-<link href="/static/css/info/infoModify_form.css" rel="stylesheet" >
+<script src="/resources/js/image_read.js"></script>
+<link href="/resources/css/info/infoModify_form.css" rel="stylesheet" >
 
 
 </head>
@@ -23,7 +23,7 @@
                     <div class="sc-bWOGAC dRRXYQ">
                         <header class="sc-dEVLtl hmAwfM">
                             <div class="sc-vrePNt dBKVWZ">
-                                <img src="/static/upload/왼쪽화살표.jpg" alt="뒤로가기" 
+                                <img src="/resources/upload/왼쪽화살표.jpg" alt="뒤로가기" 
                                 onclick="location.href='/info/inquiry'">
                             </div>
                             <h1 class="sc-gJqSRm fjwjkl"></h1>
@@ -77,10 +77,10 @@
                                               
                                      
                                               <% if(info.INFO_IMG) { %>
-                                                <img id="img" src="/static/upload/<%= info.INFO_IMG %>" alt="프로필 이미지">
+                                                <img id="img" src="/resources/upload/<%= info.INFO_IMG %>" alt="프로필 이미지">
                                             <% } else { %>
                                                 <!-- 프로필 이미지가 없는 경우 기본 이미지 표시 -->
-                                                <img id="img"src="/static/upload/panda_p.png" alt="기본 이미지">
+                                                <img id="img"src="/resources/upload/panda_p.png" alt="기본 이미지">
                                             <% } %>
 
 

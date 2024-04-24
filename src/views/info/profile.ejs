@@ -10,7 +10,7 @@
       integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
       crossorigin="anonymous"
     />
-  <link href="/static/css/info/profile.css" rel="stylesheet" >
+  <link href="/resources/css/info/profile.css" rel="stylesheet" >
   <link rel="stylesheet" type="text/css" href="css/starability-fade.min.css"/>
   <link rel="stylesheet" type="text/css" href="css/starability-all.min.css"/>
 
@@ -40,10 +40,10 @@
                       -->
 
                       <% if(info.INFO_IMG) { %>
-                        <img id="img"  class="info_img" src="/static/upload/<%= info.INFO_IMG %>" alt="프로필 이미지">
+                        <img id="img"  class="info_img" src="/resources/upload/<%= info.INFO_IMG %>" alt="프로필 이미지">
                     <% } else { %>
                         <!-- 프로필 이미지가 없는 경우 기본 이미지 표시 -->
-                        <img id="img" class="info_img" src="/static/upload/panda_p.png" alt="기본 이미지">
+                        <img id="img" class="info_img" src="/resources/upload/panda_p.png" alt="기본 이미지">
                     <% } %>
                     
 
@@ -66,11 +66,11 @@
                       </div>
                       <div class="sc-bGJRg hQqotf1">평점
                         <div class="sc-lBEsjs dQLwrX">
-                          <img src="/static/upload/star.png" width="20" height="20" alt="평점 이미지" >
-                          <img src="/static/upload/star.png" width="20" height="20" alt="평점 이미지">
-                          <img src="/static/upload/star.png" width="20" height="20" alt="평점 이미지">
-                          <img src="/static/upload/star.png" width="20" height="20" alt="평점 이미지">
-                          <img src="/static/upload/star.png" width="20" height="20" alt="평점 이미지">
+                          <img src="/resources/upload/star.png" width="20" height="20" alt="평점 이미지" >
+                          <img src="/resources/upload/star.png" width="20" height="20" alt="평점 이미지">
+                          <img src="/resources/upload/star.png" width="20" height="20" alt="평점 이미지">
+                          <img src="/resources/upload/star.png" width="20" height="20" alt="평점 이미지">
+                          <img src="/resources/upload/star.png" width="20" height="20" alt="평점 이미지">
                         </div>
                         
                    
@@ -134,7 +134,7 @@
 
         // 이미지 URL이 존재하면 이미지 업데이트, 그렇지 않으면 기본 이미지로 업데이트
         if (imgElement) {
-            imgElement.src = "<%= '/static/upload/panda_p.png' %>";
+            imgElement.src = "<%= '/resources/upload/panda_p.png' %>";
         }else{
           imgElement.src = "<%= info.INFO_IMG %>";
         }

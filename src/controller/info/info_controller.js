@@ -7,6 +7,7 @@ const cookieConfig=config.cookieConfig
 
 const info_views = {
   list: async (req, res) => {
+    console.log("req.query.start : ", req.query.start)
     const list = await service.getList();
     console.log('list : ', list);
     res.render('info/list', { list });

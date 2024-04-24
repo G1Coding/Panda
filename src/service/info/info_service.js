@@ -11,13 +11,11 @@ const infoInsert = {
     console.log('file : ', file);
     if (file !== undefined) {
       body.origin_file_name = file.originalname;
-      //body.change_file_name = file.filename;
     } else {
       body.origin_file_name = 'nan';
-      //body.change_file_name = 'nan';
     }
     console.log('body : ', body);
-    const result = await memberDAO.infoInsert.inquiryF(body);
+    //const result = await memberDAO.infoInsert.inquiryF(body);
     if (result.rowsAffected === 1) {
       msg = '등록되었습니다!';
       url = '/info/inquiry';
