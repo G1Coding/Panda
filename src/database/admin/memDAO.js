@@ -1,8 +1,8 @@
 const con = require("../main/common_dao");
 
 const memSelect = {
-    getMem : async () => {
-        const sql = "select * from user_info order by info_id asc";
+    getMem : async (start, end) => {
+        const sql = `select B.* from(select rownum rn, A.* from(select * from user_info order by info_id desc)A)B where rn between ${start} and ${end}`;
         let list;
         try {
             list = (await con).execute(sql)
@@ -10,6 +10,16 @@ const memSelect = {
             console.log(err)
         }
         return list;
+    },
+    getMemTotalContent : async () => {
+        const sql = "select count(*) from user_info"
+        let totalContent;
+        try {
+            totalContent = (await con).execute(sql);
+        } catch (err) {
+            console.log(err)
+        }
+        return totalContent;
     },
     getUser : async (query) => {
         const sql = `select * from user_info where info_id='${query}'`;

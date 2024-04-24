@@ -34,6 +34,7 @@ module.exports = (app) => {
     router.get("/mem_add", adminMemCtrl.admin_view.memAdd)
     router.get("/mem_mod", adminMemCtrl.admin_view.memMod)
     router.get("/mem_del", adminMemCtrl.admin_process.memDel)
+    router.get("/mem_search", adminMemCtrl.admin_process.memSearch)
     router.get("/mem_id_check", adminMemCtrl.admin_process.memIdChk)
     router.post("/mem_add_check", adminMemCtrl.admin_process.memAddChk)
     router.post("/mem_mod_check", adminMemCtrl.admin_process.memModChk)
