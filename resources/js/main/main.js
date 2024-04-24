@@ -293,7 +293,7 @@ board.addEventListener("click", (e) => {
   if(e.target.classList.item(0) == 'board_wrapper')
     return ;
 
-  for(let i = 0; i < 30; i++)
+  for(let i = 0; i < 5; i++)
   {
     if(parent.parentElement.classList.item(0) != 'board_list')
     {
@@ -301,8 +301,14 @@ board.addEventListener("click", (e) => {
     }
     else if(parent.parentElement.classList.item(0) == 'board_list')
     {
-      console.log(parent.parentElement.getAttribute('data-value'));
-      location.href = "board/details?board_id=" + parent.parentElement.getAttribute('data-value');
+
+      fetch(`/get_boardId/` + parent.parentElement.getAttribute('data-value'))
+      .then(res =>  res.json())
+      .then(data => {
+        console.log(data);
+        board_id = data;
+        location.href = "board/details?board_num=" + parent.parentElement.getAttribute('data-value') +"&board_id=" + data;  
+      });
     }
   }
 });
