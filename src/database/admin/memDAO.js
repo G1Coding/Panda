@@ -1,8 +1,8 @@
 const con = require("../main/common_dao");
 
 const memSelect = {
-    getMem : async () => {
-        const sql = "select * from user_info order by info_id asc";
+    getMem : async (start, end) => {
+        const sql = `select B.* from(select rownum rn, A.* from(select * from user_info order by info_id desc)A)B where rn between ${start} and ${end}`;
         let list;
         try {
             list = (await con).execute(sql)
@@ -10,6 +10,16 @@ const memSelect = {
             console.log(err)
         }
         return list;
+    },
+    getMemTotalContent : async () => {
+        const sql = "select count(*) from user_info"
+        let totalContent;
+        try {
+            totalContent = (await con).execute(sql);
+        } catch (err) {
+            console.log(err)
+        }
+        return totalContent;
     },
     getUser : async (query) => {
         const sql = `select * from user_info where info_id='${query}'`;
@@ -30,7 +40,35 @@ const memSelect = {
             console.log(err)
         }
         return result;
-    }
+    },
+    getMemSearchTotalContent : async (query) => {
+        let sql;
+        if (query.page) {
+            const input = getSearchData();
+            sql = `select count(*) from user_info where ${input.type} like '%${input.text}%'`
+        } else {
+            sql = `select count(*) from user_info where ${query.type} like '%${query.text}%'`
+            setSearchData(query.type, query.text);
+        }
+        let content;
+        try {
+            content = (await con).execute(sql);
+        } catch (err) {
+            console.log(err)
+        }
+        return content
+    },
+    getMemSearchPageContent : async (start, end) => {
+        const input = getSearchData();
+        const sql = `select B.* from(select rownum rn, A.* from(select * from user_info where ${input.type} like '%${input.text}%')A)B where rn between ${start} and ${end}`
+        let pageContent;
+        try {
+            pageContent = await (await con).execute(sql);
+        } catch(err) {
+            console.log(err);
+        }
+        return pageContent
+    },
 }
 const memInsert = {
     addMem : async (body) => {
@@ -86,6 +124,17 @@ const memDelete = {
         return result;
     }
 }
+
+let input = [];
+const setSearchData = (type, text) => {
+    input.type = type;
+    input.text = text;
+}
+const getSearchData = () => {
+    return input
+}
+
+
 
 module.exports = {
     memSelect,

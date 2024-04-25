@@ -10,53 +10,38 @@ var limit = 0;
 module.exports = (io) => {
 
     io.on('connection', (socket) => {
+        console.log("새로운 사용자 접속")
         
         // 채팅방 초기화 시간을 설정한다.
-        const resetTime = 5 * 60 * 1000; // 5분
+        const resetTime = 10 * 1000; // 5분
         
         
         // 저장된 채팅 파일을 불러오는 함수
         socket.on('readChatFile', (roomId, receiveId, sendId) => {
     
             if (chatRooms[roomId].length > 1) {
-                console.log("11")
     
                 // 구매자를 필터링하여 채팅방에 포함되어있는지 확인
                 const result = chatRooms[roomId].filter(item => item.id != receiveId)
-                console.log(result[0].id == sendId)
-                console.log("result.id : ", result[0].id)
-                console.log("sendId : ", sendId)
-                console.log("receiveId : ", receiveId)
     
                 // 채팅방에 포함되어있고 내가 구매자면 불러올 파일 경로를 생성
                 if (result[0].id == sendId || receiveId == sendId) {
-                    console.log("22")
                     filePath = path.join( __dirname, "../", "../", "public", "chat", roomId, receiveId, `${result[0].id}.txt` );
                     
                     // 파일이 생성이 되어있으면 불러오고 아니면 로그만 출력
                     if (fs.existsSync(filePath)) {
-                        console.log("test")
                         fs.readFile(filePath, 'utf8', (err, data) => {
                             if (err) {
                                 console.error('이전 채팅 내용을 읽어오는 중 오류 발생:', err);
                             } else {
                                 previousChatMessages = data;
-                                console.log("message", previousChatMessages);
-                                console.log('이전 채팅 내용을 성공적으로 읽어왔습니다.');
                                 chatRooms[roomId].forEach((socket) => {
                                     socket.emit('readChatFile', previousChatMessages, roomId, receiveId, sendId)
                                 })
                             }
                         });
-                    } else {
-                        console.log("33")
-                        console.log("기존 저장 파일 없음")
                     }
-                } else {
-                    console.log("55")
                 }
-            } else {
-                console.log("44")
             }
         })
     
@@ -70,20 +55,20 @@ module.exports = (io) => {
         // 클라이언트로부터 connectUser의 이름으로 요청이 올때 처리할 함수
         socket.on('connectUser', (roomId, userId, receiveId) => {
             roomNum = roomId;
-            console.log("ser connectUser 실행")
+            console.log()
             if (chatRooms[roomId] == null){
                 chatRooms[roomId] = []
-                console.log("방생성")
             } 
             socket.id = userId
+
     
             // 채팅방에 구매자가 이미 포함되어있는지 확인한다.
             const result = chatRooms[roomId].find(socket => socket.id === userId);
-            console.log("length : ", chatRooms[roomId].length)
             // 포함되어있지 않으면 채팅방에 구매자를 포함시킨다.
             if (result == null) {
     
                 // 이미 두명이 채팅중일 경우 메인페이지로 리다이렉트
+                console.log('chatRoomslength : ', chatRooms[roomId].length)
                 if (chatRooms[roomId].length == 2) {
                     limit = 1;
                     socket.emit('returnMainPage');
@@ -91,16 +76,13 @@ module.exports = (io) => {
                 } 
                 // 한명이 대기중일경우
                 else if (chatRooms[roomId].length == 1) {
-                    console.log("2")
                     // 한명이 대기중인데 대기중인 사람이 판매자일경우 
                     // 현재 접속한 사용자를 채팅방에 추가
                     if (chatRooms[roomId][0].id == receiveId) {
-                        console.log("3")
                         chatRooms[roomId].push(socket);
     
                     // 판매자가 아닐 경우 메인페이지로 이동
                     } else {
-                        console.log("4")
                         if (userId == receiveId) {
                             chatRooms[roomId].push(socket);
                         } else {
@@ -119,18 +101,15 @@ module.exports = (io) => {
                 chatRooms[roomId] = chatRooms[roomId].filter(item => item.id != userId)
                 chatRooms[roomId].push(socket);
             }
-    
-            resetChatRoomTimer(roomId)
+            resetChatRoomTimer(roomId, receiveId, userId)
     
             chatRooms[roomId].forEach( (socket) => {
-                console.log("111")
                 socket.emit('readChat', roomId, receiveId, userId )
             })
     
             // setTimeout(() => {
                 // 원하는 작업을 수행합니다.
                 chatRooms[roomId].forEach( (socket) => {
-                    console.log("222")
                     socket.emit('userConnected', userId)
                 })
             // }, 500);
@@ -142,9 +121,6 @@ module.exports = (io) => {
         // 사용자로부터 chat message 라는 요청이 들어왔을때 처리하는 함수
         socket.on('chat message', (msg, roomId, receiveId, sendId) => {
             const timestamp = new Date().toISOString();
-            console.log("sendId :", sendId)
-            console.log("receiveId : ", receiveId)
-            console.log("timestamp : ", timestamp)
             if (chatRooms[roomId] != null){
                 chatRooms[roomId].forEach( (socket) => {
                     socket.emit('chat message', msg, sendId, timestamp);
@@ -152,10 +128,7 @@ module.exports = (io) => {
                 })
             }
             // 채팅룸삭제 타이머를 초기화한다.
-            resetChatRoomTimer(roomId, receiveId, sendId);
-    
-            console.log(chatRooms[roomId].length)
-    
+            resetChatRoomTimer(roomId, receiveId, sendId)
             if (chatRooms[roomId].length > 1) {
                 saveMessageToFile(msg, roomId, receiveId, sendId, timestamp)
                 // 채팅 내용 저장 함수를 호출
@@ -178,26 +151,24 @@ module.exports = (io) => {
             if (limit == 1) {
                 limit = 0;
             } else {
-                console.log("socketid : ", socket.id)
-                console.log('user disconnected');
-                console.log("roomNum : ", roomNum)
                 if (!roomNum) {
-        
+                    
                 } else {
-                    if (chatRooms[roomNum].length > 1) {
-                        chatRooms[roomNum].forEach((socket) => {
-                            socket.emit('resetChatCount');
-                            socket.emit('userDisconnect')
-                        })
-                    }
-        
-                    // 현재 종료되는 socket을 방에서 제거한다.
-                    chatRooms[roomNum] = chatRooms[roomNum].filter(data => data.id != socket.id)
-                    console.log("삭제 진행")
-        
-                    // 방에 아무런 값도 없으면 방 자체를 삭제한다.
-                    if (chatRooms[roomNum].length == 0) {
-                        delete chatRooms[roomNum];
+                    if (chatRooms[roomNum]) {
+                        if (chatRooms[roomNum].length > 1) {
+                            chatRooms[roomNum].forEach((socket) => {
+                                socket.emit('resetChatCount');
+                                socket.emit('userDisconnect')
+                            })
+                        }
+                        
+                        // 현재 종료되는 socket을 방에서 제거한다.
+                        chatRooms[roomNum] = chatRooms[roomNum].filter(data => data.id != socket.id)
+                        
+                        // 방에 아무런 값도 없으면 방 자체를 삭제한다.
+                        if (chatRooms[roomNum].length == 0) {
+                            delete chatRooms[roomNum];
+                        }
                     }
                 }
             }
@@ -209,22 +180,38 @@ module.exports = (io) => {
     
     
         //채팅방이 생성된 후 일정 시간이 지나면 채팅룸이 사라진다.
-        function closeChatRoom(roomId) {
+        function closeChatRoom(roomId, receiveId, sendId) {
+            console.log("roomId : ", roomId)
+            console.log("rec : ", receiveId)
+            console.log("send : ", sendId)
+            const filePath = path.join( __dirname, "../", "../", "public", "chat", roomId);
+            console.log("시간이 지나 채팅방이 사라집니다.");
+            console.log(fs.existsSync(filePath))
+            if (fs.existsSync(filePath)) {
+                console.log("폴더가 있음")
+                fs.rm(filePath, { recursive: true }, (err) => {
+                    if (err) {
+                        console.error('폴더 삭제 중 오류 발생', err);
+                        return;
+                    }
+                    console.log('폴더 삭제 완료');
+                });
+            }
+            console.log("방삭제")
             delete chatRooms[roomId];
             clearTimeout(roomTimers[roomId]);
-            console.log(roomId,"번 채팅방이 삭제되었습니다.")
         }
     
         // 채팅방이 생성된 후 채팅을 시도하면 삭제까지의 시간이 초기화된다.
         function resetChatRoomTimer(roomId, receiveId, sendId) {
             console.log("시간 초기화")
-            
             if (roomTimers[roomId]) {
                 clearTimeout(roomTimers[roomId]);
             }
     
             roomTimers[roomId] = setTimeout(() => {
-                closeChatRoom(roomId);
+                closeChatRoom(roomId, receiveId, sendId);
+                
             }, resetTime)
         }
     
@@ -234,7 +221,6 @@ module.exports = (io) => {
         function saveMessageToFile(message, roomId, receiveId, sendId, timestamp) {
     
             const folderPath = path.join( __dirname, "../", "../", "public", "chat", roomId, receiveId);
-            console.log("folderPath : ", folderPath)
             // const folderPath = path.join(__dirname, 'public', 'chat', roomId, receiveId);
             // 폴더를 생성할 경로를 지정한다.
     
@@ -250,24 +236,17 @@ module.exports = (io) => {
             }
             
             var filePath = "";
-            chatRooms[roomId].forEach(data => {
-                console.log("data.id : ", data.id)
-            }) // 테스트 코드
     
     
             const result = chatRooms[roomId].filter(item => item.id != receiveId)
-            console.log("result : ", result[0].id)
     
             
             filePath = path.join(folderPath, `${result[0].id}.txt`);
-            console.log("filePath : ", folderPath)
-            console.log("filePath : ", filePath)
-            console.log(message)
             // filePath형식의 파일이 있지 않을경우 내용 실행
             if (fs.existsSync(filePath)) {
                 fs.appendFile(filePath, `${timestamp}:${sendId}:${message}\t`, (err) => {
                     if (err) {
-                        console.error('파일에 메시지를 저장하는 중 오류가 발생했습니다1:', err);
+                        console.error('파일에 메시지를 저장하는 중 오류가 발생했습니다:', err);
                     } else {
                         console.log('메시지가 파일에 저장되었습니다.');
                     }
@@ -275,7 +254,7 @@ module.exports = (io) => {
             } else {
                 fs.writeFile(filePath, `${timestamp}:${sendId}:${message}\t`, (err) => {
                     if (err) {
-                        console.error('파일에 메시지를 저장하는 중 오류가 발생했습니다2:', err);
+                        console.error('파일에 메시지를 저장하는 중 오류가 발생했습니다:', err);
                     } else {
                         console.log('메시지가 파일에 저장되었습니다.');
                     }

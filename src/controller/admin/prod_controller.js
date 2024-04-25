@@ -64,7 +64,6 @@ const admin_process = {
     },
     mngProdModChk : async (req, res) => {
         const result = await service.process.modProd(req);
-        console.log("req.val : ", req.fileValidation==0)
         if (req.file) {
             if (fs.existsSync("resources/upload/image/" + req.body.originImg)) {
                 fs.unlinkSync("resources/upload/image/" + req.body.originImg);
@@ -89,8 +88,7 @@ const admin_process = {
                 </script>
             `)
         }
-
-    }
+    },
 }
 
 module.exports = {

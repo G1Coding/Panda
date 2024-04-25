@@ -44,7 +44,6 @@
           <!-- 폼 제출 버튼 -->
           <input type="submit" id="send" value="전달">
         </form>
-        <input type="button" onclick="roomcheck()" value="roomcheck">
       </div>
     </div>
     <div id="bottom_wrapper">
@@ -72,6 +71,7 @@
   const cookie = '<%=login_user%>';
 
   // 게시판 작성자
+  console.log("boardid : ", '<%=board.BOARD_ID%>')
   connectUser(num, cookie, '<%=board.BOARD_ID%>');
   let rec_count = 0
   let count = 0
@@ -84,11 +84,13 @@
   
   socket.on('returnMainPage', () => {
       alert("이미 거래중인 상품입니다.")
-      location.href = "/chat"
+    //   location.href = "/chat"
   })
 
 
   function connectUser(num, cookie, receiveId) {
+    console.log("cookie : ", cookie)
+    console.log("receiveID : ", receiveId)
       console.log("cli connectUser 실행")
       roomId = num;
       socket.emit('connectUser', roomId, cookie, receiveId)
@@ -284,7 +286,7 @@
           messages.id = "rec_messages"
           if (rec_count == 0) {
               item.innerHTML = convertNewlineToBr(message);
-              who.textContent = receive_id + " : ";
+              who.textContent = "판매자 : ";
               rec_count = 1;
               count = 0;
           } else {
