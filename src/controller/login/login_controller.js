@@ -30,8 +30,11 @@ const set = {
 
 
 const get = {
-  getLogin: async (req, res) => {
+
+  getLogin : async (req, res) => {
+
     const result = await service.get.getLogin(req.body);
+
 
     if(result.rows.length >= 1)
       {
