@@ -24,12 +24,8 @@ const mainSelect = {
     getProdCategoryContent : async () => {
         const sql = 'SELECT board_category, count FROM (SELECT board_category, COUNT(*) AS count FROM user_board GROUP BY board_category ORDER BY COUNT(*) DESC) WHERE ROWNUM <= 3'
         let categoryContent
-        console.log("dao실행")
         try {
-            console.log("명령어 실행전")
             categoryContent = await (await con).execute(sql);
-            console.log("명령어 실행후")
-            console.log("content : ", categoryContent)
         } catch (err) {
             console.log(err);
         }

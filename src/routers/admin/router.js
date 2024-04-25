@@ -7,6 +7,18 @@ module.exports = (app) => {
     const adminMainCtrl = require("../../controller/admin/main_controller");
     const multer = require("multer");
 
+    app.use("/admin", (req, res, next) => {
+        if (req.cookies.user_admin == 0) {
+            res.send(`
+            <script>
+                alert("비정상적인 접근입니다.");
+                location.href = "/"
+            </script>`)
+            return
+        }
+        next();
+    })
+
     const stg = multer.diskStorage({
         destination : (req, file, cb) => {
             cb(null, "resources/upload/image");
@@ -16,7 +28,6 @@ module.exports = (app) => {
         }
     })
     const f_filter = (req, file, cb) => {
-        console.log("f_filter file : ", file.mimetype.split("/"))
         const type = file.mimetype.split("/");
         if (type[1] == "jpg" || type[1] == "jpeg" || type[1] == "png") {
             cb(null, true);
@@ -51,6 +62,7 @@ module.exports = (app) => {
     router.post("/prod_mod_check", upload.single("changeImg"), adminProdCtrl.admin_process.mngProdModChk)
 
     router.get("/main_get_data", adminMainCtrl.admin_process.mainGetData)
+
 
 
     return router;

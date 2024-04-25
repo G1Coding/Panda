@@ -60,9 +60,7 @@ const admin_process = {
         }
     },
     memIdChk : async (req, res) => {
-        console.log("query.id : ", req.query.id)
         const result = await service.process.memIdChk(req.query.id)
-        console.log("result : ", result)
         res.json({ result : result.rows })
 
     },

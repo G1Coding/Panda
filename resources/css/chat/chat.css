@@ -1,7 +1,7 @@
 #chat_area {
-    background-color: rgb(184, 204,221);
-    width: 900px;
-    height: 300px;
+    background-color: rgb(233, 233, 233);
+    width: 1022px;
+    height: 350px;
     margin: auto;
     overflow: auto;
     padding-bottom: 10px;
@@ -11,21 +11,21 @@
     min-height: 20px;
     display: flex;
     justify-content: flex-end;
-    font-size: 19px;
 }
 #rec_messages {
     min-height: 20px;
     display: flex;
     justify-content: flex-start;
-    font-size: 19px;
+    min-width: 30px;
+    max-width: 500px;
 }
 #sendMsg {
-    background-color: rgb(247, 230, 0);
+    background-color: rgb(204, 247, 225);
     border-radius: 5px;
     margin: 5px 10px 0 0 ;
     min-height: 30px;
     line-height: 30px;
-    min-width: 10px;
+    min-width: 30px;
     max-width: 500px;
     padding: 5px 8px 5px 8px;
     size: 17px;
@@ -36,37 +36,38 @@
     margin: 5px 0 0 10px ;
     min-height: 30px;
     line-height: 30px;
-    min-width: 10px;
-    max-width: 500px;
+    min-width: 30px;
+    /* max-width: 500px; */
     padding: 5px 8px 5px 8px;
     size: 17px;
 }
 
 #send_who {
+    display: inline-block;
     margin: 10px 5px 0 0;
-    min-width: 30px;
+    width: 60px;
     font-weight: bold;
+    height: 35px;
 }
 
 #rec_who {
+    display: inline-block;
     margin: 10px 0 0 10px;
-    min-width: 45px;
+    width: 60px;
     font-weight: bold;
+    height: 35px;
+    overflow: hidden;
 }
-
 #chat_text {
-    width: 900px;
-    height: 40px;
     margin: auto;
 }
 
 #input {
-    width: 800px;
-    height: 50px;
-    border-radius: 5px;
+    width: 924px;
+    height: 60px;
+    /* border-radius: 5px; */
     margin: 0px;
     resize: none;
-    font-size: 19px;
 }
 #form {
     text-align: center;
@@ -74,9 +75,8 @@
     align-items: center;
 }
 #send {
-    height: 57px;
+    height: 60px;
     width: 100px;
-    font-size: 19px;
 }
 #infoMsg {
     text-align: center;

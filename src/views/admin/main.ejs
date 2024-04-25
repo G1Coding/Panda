@@ -45,7 +45,6 @@
 
     <script>
 
-        if (document.coo)
         
         var boardTotal = document.getElementById('boardTotal').getContext('2d');
         var categoryTotal = document.getElementById('categoryTotal').getContext('2d');
@@ -58,12 +57,15 @@
             
         setInterval(() => {
             getData();
-        }, 20000)
+        }, 1000 * 20) // ms, 초, 분, 시 
 
         
 
 
         function getData() {
+
+           
+
             fetch(`/admin/main_get_data`)
             .then(res => res.json())
             .then(data => {
@@ -71,6 +73,7 @@
                 myChart1.data.datasets[0].data[0] = data.total;
                 myChart1.data.datasets[0].data[1] = data.trade;
                 myChart1.update();
+                
                 boardTotalInfo.innerHTML = `<a href="/admin/prod_list">전체 게시물 : ${data.total}</a>`
                 // "전체 게시물 : "+data.total;
                 boardTradeInfo.innerHTML = "거래중인 게시물 : "+data.trade;
@@ -81,8 +84,6 @@
                 myChart2.data.datasets[0].data[2] = data.category[2].COUNT;
                 myChart2.update();
                 // 카테고리별 게시물 차트 업데이트
-                console.log(myChart1)
-                console.log("category : ", data.category[0].BOARD_CATEGORY)
                 boardCategoryFirst.innerHTML = `<label>TOP1 - ${data.category[0].BOARD_CATEGORY} : ${data.category[0].COUNT}건</label>`
                 boardCategorySecond.innerHTML = `<label>TOP2 - ${data.category[1].BOARD_CATEGORY} : ${data.category[1].COUNT}건</label>`
                 boardCategoryThird.innerHTML = `<label>TOP3 - ${data.category[2].BOARD_CATEGORY} : ${data.category[2].COUNT}건</label>`
@@ -92,7 +93,7 @@
         // 차트 데이터 설정
         var data1 = {
             datasets: [{
-                data: [0, 0],
+                data: [10, 20],
                 backgroundColor: [
                     'rgb(190, 190, 190)',
                     'rgb(220, 220, 220)',

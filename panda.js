@@ -13,7 +13,6 @@ const server = http.createServer(app);
 const io = socketIO(server);
 
 
-// app.use("/static", express.static("./resources"));
 app.use("/resources", express.static("./resources"))
 app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/resources'));
@@ -23,10 +22,10 @@ app.use( bodyParser.urlencoded() );
 app.use( bodyParser.json() );
 app.use( cookieParser() );
 
+
 require("./src/chat/chat")(io)
 
 const router = require("./router")(app);
-// app.use("/", router);
 
 app.set("views", "./src/views")
 app.set("view engine", "ejs")

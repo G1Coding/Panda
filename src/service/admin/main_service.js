@@ -12,8 +12,9 @@ const process = {
     getProdCategoryContent : () => {
         prodCategoryContent = dao.mainSelect.getProdCategoryContent();
         return prodCategoryContent;
-    }
+    },
 }
+
 
 
 module.exports = {
