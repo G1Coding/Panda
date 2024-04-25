@@ -181,6 +181,16 @@
                     adminButton.addEventListener('click', function () {
                         location.href = "/admin";
                     })
+                    const toggle_btn = document.querySelector("#toggle_btn");
+                    toggle_btn.setAttribute("value", "로그아웃");
+                    toggle_btn.addEventListener('click', function () {
+                        fetch(`common/delete_cookie`)
+                    .then(res => res.json())
+                    .then(data => {
+                        location.href ="/";
+                    });
+                      
+                    })
                     let adminParent = document.querySelector(".dropdown-menu");
                     adminParent.appendChild(adminButton);
                 }
@@ -201,7 +211,7 @@
                         fetch(`common/delete_cookie`)
                     .then(res => res.json())
                     .then(data => {
-                        
+                        location.href ="/";
                     });
                       
                     })
