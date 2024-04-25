@@ -70,12 +70,14 @@ module.exports = (io) => {
         // 클라이언트로부터 connectUser의 이름으로 요청이 올때 처리할 함수
         socket.on('connectUser', (roomId, userId, receiveId) => {
             roomNum = roomId;
-            console.log("ser connectUser 실행")
+            console.log("connectUser 실행")
             if (chatRooms[roomId] == null){
                 chatRooms[roomId] = []
                 console.log("방생성")
             } 
             socket.id = userId
+            console.log("userid : ", userId)
+            console.log("receiveId : ", receiveId)
     
             // 채팅방에 구매자가 이미 포함되어있는지 확인한다.
             const result = chatRooms[roomId].find(socket => socket.id === userId);

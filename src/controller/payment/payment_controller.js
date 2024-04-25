@@ -4,11 +4,14 @@ const view = {
   getPoint : (req, res) => {
     res.render("payment/point");
   },
-  getBuyer : (req, res) => {
-    res.render("payment/buyerPage");
+  getBuyer : async(req, res) => {
+    const result = await service.get.getBoardInfo(req.query.board_num);
+    res.render("payment/buyerPage", {board : result[0], login_user : req.cookies.user_id});
   },
-  getSeller : (req, res) => {
-    res.render("payment/sellerPage");
+  getSeller : async(req, res) => {
+    const result = await service.get.getBoardInfo(req.query.board_num);
+
+    res.render("payment/sellerPage", {board : result[0], login_user : req.cookies.user_id});
   }
 
 }
@@ -25,11 +28,15 @@ const getData = {
   },
   getSellerPage : async (req, res) => {
     const result = await service.get.getSellerPage(req.params.board_num);
-
     res.json(result.rows);
   },
   getBuyerOk : async (req, res) => {
     const result = await service.get.getBuyerOk(req.params.board_num);
+
+    res.json(result.rows);
+  },
+  getUserInfo : async (req, res) => {
+    const result = await service.get.getUserInfo(req.cookies.user_id);
 
     res.json(result.rows);
   }
@@ -55,6 +62,12 @@ const setData = {
   },
   setTradeSuccess : async (req, res) => {
     service.set.setTradeSuccess(req.params.price, req.params.sellerId, req.params.buyerId);
+
+    res.json(0);
+  },
+  setPoint : async (req, res) => {
+
+    service.set.setPoint(req.cookies.user_id, req.params.price);
 
     res.json(0);
   }
