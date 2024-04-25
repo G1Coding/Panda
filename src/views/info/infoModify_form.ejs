@@ -83,11 +83,6 @@
                                                 <img id="img"src="/resources/upload/panda_p.png" alt="기본 이미지">
                                             <% } %>
 
-
-                                              <!--
-                                              <img id="img" src="<%= info.INFO_IMG ? info.INFO_IMG : '/static/upload/대두.jpg' %>" alt="기본이미지">
-                                              <img id="img" src="#" alt="사진 첨부">
-                                              -->
                                             </div>  
                                           </td>
                                         </tr>
@@ -106,23 +101,16 @@
                                 <div class="gczMwZ">
                                   <div class="button-container">
                                     <input type="button" class="deleteInfo-link" onclick="location.href='/info/delete?info_id=<%= info.INFO_ID %>'" value="탈퇴">
-                                    <!--
-                              <form id="deleteForm" action="/info/delete" method="post">
-                            <input type="button" onclick="submitDel()" value="탈퇴" class="deleteInfo-link">
-                            <button type="submit" class="deleteInfo-link" >탈퇴</button>
-                            -->
+      
                           </div>
 
                           <div class="button-container">
                             <button type="button" class="fHBotQ"
                             onclick="submitForm()">수정</button>
-                            <!--
-                              <a href="info/deleteInfo" class="deleteInfo-link">탈퇴</a>
-                            <input type="submit" value="수정">
-                          -->
+
                           </div>
                         </div>                 
-    <% }) %>
+       <% }) %>
         </form>
                     </div>
                 </div>

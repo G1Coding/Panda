@@ -10,14 +10,11 @@ const infoInsert = {
       url = '/info/inquiry_form';
       return common.getMessage(msg, url);
     }
-    console.log('file : ', file);
     if (file !== undefined) {
       body.origin_file_name = file.originalname;
     } else {
       body.origin_file_name = 'nan';
     }
-    console.log('body : ', body);
-    //const result = await memberDAO.infoInsert.inquiryF(body);
     if (result.rowsAffected === 1) {
       msg = '등록되었습니다!';
       url = '/info/inquiry';
@@ -27,83 +24,13 @@ const infoInsert = {
     }
     return common.getMessage(msg, url);
   },
-  insert: async (body) => {
-    const result = await memberDAO.infoInsert.insert(body);
-    console.log('result : ', result);
-    let msg = '',
-      url = '';
-    if (result == 0) {
-      msg = '문제가 발생했습니다.';
-      url = '/info/register_form';
-    } else {
-      msg = '등록 완료되었습니다.';
-      url = '/info/productM'; //profile?
-    }
-    return common.getMessage(msg, url);
-  },
-  starInsert: async (body) => {
-    const result = await memberDAO.infoInsert.starInsert(body);
-    console.log('result : ', result);
-    let msg = '',
-      url = '';
-    if (result == 0) {
-      msg = '문제가 발생했습니다.';
-      url = '/info/star_form';
-    } else {
-      msg = '등록 완료되었습니다.';
-      url = '/info/starList'; //profile?
-    }
-    return common.getMessage(msg, url);
-  },
-  /*
-  write : async (body)=>{
-    const result = await memberDAO.infoInsert.write(body)
-  }
-  */
 };
 
 const infoUpdate = {
-  /*
-    modify :async (body,fileValidation)=>{
-        let msg= "", url=""
-
-        if( fileValidation ){
-            msg = fileValidation;
-            url = "/info/infoModify_form";
-            return common.getMessage(msg, url);
-        }
-        console.log("body.info_img : ", body.info_img);
-        if( body.info_img !== undefined ){
-            body.info_img = file.info_img;
-        
-        }else{
-            body.info_img = "nan";
-        
-        }
-        console.log("body : ", body);
-
-        const result= await memberDAO.infoUpdate.modify(body)
-        if(result.rowsAffected===1){
-            msg="수정문제발생!!";
-            url="/info/modify_form/"
-           // url="/info/modify_form?name="+body.name;
-
-        }else{
-            msg="수정성공!!";
-            url="/info/productM/";
-            //url="/info/productM/"+body.name;
-
-        }
-        return common.getMessage(msg, url)
-    },
-    */
   modify: async (body, file) => {
-    //console.log("mbody", body)
     if (file !== undefined) {
       body.image_file_name = file.originalname;
     }
-
-    console.log('m확인');
     let result = 0;
     try {
       result = await memberDAO.infoUpdate.modify(body);
@@ -117,7 +44,6 @@ const infoUpdate = {
     if (result !== 0) {
       msg = '수정 완료되었습니다.';
       url = '/info/productM/';
-      // + body.id; 쓰면 페이지가 바로 넘어가지 않음
     } else {
       msg = '문제가 발생했습니다.';
       url = '/info/infoModify_form?info_id=' + body.id;
@@ -129,8 +55,6 @@ const infoUpdate = {
     let result = 0;
     try {
       result = await memberDAO.infoUpdate.delete(query);
-
-      console.log('ser result : ', result);
     } catch (err) {
       console.log(err);
       msg = '탈퇴중 오류가 발생했습니다.';
@@ -140,7 +64,7 @@ const infoUpdate = {
     let message = {};
     if (result !== 0) {
       msg = '탈퇴가 완료되었습니다.';
-      url = '/login/'; //나중에 회원가입창으로 연결, 탈퇴되었을때 페이지수정못함
+      url = '/login/'; 
     } else {
       msg = '문제가 발생했습니다.';
       url = `/info/infoModify_form?info_id='${query.info_id}'`;
@@ -151,61 +75,65 @@ const infoUpdate = {
 };
 
 const infoRead = {
-  getMember: async () => {
-    let member = await memberDAO.infoRead.getMember();
-    //console.log('member[0] : ', member.rows[0]);
-    return member.rows;
-  },
   getProfile: async (userId) => {
     const result = await memberDAO.infoRead.getProfile(userId);
-    console.log('ser cookie : ', result);
     return result.rows;
   },
   getBoard: async (userId) => {
-    //userid
-    const result = await memberDAO.infoRead.getBoard(userId); //userid
-   // console.log('ser getboard : ', result);
+    const result = await memberDAO.infoRead.getBoard(userId);
     return result.rows;
   },
-  content: async (count, board_num) => {
-    pageUpdate.upHit(count, board_num);
-    const data = await memberDAO.infoRead.content(count, board_num);
+  content: async (count, board_num, userId) => {
+    pageUpdate.upHit(count, board_num, userId);
+    const data = await memberDAO.infoRead.content(count, board_num, userId);
     return data.rows[0];
+  },
+  productM: async (start) => {
+    const totalCounter = await memberDAO.infoRead.totalContent();
+    start = start && start > 1 ? Number(start) : 1;
+    const page = pageOperation(start, totalCounter);
+    const productM = await memberDAO.infoRead.productM(page.startNum, page.endNum);
+    data = {};
+    data.totalPage = page.totPage;
+    data.start = start;
+    data.productM = productM;
+    return data;
+  },
+  history: async (start) => {
+    const totalCounter = await memberDAO.infoRead.totalContent();
+    start = start && start > 1 ? Number(start) : 1;
+    const page = pageOperation(start, totalCounter);
+    const history = await memberDAO.infoRead.history(page.startNum, page.endNum);
+    data = {};
+    data.totalPage = page.totPage;
+    data.start = start;
+    data.history = history;
+    return data;
   },
 };
 
 const pageUpdate = {
-  upHit: (count , board_num) => {
+  upHit: (count, board_num) => {
     memberDAO.infoUpdate.upHit(count, board_num);
   },
 };
-const getList = async () => {
-  const result = await memberDAO.getList();
-  console.log('ser : ', result);
-  return result.rows; //ctrl돌려줌
-};
-/*
-const getDel = async () => {
-  const result = await memberDAO.getDel();
-  return result.rows;
-};
-*/
-const getStarList = async () => {
-  const result = await memberDAO.getStarList();
-  console.log('ser : ', result);
-  return result.rows; //ctrl돌려줌
-};
-/*
-const getRatingInfo = async () =>{
-  const result= await memberDAO.getRatingInfo()
 
-}
-*/
+const pageOperation = (start, totalCounter) => {
+  let page = {};
+  const pageNum = 5; 
+  const num = totalCounter % pageNum == 0 ? 0 : 1;
+
+  page.totPage = parseInt(totalCounter / pageNum) + num;
+
+  page.startNum = (start - 1) * pageNum + 1;
+  page.endNum = start * pageNum;
+  return page;
+};
+
 module.exports = {
   infoInsert,
   infoRead,
   infoUpdate,
-  getList,
-  getStarList,
   pageUpdate,
+  pageOperation
 };

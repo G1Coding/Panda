@@ -4,13 +4,13 @@ const getMessage = (msg, url) => {
         location.href="${url}";
     </script>`;
 };
-/*
-const timeModify = (list) => {
-  list = list.map((data) => {
+
+const timeModify = (prodcutM) => {
+  prodcutM = prodcutM.map((data) => {
     data.SAVE_DATE = data.SAVE_DATE.toLocaleString();
     return data;
   });
-  return list;
+  return prodcutM;
 };
-*/
-module.exports = { getMessage };
+
+module.exports = { getMessage ,timeModify};
