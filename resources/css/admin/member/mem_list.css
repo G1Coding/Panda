@@ -58,14 +58,18 @@ body {
     margin-top: 10px;
     margin-bottom: 20px;
     text-align: right;
+    display: flex;
 }
 .mng_mem_bot_nav > label {
     margin-left: 20px;
     float: left;
     color: #3a3a3a;
     font-size: 14px;
+    display: block;
+    width: 33.33333%;
+    text-align: left;
 }
-.mng_mem_bot_nav > input {
+.mng_mem_bot_nav_input_wrapper > input {
     width: 70px;
     height: 35px;
     font-size: 18px;
@@ -76,6 +80,10 @@ body {
     cursor: pointer;
     font-weight: bold;
     color: rgb(78, 78, 78);
+}
+.mng_mem_bot_nav_input_wrapper {
+    width: 33.33333%;
+    line-height: 0px;
 }
 
 .checkbox {
@@ -99,6 +107,44 @@ body {
 .mem_search_btn {
     height: 35px;
     width: 60px;
+}
+
+.mng_mem_paging_wrapper {
+    position: relative;
+    width: 300px;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    bottom: 0;
+}
+.mng_mem_paging_wrapper button {
+    border: 0;
+}
+.mng_mem_paging_wrapper button:disabled {
+    background-color: rgb(247, 247, 247);
+    color: rgb(175, 175, 175);
+}
+.mng_mem_paging_wrapper .paging {
+    display: inline;
+    margin: 0 0 0 0;
+    text-decoration: none;
+    background-color: rgb(226, 226, 226);
+    color: black;
+    cursor: pointer;
+    border-left: 1px solid black;
+    border-top: 1px solid black;
+    border-bottom: 1px solid black;
+    width: 40px;
+    height: 30px;
+    line-height: 25px;
+    text-align: center;
+}
+.curPage {
+    background-color: rgb(206, 206, 206);
+    font-weight: bold;
+}
+.paging:last-child {
+    border-right: 1px solid black;
 }
 
 

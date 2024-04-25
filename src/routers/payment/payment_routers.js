@@ -1,8 +1,5 @@
 const router = require("express").Router();
 const paymentCtrl = require("../../controller/payment/payment_controller");
-const chatCtrl = require("../../controller/chat/chat_controller");
-
-const result = 
 
 router.get("/point", paymentCtrl.view.getPoint);
 router.get("/buyerPage", paymentCtrl.view.getBuyer);
