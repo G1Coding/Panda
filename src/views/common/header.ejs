@@ -163,6 +163,33 @@
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
 
+
+    <!-- 관리자 쿠키가 1일 경우 버튼이 보이도록 설정-->
+    <script>
+
+
+        fetch(`/common/get_isAdmin`)
+        .then(res =>  res.json())
+        .then(data => {
+            console.log(data[0].check);
+            if(data[0].check != 0)
+            {
+                let adminButton = document.createElement('input');
+                adminButton.setAttribute('type', 'button');
+                adminButton.setAttribute('class', 'btn btn-primary');
+                adminButton.setAttribute('value', '관리 페이지');
+                adminButton.setAttribute('style', 'margin-top: 5px');
+                adminButton.addEventListener('click', function(){
+                    location.href ="/admin";
+                })
+
+                let adminParent = document.querySelector(".dropdown-menu");
+                adminParent.appendChild(adminButton);
+
+            }
+        });
+    </script>
+
 </body>
 
 </html>
