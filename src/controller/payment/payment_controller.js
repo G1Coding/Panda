@@ -7,12 +7,12 @@ const view = {
   getBuyer : async(req, res) => {
     const result = await service.get.getBoardInfo(req.query.board_num);
    
-    res.render("payment/buyerPage", {board : result, login_user : req.cookies.user_id});
+    res.render("payment/buyerPage", {board : result[0], login_user : req.cookies.user_id});
   },
   getSeller : async(req, res) => {
     const result = await service.get.getBoardInfo(req.query.board_num);
 
-    res.render("payment/sellerPage", {board : result, login_user : req.cookies.user_id});
+    res.render("payment/sellerPage", {board : result[0], login_user : req.cookies.user_id});
   }
 
 }
