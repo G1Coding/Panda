@@ -64,10 +64,14 @@ modifyData = {
 
     return list;
   }
+}
 
-
+const set = {
+  setBuyer : (user_id, board_num) => {
+    dao.set.setBuyer(user_id, board_num);
+  }
 }
 
 module.exports = {
-  getBoard
+  getBoard, set
 };
