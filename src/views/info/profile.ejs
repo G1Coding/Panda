@@ -13,6 +13,8 @@
   <link href="/resources/css/info/profile.css" rel="stylesheet" >
   <link rel="stylesheet" type="text/css" href="css/starability-fade.min.css"/>
   <link rel="stylesheet" type="text/css" href="css/starability-all.min.css"/>
+    
+
 
   </head>
   <body>
@@ -62,7 +64,7 @@
                       
                       <div class="sc-bGJRg hQqotf">포인트 <%= info.INFO_POINT %>원 </div>
                       <div class="sc-bGJRg hQqotf">
-                        <button class="sc-kasBVs blcYdX">충전하기</button>
+                        <button class="sc-kasBVs blcYdX" id="open_modal">충전하기</button>
                       </div>
                       <div class="sc-bGJRg hQqotf1">평점
                         <div class="sc-lBEsjs dQLwrX">
@@ -126,6 +128,14 @@
       integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
       crossorigin="anonymous"
     ></script>
+
+    <script>
+      const open_md = document.querySelector("#open_modal");
+      open_md.addEventListener("click", function(){
+        location.href = "/payment/point";
+      })
+
+    </script>
 
     <script>
     <% profile.forEach(info => { %>
