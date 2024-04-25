@@ -19,13 +19,11 @@ app.use(express.static(__dirname + '/public'));
 app.use(express.static(__dirname + '/resources'));
 
 app.use( bodyParser.urlencoded({ extended: true }) );
-
 app.use( bodyParser.json() );
 app.use( cookieParser() );
 
 
 require("./src/chat/chat")(io)
-
 const router = require("./router")(app);
 
 app.set("views", "./src/views")
