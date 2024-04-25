@@ -30,6 +30,13 @@ get = {
     const result = await (await con).execute(sql);
 
     return result;
+  },
+  getBoardInfo : async (board_num) => {
+    
+    const sql =`select * from user_board where board_num = ${board_num}`;
+    const result = await (await con).execute(sql);
+
+    return result.rows;
   }
 
 };

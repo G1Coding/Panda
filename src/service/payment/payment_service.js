@@ -26,6 +26,11 @@ get = {
     const result = await dao.get.getUserInfo(userId);
 
     return result;
+  },
+  getBoardInfo : async (board_num) => {
+    const result = await dao.get.getBoardInfo(board_num);
+
+    return result;
   }
 }
 

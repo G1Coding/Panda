@@ -4,11 +4,15 @@ const view = {
   getPoint : (req, res) => {
     res.render("payment/point");
   },
-  getBuyer : (req, res) => {
-    res.render("payment/buyerPage");
+  getBuyer : async(req, res) => {
+    const result = await service.get.getBoardInfo(req.query.board_num);
+   
+    res.render("payment/buyerPage", {board : result, login_user : req.cookies.user_id});
   },
-  getSeller : (req, res) => {
-    res.render("payment/sellerPage");
+  getSeller : async(req, res) => {
+    const result = await service.get.getBoardInfo(req.query.board_num);
+
+    res.render("payment/sellerPage", {board : result, login_user : req.cookies.user_id});
   }
 
 }
@@ -25,7 +29,6 @@ const getData = {
   },
   getSellerPage : async (req, res) => {
     const result = await service.get.getSellerPage(req.params.board_num);
-
     res.json(result.rows);
   },
   getBuyerOk : async (req, res) => {
