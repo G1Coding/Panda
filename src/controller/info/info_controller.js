@@ -9,13 +9,13 @@ const info_views = {
   profile: async (req, res) => {
     const userId = req.cookies.user_id;
     const profile = await service.infoRead.getProfile(userId);
-    res.render('info/profile', { profile }); //ratingInfo
+    res.render('info/profile', { profile });
   },
   productM: async (req, res) => {
     const userId = req.cookies.user_id;
     const profile = await service.infoRead.getProfile(userId);
     const boardInfo = await service.infoRead.getBoard(userId);
-    const data = await service.infoRead.productM(req.query.start); 
+    const data = await service.infoRead.productM(req.query.start,userId ); 
     res.render('info/productM', {
       profile,
       userId,
@@ -29,7 +29,7 @@ const info_views = {
     const userId = req.cookies.user_id;
     const profile = await service.infoRead.getProfile(userId);
     const boardInfo = await service.infoRead.getBoard(userId);
-    const data = await service.infoRead.history(req.query.start);
+    const data = await service.infoRead.history(req.query.start,userId);
     res.render('info/history', {
       profile,
       userId,
@@ -61,11 +61,9 @@ const info_views = {
     let board_num = req.params.board_num;
     const userId = req.cookies.user_id;
 
-
     const boardInfo = await service.infoRead.getBoard(userId);
-    const data = await service.infoRead.content(count, board_num, userId);
+    const data = await service.infoRead.content(count, board_num, userId,boardInfo);
 
-    
     res.render('info/content', { data });
   },
 };

@@ -34,11 +34,7 @@
                         <div class="sc-gmeYpB leXbQf"></div>
                         <!--leXbQf가 색띄우는 부분-->
                         <div class="sc-kxynE eRUQZt"></div>
-                      <!--
-                        <img id="profileImage" src="<%= '/static/upload/panda_p.png' %>" width="300" height="300" alt="프로필 이미지">
-                        <img id="profileImage" src="<%= info.INFO_IMG %>" width="300" height="300" alt="프로필 이미지">
-                      -->
-
+ 
                       <% if(info.INFO_IMG) { %>
                         <img id="img"  class="info_img" src="/resources/upload/<%= info.INFO_IMG %>" alt="프로필 이미지">
                     <% } else { %>
@@ -80,9 +76,7 @@
 
                       
                       <div class="sc-bGJRg hQqotf">
-                        <!--
-                          <button class="sc-kasBVs blcYdX1" onClick="location.href='/info/infoModify_form'">회원정보수정</button>
-                        -->
+
                         <a class="sc-kasBVs blcYdX1" href="/info/infoModify_form?info_id=<%= info.INFO_ID %>">회원정보수정</a>
                       </div>
                     </div>

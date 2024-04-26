@@ -80,30 +80,35 @@ const infoRead = {
     return result.rows;
   },
   getBoard: async (userId) => {
+
     const result = await memberDAO.infoRead.getBoard(userId);
     return result.rows;
+
   },
-  content: async (count, board_num, userId) => {
+  content: async (count, board_num, userId,boardInfo) => {
     pageUpdate.upHit(count, board_num, userId);
-    const data = await memberDAO.infoRead.content(count, board_num, userId);
+    const data = await memberDAO.infoRead.content(count, board_num, userId,boardInfo);
     return data.rows[0];
   },
-  productM: async (start) => {
-    const totalCounter = await memberDAO.infoRead.totalContent();
+  productM: async (start, userId) => {
+      // 사용자의 정보를 기반으로 총 컨텐츠 수 가져오기
+    const totalCounter = await memberDAO.infoRead.totalContent(userId);
     start = start && start > 1 ? Number(start) : 1;
+     // 페이지 수 계산
     const page = pageOperation(start, totalCounter);
-    const productM = await memberDAO.infoRead.productM(page.startNum, page.endNum);
+    // 해당 페이지에 해당하는 상품 목록 가져오기
+    const productM = await memberDAO.infoRead.productM(userId, page.startNum, page.endNum); 
     data = {};
     data.totalPage = page.totPage;
     data.start = start;
     data.productM = productM;
     return data;
   },
-  history: async (start) => {
-    const totalCounter = await memberDAO.infoRead.totalContent();
+  history: async (start,userId) => {
+    const totalCounter = await memberDAO.infoRead.totalContent(userId);
     start = start && start > 1 ? Number(start) : 1;
     const page = pageOperation(start, totalCounter);
-    const history = await memberDAO.infoRead.history(page.startNum, page.endNum);
+    const history = await memberDAO.infoRead.history(userId, page.startNum, page.endNum);
     data = {};
     data.totalPage = page.totPage;
     data.start = start;

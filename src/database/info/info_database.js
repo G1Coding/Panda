@@ -23,7 +23,7 @@ const infoUpdate = {
         info_phone: body.phone,
         info_img: body.image_file_name,
         info_id: body.id,
-      }); 
+      });
     } catch (err) {
       console.log(err);
     }
@@ -59,11 +59,10 @@ const infoRead = {
     }
     return result;
   },
-  getBoard: async (body) => {
-    //userid
+  getBoard: async (userId) => {
     let con = await oracledb.getConnection(dbConfig);
-    const sql = `select * from(select rownum rn, A.* from(select * from user_board where board_id = '${body}' order by board_num desc)A)
-    where rn between 1 and 8`; //userid
+    const sql = `select * from(select rownum rn, A.* from(select * from user_info where info_id = '${userId}' order by info_id desc)A)
+    where rn between 1 and 8`; 
     let result;
     try {
       result = await (await con).execute(sql);
@@ -72,29 +71,42 @@ const infoRead = {
     }
     return result;
   },
-  content: async (count, board_num, body) => {
+  content: async (count, board_num, body,boardInfo) => {
     let con = await oracledb.getConnection(dbConfig);
     const sql = `select * from user_board where board_id='${body}'`;
     const data = await con.execute(sql);
     return data;
   },
-  productM: async (start, end) => {
+  productM: async (userId, start, end) => {
     const con = await oracledb.getConnection(dbConfig);
-    const sql = `select * from(select rownum rn, A.* from(select * from user_board order by board_num desc)A)
+    const sql = `select * from(select rownum rn, A.* from(select * from user_board where board_id='${userId}' order by board_num desc)A)
     where rn between ${start} and ${end}`;
-    let productM = await con.execute(sql);
+    let productM;
+    try {
+      const result = await (await con).execute(sql);
+      productM = result.rows; 
+    } catch (err) {
+      console.log(err);
+    }
     return productM;
   },
-  history: async (start, end) => {
+  history: async (userId, start, end) => {
     const con = await oracledb.getConnection(dbConfig);
-    const sql = `select * from(select rownum rn, A.* from(select * from user_board order by board_num desc)A)
+    const sql = `select * from(select rownum rn, A.* from(select * from user_board where board_id='${userId}' order by board_num desc)A)
     where rn between ${start} and ${end}`;
-    let history = await con.execute(sql);
+    let history
+    try{
+      const result = await (await con).execute(sql);
+      history= result.rows;
+    }catch(err){
+      console.log(err)
+    }
     return history;
   },
-  totalContent: async () => {
+  totalContent: async (userId) => {
     const con = await oracledb.getConnection(dbConfig);
-    const sql = 'select count(*) from user_board';
+      // 해당 사용자의 컨텐츠 수 가져오기
+    const sql = `select count(*) from user_board where board_id ='${userId}'`;
     const totalContent = await (await con).execute(sql);
     return totalContent.rows[0]['COUNT(*)'];
   },
