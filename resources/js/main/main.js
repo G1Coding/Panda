@@ -315,14 +315,22 @@ board.addEventListener("click", (e) => {
           });
           location.href = "/payment/buyerPage?board_num=" + parent.parentElement.getAttribute('data-value');  
         }
+        else if(data.result.BOARD_ID == data.user_id)
+        {
+          location.href = "/payment/sellerPage?board_num=" + parent.parentElement.getAttribute('data-value');  
+        }
+        else if(data.result.BOARD_BUYERID == data.user_id)
+        {
+          fetch(`/set_buyer/` + parent.parentElement.getAttribute('data-value'))
+          .then(res =>  res.json())
+          .then(data => {
+          });
+          location.href = "/payment/buyerPage?board_num=" + parent.parentElement.getAttribute('data-value');  
+        }
         else if(data.result.BOARD_BUYERID != null && data.result.BOARD_ID != data.user_id)
         {
           alert("이미 거래중인 게시글 입니다!!");
           location.href = "/"; 
-        }
-        else if(data.result.BOARD_ID == data.user_id)
-        {
-          location.href = "/payment/sellerPage?board_num=" + parent.parentElement.getAttribute('data-value');  
         }
       });
       break;
