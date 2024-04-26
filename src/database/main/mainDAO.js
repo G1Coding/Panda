@@ -32,15 +32,21 @@ getBoard = {
     return result;
   },
   getBoardId : async (board_num) => {
-    const sql = `select board_id from user_board where board_num = ${board_num}`;
+    const sql = `select board_id,board_buyerid from user_board where board_num = ${board_num}`;
     const result = await ( await con).execute(sql);
 
-    return result.rows[0].BOARD_ID;
+    return result.rows[0];
 
   }
 }
 
+const set = {
+  setBuyer : async(user_id, board_num) => {
+    const sql = `update user_board set board_buyerid = '${user_id}' where board_num = ${board_num}`;
+    ( await con).execute(sql);
+  }
+}
 
 module.exports = {
-  getBoard
+  getBoard, set
 };

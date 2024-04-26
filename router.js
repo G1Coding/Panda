@@ -8,6 +8,7 @@ module.exports = (app)=>{
   const commonRouter = require("./src/routers/common/common_routers")
   const infoRouter = require('./src/routers/info/info_router');
 
+
   app.use( cookieParser() );
   app.use("/payment", paymentRouter );
   app.use("/", mainRouter );

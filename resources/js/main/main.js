@@ -29,6 +29,7 @@ window.addEventListener('scroll', () => {
           let img = document.createElement("img");
           img.setAttribute("src", d.BOARD_IMG);
           img.classList.add("child_img");
+          img.setAttribute("src", "../../../resources/upload/" + d.BOARD_IMG);
 
           // img 태그 자식 추가
           board_list.appendChild(img);
@@ -92,7 +93,6 @@ window.addEventListener('scroll', () => {
 
           // 차상위 부모에 가격과 날짜의 부모 넣기
           div_second_parent.appendChild(div_parent_of_price_date);
-
 
           // 거래 방법 부모 생성
           let div_parent_of_tradWay = document.createElement("div");
@@ -157,6 +157,7 @@ window.addEventListener('scroll', () => {
           let img = document.createElement("img");
           img.setAttribute("src", d.BOARD_IMG);
           img.classList.add("child_img");
+          img.setAttribute("src", "../../../resources/upload/" + d.BOARD_IMG);
 
           // img 태그 자식 추가
           board_list.appendChild(img);
@@ -208,7 +209,6 @@ window.addEventListener('scroll', () => {
             span_date.innerText = d.BOARD_CREATETIME + '일전';
           }
 
-
           // 날짜의 부모에 날짜 넣기
           div_parent_of_date.appendChild(span_date);
 
@@ -221,7 +221,6 @@ window.addEventListener('scroll', () => {
 
           // 차상위 부모에 가격과 날짜의 부모 넣기
           div_second_parent.appendChild(div_parent_of_price_date);
-
 
           // 거래 방법 부모 생성
           let div_parent_of_tradWay = document.createElement("div");
@@ -305,10 +304,28 @@ board.addEventListener("click", (e) => {
       fetch(`/get_boardId/` + parent.parentElement.getAttribute('data-value'))
       .then(res =>  res.json())
       .then(data => {
-        console.log(data);
-        board_id = data;
-        location.href = "board/details?board_num=" + parent.parentElement.getAttribute('data-value') +"&board_id=" + data;  
+        console.log(data.result);
+        board_id = data.BOARD_ID;
+        
+        if(data.result.BOARD_BUYERID == null && data.result.BOARD_ID != data.user_id)
+        {
+          fetch(`/set_buyer/` + parent.parentElement.getAttribute('data-value'))
+          .then(res =>  res.json())
+          .then(data => {
+          });
+          location.href = "/payment/buyerPage?board_num=" + parent.parentElement.getAttribute('data-value');  
+        }
+        else if(data.result.BOARD_BUYERID != null && data.result.BOARD_ID != data.user_id)
+        {
+          alert("이미 거래중인 게시글 입니다!!");
+          location.href = "/"; 
+        }
+        else if(data.result.BOARD_ID == data.user_id)
+        {
+          location.href = "/payment/sellerPage?board_num=" + parent.parentElement.getAttribute('data-value');  
+        }
       });
+      break;
     }
   }
 });

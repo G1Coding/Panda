@@ -28,6 +28,7 @@ window.addEventListener('scroll', () => {
           let img = document.createElement("img");
           img.setAttribute("src", d.BOARD_IMG);
           img.classList.add("child_img");
+          img.setAttribute("src", "../../../resources/upload/" + d.BOARD_IMG);
 
           // img 태그 자식 추가
           board_list.appendChild(img);
@@ -156,6 +157,7 @@ window.addEventListener('scroll', () => {
           let img = document.createElement("img");
           img.setAttribute("src", d.BOARD_IMG);
           img.classList.add("child_img");
+          img.setAttribute("src", "../../../resources/upload/" + d.BOARD_IMG);
 
           // img 태그 자식 추가
           board_list.appendChild(img);
