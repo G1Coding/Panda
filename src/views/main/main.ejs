@@ -71,7 +71,7 @@
       <% for(let i = 1;  i <= list.length; i++){ %>
       <% if(i % 5 == 0) { %>
       <div class="board_list board_child_img_last"  data-value=<%= `${list[i-1].BOARD_NUM}` %>>
-        <img src="<%= list[i - 1].BOARD_IMG %>" class="child_img">
+        <img src="../../../resources/upload/<%=list[i - 1].BOARD_IMG %>" class="child_img">
         <div>
           <p class="board_title"><%= list[i-1].BOARD_TITLE %></p>
           <div class="board_bottom_wrapper">
@@ -95,7 +95,7 @@
       </div>
          <%} else {%>
                 <div class="board_list board_child_img" data-value=<%= `${list[i-1].BOARD_NUM}` %>>
-                  <img src="<%= list[i - 1].BOARD_IMG %>" class="child_img" >
+                  <img src="../../../resources/upload/<%=list[i - 1].BOARD_IMG %>" class="child_img" >
                   <div>
                     <p class="board_title"><%= list[i-1].BOARD_TITLE %></p>
                     <div class="board_bottom_wrapper">

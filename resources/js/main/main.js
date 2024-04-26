@@ -29,6 +29,7 @@ window.addEventListener('scroll', () => {
           let img = document.createElement("img");
           img.setAttribute("src", d.BOARD_IMG);
           img.classList.add("child_img");
+          img.setAttribute("src", "../../../resources/upload/" + d.BOARD_IMG);
 
           // img 태그 자식 추가
           board_list.appendChild(img);
@@ -92,7 +93,6 @@ window.addEventListener('scroll', () => {
 
           // 차상위 부모에 가격과 날짜의 부모 넣기
           div_second_parent.appendChild(div_parent_of_price_date);
-
 
           // 거래 방법 부모 생성
           let div_parent_of_tradWay = document.createElement("div");
@@ -157,6 +157,7 @@ window.addEventListener('scroll', () => {
           let img = document.createElement("img");
           img.setAttribute("src", d.BOARD_IMG);
           img.classList.add("child_img");
+          img.setAttribute("src", "../../../resources/upload/" + d.BOARD_IMG);
 
           // img 태그 자식 추가
           board_list.appendChild(img);
@@ -208,7 +209,6 @@ window.addEventListener('scroll', () => {
             span_date.innerText = d.BOARD_CREATETIME + '일전';
           }
 
-
           // 날짜의 부모에 날짜 넣기
           div_parent_of_date.appendChild(span_date);
 
@@ -221,7 +221,6 @@ window.addEventListener('scroll', () => {
 
           // 차상위 부모에 가격과 날짜의 부모 넣기
           div_second_parent.appendChild(div_parent_of_price_date);
-
 
           // 거래 방법 부모 생성
           let div_parent_of_tradWay = document.createElement("div");
