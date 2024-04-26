@@ -8,7 +8,7 @@ $(document).ready(
     .then(res =>  res.json())
     .then(data => {
       let profile_img = document.querySelector("#profile_img");
-      profile_img.setAttribute("src", data[0].BOARD_IMG);
+      profile_img.setAttribute("src", "../../../resources/upload/" + data[0].BOARD_IMG);
 
       let profile_title = document.querySelector("#title");
       profile_title.innerHTML += data[0].BOARD_TITLE;
