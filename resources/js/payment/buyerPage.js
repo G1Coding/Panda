@@ -45,10 +45,11 @@ $(document).ready(
                 {
                   alert("구매가 완료 되었습니다!!!");
                   clearInterval(intervalId);
+                  location.href ="/";
                 }
                 
               });
-              }, 10000);
+              }, 5000);
           }
 
         })

@@ -50,9 +50,10 @@ $(document).ready(
                     tradeSuccess(data[0].BOARD_PRICE, data[0].BOARD_ID, data[0].BOARD_BUYERID)
                   });
                   clearInterval(intervalId);
+                  location.href ="/";
                 }
               });
-              }, 10000);
+              }, 5000);
           }
           else{
             alert("판매 성공!!!!");

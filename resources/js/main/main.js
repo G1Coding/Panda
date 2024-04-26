@@ -309,10 +309,6 @@ board.addEventListener("click", (e) => {
         
         if(data.result.BOARD_BUYERID == null && data.result.BOARD_ID != data.user_id)
         {
-          fetch(`/set_buyer/` + parent.parentElement.getAttribute('data-value'))
-          .then(res =>  res.json())
-          .then(data => {
-          });
           location.href = "/payment/buyerPage?board_num=" + parent.parentElement.getAttribute('data-value');  
         }
         else if(data.result.BOARD_ID == data.user_id)
@@ -321,10 +317,6 @@ board.addEventListener("click", (e) => {
         }
         else if(data.result.BOARD_BUYERID == data.user_id)
         {
-          fetch(`/set_buyer/` + parent.parentElement.getAttribute('data-value'))
-          .then(res =>  res.json())
-          .then(data => {
-          });
           location.href = "/payment/buyerPage?board_num=" + parent.parentElement.getAttribute('data-value');  
         }
         else if(data.result.BOARD_BUYERID != null && data.result.BOARD_ID != data.user_id)

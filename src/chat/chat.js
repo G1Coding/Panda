@@ -13,8 +13,7 @@ module.exports = (io) => {
         console.log("새로운 사용자 접속")
         
         // 채팅방 초기화 시간을 설정한다.
-        const resetTime = 10 * 1000; // 5분
-        
+        const resetTime = 300 * 1000; // 5분
         
         // 저장된 채팅 파일을 불러오는 함수
         socket.on('readChatFile', (roomId, receiveId, sendId) => {
