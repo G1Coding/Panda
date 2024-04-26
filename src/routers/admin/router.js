@@ -21,7 +21,7 @@ module.exports = (app) => {
 
     const stg = multer.diskStorage({
         destination : (req, file, cb) => {
-            cb(null, "resources/upload/image");
+            cb(null, "resources/upload");
         },
         filename : (req, file, cb) => {
             cb(null, file.originalname)

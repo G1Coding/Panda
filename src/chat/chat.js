@@ -148,6 +148,7 @@ module.exports = (io) => {
     
         // socket 연결이 끊어졌을때 실행할 동작
         socket.on('disconnect', () => {
+            console.log("id : ", socket.id)
             if (limit == 1) {
                 limit = 0;
             } else {
