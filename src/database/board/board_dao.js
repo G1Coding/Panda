@@ -19,3 +19,12 @@ views: "30", area: "아산시", area_detail: "탕정역 1번 출구", createTime
 // }
 
 module.exports = {user_board, };
+
+function findDataByNum(num) {
+    return user_board.find(item => item.num === num);
+}
+
+module.exports = { findDataByNum };
+
+
+module.exports = {user_board, findDataByNum };

@@ -11,7 +11,7 @@
     <!-- css -->
     <style>
         .layout {
-            background-color: bisque;
+            /* background-color: bisque; */
             display: grid;
             grid-template-areas:
                 "header header header"
@@ -32,7 +32,7 @@
 
         /* ＠＠＠＠＠ HEADER ＠＠＠＠＠ */
         .header {
-            background-color: aqua;
+            /* background-color: aqua; */
 
             grid-area: header;
             position: sticky;
@@ -48,7 +48,7 @@
 
         /*＠＠＠＠＠ MAIN 부분＠＠＠＠＠ */
         .main-content {
-            background-color: rgb(176, 90, 176);
+            /* background-color: rgb(176, 90, 176); */
             grid-area: main;
             align-self: center;
             padding: 10px
@@ -59,14 +59,14 @@
             display: flex;
             /* Flexbox를 사용하여 가로 정렬 */
 
-            background-color: lavender;
+            /* background-color: lavender; */
             padding: 10px;
             justify-content: space-evenly;
         }
 
         /* 상품 사진 */
         .product-info-a {
-            background-color: grey;
+            /* background-color: grey; */
             padding: 30px;
             flex: 1;
             /* 자식 요소에 균등한 너비 할당 */
@@ -75,7 +75,7 @@
 
         /* 상품 정보 */
         .product-info-b {
-            background-color: yellow;
+            /* background-color: yellow; */
             padding: 30px;
             flex: 1;
             /* 자식 요소에 균등한 너비 할당 */
@@ -84,33 +84,33 @@
 
         /* main-content 하단 */
         .deatil-info {
-            background-color: coral;
+            /* background-color: coral; */
             padding: 10px;
 
         }
 
         /*＠＠＠＠＠ 조회수 + 채팅 ＠＠＠＠＠ */
         .side-a {
-            background-color: pink;
+            /* background-color: pink; */
             grid-area: a;
             padding: 10px
         }
 
         /* 조회수 */
         .view-count {
-            background-color: red;
+            /* background-color: red; */
             padding: 10px;
         }
 
         /* 채팅 */
         .go-chat {
-            background-color: orange;
+            /* background-color: orange; */
             padding: 10px;
         }
 
         /*＠＠ 최근 본 상품＠＠ */
         .side-b {
-            background-color: yellow;
+            /* background-color: yellow; */
             grid-area: b;
             padding: 10px;
         }
@@ -118,7 +118,7 @@
 
         /* ＠＠＠＠＠ FOOTER ＠＠＠＠＠ */
         .footer {
-            background-color: aqua;
+            /* background-color: aqua; */
             grid-area: footer;
         }
 
@@ -170,7 +170,7 @@
 
         .div-gap {
             height: 10px;
-            background-color: pink;
+            /* background-color: pink; */
         }
 
         .details-one-row {
@@ -182,36 +182,18 @@
 </head>
 
 <body>
-    <script>
-        const productPicture = "상품 사진";
-        const productName = "신발";
-        const productPrice = "3000";
-
-        const productStatus = "새상품";
-        const productMethod = "택배";
-
-        const pollutionStatus = "있음";
-        const ment = "판매자 한 마디";
-
-        const location = "지역";
-        const locationDetail = "상세 위치";
-
-        const delivery = "택배 거래";
-
-        const views = "30";
-    </script>
+   
     <div class="layout">
         <header class="header" style="text-align: center;">
             <!-- <h2>Header</h2> -->
             <%-include ('../common/header.ejs') %>
         </header>
 
-
-
         <!-- main 부분 -->
         <main class="main-content" style="height: max-content;">
 
-            <div class="product-info">
+            <br>
+            <div class="product-info" style="background-color: antiquewhite;">
 
                 <div class="product-info-a">
 
@@ -224,7 +206,7 @@
                         <h3><%= member.price %></h3>
                         
                             </p>
-                            <div class="details bg-success">
+                            <div class="details ">
                             
                                 <h3>상품 상태</h3>
                                 <%= member.condition %>
@@ -246,8 +228,8 @@
 
             <hr>
 
-            <div class="deatil-info">
-                <div class="bg-danger">
+            <div class="deatil-info" style="background-color: beige;">
+                <div> 
                     <h1>상품 설명</h1>
 
                     <div class="details">
@@ -294,7 +276,7 @@
                 </div>
                 <hr>
 
-                <div class="bg-danger">
+                <div>
                     <h1>직거래 위치</h1>
 
                     <div class="details">
@@ -313,7 +295,7 @@
                     </div>
                 </div>
                 <hr>
-                <div class="bg-danger">
+                <div >
                     <h1>택배 거래</h1>
 
                     <div class="details">
@@ -338,7 +320,7 @@
         <div class="side-a" style="text-align: center;">
             <div class="details">
 
-                <div class="view-count">
+                <div class="view-count" style="background-color: pink;">
                     <h2>조회수</h2>
                     <h4>
                         <%= member.views %>
@@ -346,8 +328,8 @@
                 </div>
 
             </div>
-            <div class="details bg-success">
-                <div class="go-chat">
+            <div class="details ">
+                <div class="go-chat" style="background-color: pink;">
                     <p>구매 신청 <br> 채팅</p>
 
                 </div>
@@ -361,7 +343,7 @@
             <div class="details">
                 <h1>최근 본 상품</h1>
             </div>
-            <div class="details" style="background-color: bisque;">
+            <div class="details" >
                 <h3>상품 목록</h3>
             </div>
 
@@ -369,7 +351,7 @@
 
         <!-- footer -->
         <footer class="footer" style="text-align: center;">
-            <h1>Footer (Bottom)</h1>
+            <%-include ("../default/footer.ejs") %>
         </footer>
     </div>
 

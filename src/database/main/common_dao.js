@@ -5,6 +5,7 @@ oracledb.outFormat = oracledb.OBJECT;
 
 oracledb.initOracleClient({
   libDir: 'C:\\instantclient_11_2'
+  libDir: 'D:\\instantclient_11_2'
 });
 
 module.exports = oracledb.getConnection( dbConfig );

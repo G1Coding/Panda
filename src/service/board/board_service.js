@@ -11,6 +11,9 @@ const index = () => {
 // db와 일치하는 게시판 정보(num)가 같을 때 그 값을 ctrl로 넘겨줌
 const info = (num) => {
     const searchNum = boardDao.find(item => item.num === num);
+
+    
+    const searchNum = boardDao.findDataByNum(num);
     console.log("~~~~~~~~~~~~~~~service 연동!! (해당하는 NUM 찾기)~~~~~~~~~~~~~~~")
     console.log(searchNum);
     return searchNum;
@@ -39,4 +42,4 @@ function saveData(data) {
 //         throw new Error(error.message);
 //     }
 // }
-module.exports = { info, index, saveData};
+module.exports = { info, index, };

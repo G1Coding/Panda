@@ -13,6 +13,7 @@ router.get("/product_form", (req, res) => {
 
 
 router.get("/", boardCtrl.index)
+router.get("/", boardCtrl.index);
 
 router.post("/submitForm", (req, res) => {
     console.log("submitForm 라우터로 들어옴");
