@@ -2,9 +2,12 @@ const service = require("../../service/admin/mem_service")
 
 const admin_view = {
     memList : async (req, res) => {
-        const result = await service.process.getMem()
+        const totalContent = await service.process.getMemTotalContent();
+        const result = await service.process.getMem(totalContent, req.query.page)
         res.render("admin/member/mem_list", {
-            result : result.rows
+            total : totalContent.rows[0],
+            page : result.page,
+            pageContent : result.pageContent.rows
         })
     },
     memAdd : async (req, res) => {
@@ -57,11 +60,30 @@ const admin_process = {
         }
     },
     memIdChk : async (req, res) => {
-        console.log("query.id : ", req.query.id)
         const result = await service.process.memIdChk(req.query.id)
-        console.log("result : ", result)
         res.json({ result : result.rows })
 
+    },
+    memSearch : async (req, res) => {
+        const totalContent = await service.process.getMemSearchTotalContent(req.query);
+        const content = await service.process.getMemSearchContent(totalContent, req.query.page);
+
+        res.json({
+            curPage : req.query.page,
+            total : totalContent.rows[0],
+            page : content.page,
+            pageContent : content.pageContent.rows,
+        })
+    },
+    memSearchList : async (req, res) => {
+        const totalContent = await service.process.getMemSearchTotalContent(req.query);
+        const content = await service.process.getMemSearchContent(totalContent, req.query.page);
+        res.json({
+            curPage : req.query.page,
+            total : totalContent.rows[0],
+            page : content.page,
+            pageContent : content.pageContent.rows,
+        })
     }
 }
 

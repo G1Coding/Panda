@@ -85,7 +85,7 @@
         /* main-content 하단 */
         .deatil-info {
             /* background-color: coral; */
-            padding: 10px;
+            padding: 30px;
 
         }
 
@@ -145,7 +145,7 @@
 
 
         .tab-name {
-            /* background-color: violet; */
+            /* background-color: rgba(236, 169, 130, 0.486); */
             width: 150px;
             display: inline-block;
             font-size: large;
@@ -174,7 +174,8 @@
         }
 
         .details-one-row {
-            background-color: white;
+            /* background-color: white; */
+          
         }
     </style>
 
@@ -190,38 +191,51 @@
         </header>
 
         <!-- main 부분 -->
-        <main class="main-content" style="height: max-content;">
+        <main class="main-content" style="height: max-content; background-color: antiquewhite;">
 
             <br>
             <div class="product-info" style="background-color: antiquewhite;">
 
                 <div class="product-info-a">
-
+                    <img src="/resources/upload/<%= member.img %>.jpg" alt="이미지">
                 </div>
-                <div class="product-info-b">
+                <div class="product-info-b" >
+                   <div style="background-color: rgba(136, 93, 87, 0.788);">
                     <p>
-                    <h3><%= member.title %></h3>
-                        </p>
-                        <p>
-                        <h3><%= member.price %></h3>
+                        <h3 style="text-align: center;"><%= member.title %></h3>
+                    </p>
+                     
                         
-                            </p>
-                            <div class="details ">
+                    <h3 style="text-align: center;"><%= member.price %></h3>
+                
+                    
+                </div>
+                  
+                          
+                        
+             
+                            <div class="details"  style="background-color: rgba(160, 105, 98, 0.199);">
                             
-                                <h3>상품 상태</h3>
-                                <%= member.condition %>
+                                <p>
+                                    <div> <h4>상품 상태 →  <b><%= member.condition %></b> </h4></div>
+                                </p>
+                              
                                     
+                                <br>
                                     <p>
-                                    <h3>거래 방식</h3>
+                                    <h4>거래 방식   →
 
+                           
                                     <% const tabNames0=["택배", "직거래"]; %>
                                     <% for (let i = 0; i < tabNames0.length; i++) { %>
                                         <div class="tab <%= (member.direct == '가능' && tabNames0[i] == '직거래') || (member.delivery == '가능' && tabNames0[i] == '택배') ? 'selected' : '' %>">
                                             <%= tabNames0[i] %>
                                         </div>
                                     <% } %>
-
+                                </h4>
                                     </p>
+
+
                             </div>
                 </div>
             </div>
@@ -230,7 +244,7 @@
 
             <div class="deatil-info" style="background-color: beige;">
                 <div> 
-                    <h1>상품 설명</h1>
+                    <h3>상품 설명</h3>
 
                     <div class="details">
 
@@ -277,7 +291,7 @@
                 <hr>
 
                 <div>
-                    <h1>직거래 위치</h1>
+                    <h3>직거래 위치</h3>
 
                     <div class="details">
                         <div class="details-one-row">
@@ -296,7 +310,7 @@
                 </div>
                 <hr>
                 <div >
-                    <h1>택배 거래</h1>
+                    <h3>택배 거래</h3>
 
                     <div class="details">
                         <div class="details-one-row">
@@ -320,17 +334,17 @@
         <div class="side-a" style="text-align: center;">
             <div class="details">
 
-                <div class="view-count" style="background-color: pink;">
+                <div class="view-count" style="background-color: rgba(248, 202, 209, 0.664);">
                     <h2>조회수</h2>
-                    <h4>
+                    <h4 style="color: black; font-weight: 300;">
                         <%= member.views %>
                     </h4>
                 </div>
 
             </div>
             <div class="details ">
-                <div class="go-chat" style="background-color: pink;">
-                    <p>구매 신청 <br> 채팅</p>
+                <div class="go-chat" style="background-color: rgba(248, 202, 209, 0.664);">
+                    <p><b>구매 신청</b> <br> (채팅)</p>
 
                 </div>
 
@@ -340,12 +354,13 @@
 
         <!-- 최근 본 상품 -->
         <div class="side-b" style="text-align: center;">
-            <div class="details">
-                <h1>최근 본 상품</h1>
+            <div class="details" style="background-color: rgba(248, 202, 209, 0.664)">
+                <h3>최근 본 상품</h3>
+                <div style="height: 130px; background-color: lightcyan;"></div> <br>
+                <div style="height: 130px; background-color: lightcyan;"></div> <br>
+                <div style="height: 130px; background-color: lightcyan;"></div>
             </div>
-            <div class="details" >
-                <h3>상품 목록</h3>
-            </div>
+           
 
         </div>
 

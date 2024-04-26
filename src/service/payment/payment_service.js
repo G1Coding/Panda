@@ -21,6 +21,16 @@ get = {
     const result = await dao.getBuyerOk(board_num);
 
     return result;
+  },
+  getUserInfo : async (userId) => {
+    const result = await dao.get.getUserInfo(userId);
+
+    return result;
+  },
+  getBoardInfo : async (board_num) => {
+    const result = await dao.get.getBoardInfo(board_num);
+
+    return result;
   }
 }
 
@@ -40,6 +50,10 @@ set = {
   },
   setTradeSuccess : async (price, sellerId, buyerId) => {
     dao.set.setTradeSuccess(price, sellerId, buyerId);
+  },
+  setPoint : (userId, point) =>{
+    dao.set.setPoint(userId, point);
+
   }
 }
 

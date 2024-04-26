@@ -7,6 +7,8 @@ const view = {
   getMain : async(req, res) => {
     const board = await getDB.getFirstBoard();
 
+    const test = req.cookies.user_id;
+    //console.log(test);
     res.render("main/main", { list : board, category : 0});
 
   },
@@ -37,8 +39,7 @@ const view = {
   },
   get_Board_id : async (req, res) => {
     const result = await service.getBoard.getBoardId(req.params.board_id);
-
-    res.json(result);
+    res.json({result, user_id : req.cookies.user_id});
   }
 }
 
@@ -66,7 +67,14 @@ const getDB ={
   }
 }
 
+const set = {
+  setBuyer : (req, res) => {
+    service.set.setBuyer(req.cookies.user_id, req.params.board_num);
+  }
+
+}
 
 
-module.exports = { view, getDB };
+
+module.exports = { view, getDB, set };
 

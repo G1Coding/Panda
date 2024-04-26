@@ -10,6 +10,7 @@ const set = {
 
 const get = {
   getLogin : async (account) => {
+    
     const result = await dao.get.getLogin(account);
 
     return result;

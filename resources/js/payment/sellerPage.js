@@ -8,6 +8,7 @@ $(document).ready(
     fetch(`/payment/get_sellerPage/` + board_num)
     .then(res =>  res.json())
     .then(data => {
+      
       let profile_img = document.querySelector("#profile_img");
       profile_img.setAttribute("src", data[0].BOARD_IMG);
 

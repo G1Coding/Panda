@@ -25,6 +25,19 @@ get = {
 
     return result;
   }, 
+  getUserInfo : async (userId) => {
+    const sql =`select * from user_info where info_id = '${userId}'`;
+    const result = await (await con).execute(sql);
+
+    return result;
+  },
+  getBoardInfo : async (board_num) => {
+    
+    const sql =`select * from user_board where board_num = ${board_num}`;
+    const result = await (await con).execute(sql);
+
+    return result.rows;
+  }
 
 };
 
@@ -55,6 +68,10 @@ set = {
     const sql_buyer = `update user_info set info_point = info_point - ${price} where info_id = '${buyerId}'`;
     const seller = await (await con).execute(sql_seller);
     const buyer = await(await con).execute(sql_buyer);
+  },
+  setPoint : async(userId, point) => {
+    const sql = `update user_info set info_point = info_point + ${point} where info_id = '${userId}'`;
+    const seller = await (await con).execute(sql);
   }
 };
 

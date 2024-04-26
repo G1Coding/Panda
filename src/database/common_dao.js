@@ -29,3 +29,5 @@ function doRelease(conn){
 }
 */
 module.exports=oracledb.getConnection(dbConfig);
+module.exports=oracledb.getConnection(dbConfig)
+>>>>>>> main
